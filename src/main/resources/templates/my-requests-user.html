@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis solicitudes</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="js/js.js"></script>
+</head>
+<body>
+
+<header class="flexboxmenu" th:insert="header-user.html"></header>
+<p class="titulo">Mis solicitudes</p>
+<div class="container">
+    <table class="tableRequest">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Nombre del agente</th>
+            <th>Categoria</th>
+            <th>Detalles</th>
+        </tr>
+        </thead>
+        <!--<tr data-th-each="requests : ${Requests}">
+            <td data-th-text="${requests.placa}">...</td>
+            <td data-th-text="${requests.color}">...</td>
+            <td></td>
+            <td></td>
+            <td><a href="requestDetailsUser">Ver más</a></td>
+
+            <td data-th-text="${requests.Id}">...</td>
+            <td data-th-text="${requests.Date}">...</td>
+            <td data-th-text="${requests.AgentName}">...</td>
+            <td data-th-text="${requests.Category}">...</td>
+            <td data-th-text="${requests.color}">...</td>
+
+        </tr>-->
+    </table>
+</div>
+<footer th:insert="footer.html"></footer>
+</body>
+</html>
+
+<!--
+<table>
+    <tr data-th-each="user : ${users}">
+        <td data-th-text="${user.login}">...</td>
+        <td data-th-text="${user.name}">...</td>
+    </tr>
+</table>
+-->

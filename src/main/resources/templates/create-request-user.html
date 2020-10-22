@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear solicitud</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="js/js.js"></script>
+</head>
+<body>
+
+<header class="flexboxmenu" th:insert="header-user.html"></header>
+<p class="titulo">Crear solicitud</p>
+<div class="container">
+    <form th:object="${createRequestForm}" method="post">
+        <div class="row">
+            <div class="col-10">
+                <label class="formLabel" for="Category">Categoria: </label>
+            </div>
+            <div class="col-30">
+                <select class="formField" th:field="*{Category}" id="Category">
+                    <option value=""> Por favor seleccione una categoria </option>
+                    <option th:each="i : ${opcionesCategorias}" th:value="${i}" th:text="${i}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label class="formLabel" for="Description">Descripción: </label>
+            </div>
+            <div class="col-50">
+                <textarea class="formField" th:field="*{Description}" id="Description" placeholder="Ingrese la descripción de su problema"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-60">
+                <input class="formButton" type="submit" value="Crear solicitud">
+            </div>
+        </div>
+    </form>
+</div>
+<footer th:insert="footer.html"></footer>
+</body>
+</html>
