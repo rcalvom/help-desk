@@ -26,7 +26,7 @@ public class MainControllers {
         if(form.getUserName().equals("savargas")){
             return "redirect:/create-request-user";
         }else if(form.getUserName().equals("rcalvom")){
-            return "redirect:/requestAgent";
+            // return "redirect:/requestAgent";
         }// Es necesario hacer acá el login con respecto a la BD
         return "login";
     }
@@ -45,21 +45,21 @@ public class MainControllers {
     }
     @PostMapping("/create-request-user")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
-        return "redirect:/myRequestsUser";
+        return "redirect:/my-requests-user";
     }
 
     //Mis solicitudes
-    @GetMapping("/myRequestsUser")
+    @GetMapping("/my-requests-user")
     public String myRequestsUserDefault(Model model){
         /* List<car> list = new ArrayList<car>();
         list.add(new car("IWR","Rojo"));
         list.add(new car("IRS","Azul"));
         Lista con las solicitudes de la base de datos filtrada por el usuario
         model.addAttribute("Requests", list);*/
-        return "myRequestsUser";
+        return "my-requests-user";
     }
-    @PostMapping("/myRequestsUser")
+    @PostMapping("/my-requests-user")
     public String myRequestsUserPost(Model model){
-        return "myRequestsUser";
+        return "my-requests-user";
     }
 }
