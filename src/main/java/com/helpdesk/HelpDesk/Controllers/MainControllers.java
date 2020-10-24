@@ -17,18 +17,16 @@ public class MainControllers {
 
     // Vistas del Login
 
-    @GetMapping("/login")
+    @GetMapping("/")
     public String loginDefault(Model model){
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
-    @RequestMapping("/index")
-    public String indexDefault(){
-        return "index";
-    }
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public String loginPost(@ModelAttribute LoginForm form, Model model){
+        System.out.println(form.getUserName());
+        System.out.println(form.getPassword());
         if(form.getUserName().equals("savargas")){
             return "redirect:/create-request-user";
         }else if(form.getUserName().equals("rcalvom")){
