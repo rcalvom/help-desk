@@ -1,30 +1,61 @@
 package com.helpdesk.HelpDesk.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 public class Feedback {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Lob
     private String specification;
-    private enum rating{
-        EXCELENTE("Excelente"),
-        BUENO("Bueno"),
-        REGURLAR("Regular"),
-        MALO("Malo"),
-        DEFICIENTE("Deficiente");
 
-        private final String label;
-        private rating(String label){
-            this.label = label;
-        }
-    }
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private Rating rating;
+
+    @NotNull
     private Date date;
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSpecification() {
+        return this.specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public Rating getRating() {
+        return this.rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    private enum Rating{
+        EXCELENTE, BUENO, REGULAR, MALO, DEFICIENTE
+    }
 
 }

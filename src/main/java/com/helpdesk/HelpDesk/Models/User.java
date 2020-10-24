@@ -2,45 +2,97 @@ package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class User {
+
     @Id
+    @Size(max = 16)
+    @NotBlank
     private String username;
 
+    @NotBlank
+    @Size(max = 255)
     private String name;
+
+    @NotNull
     private boolean isAgent;
+
+    @NotNull
     private boolean isAdministrator;
 
+    @OneToOne
+    @NotNull
+    BoundingType boundingType;
+
+    @OneToOne
+    @NotNull
+    Dependency dependency;
+
+    @ManyToMany
+    @NotNull
+    private Set<Request> request;
+
     public String getUsername() {
-        return username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isAgent() {
-        return isAgent;
-    }
-
-    public boolean isAdministrator() {
-        return isAdministrator;
+        return this.username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
+    public boolean isAgent() {
+        return this.isAgent;
+    }
+
     public void setAgent(boolean agent) {
-        isAgent = agent;
+        this.isAgent = agent;
+    }
+
+    public boolean isAdministrator() {
+        return this.isAdministrator;
     }
 
     public void setAdministrator(boolean administrator) {
-        isAdministrator = administrator;
+        this.isAdministrator = administrator;
+    }
+
+    public BoundingType getBoundingType() {
+        return this.boundingType;
+    }
+
+    public void setBoundingType(BoundingType boundingType) {
+        this.boundingType = boundingType;
+    }
+
+    public Dependency getDependency() {
+        return this.dependency;
+    }
+
+    public void setDependency(Dependency dependency) {
+        this.dependency = dependency;
+    }
+
+    public Set<Request> getRequest() {
+        return request;
+    }
+
+    public void setRequest(Set<Request> request) {
+        this.request = request;
     }
 }
