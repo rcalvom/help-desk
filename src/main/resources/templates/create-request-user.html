@@ -25,7 +25,7 @@
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="js/unal.js" type="text/javascript"></script>
 		
-		<title>Help Desk</title>
+		<title>Crear solicitud</title>
 	</head>
 
 	<body>
@@ -44,13 +44,13 @@
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
 						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
+							<a href="create-request.html" class="btn btn-default dropdown-toggle">
 								Crear solicitud
 							</a>
 							<span class="caret-right"></span>
 						</div>
 						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
+							<a href="my-requests-user.html" class="btn btn-default dropdown-toggle">
 								Mis solicitudes
 							</a>
 							<span class="caret-right"></span>
@@ -86,7 +86,24 @@
 		<br>
 			
 		<main class="container-fluid jumbotron">
-			
+            <h2>Crear una solicitud</h2>
+            <br>
+			<div class="container">
+                <form th:object="${createRequestForm}" method="post">
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="formLabel" for="Description">Descripción: </label>
+                        </div>
+                        <div class="col-lg-5">
+                            <textarea class="form-control" th:field="*{Description}" id="Description" placeholder="Ingrese la descripción de su problema" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 align-right">
+                        <br>
+                        <input class="" type="submit" value="Crear solicitud">
+                    </div>
+                </form>
+            </div>
 		</main>
 		<footer class="clear align-center">
             <div class="padding align-center">
