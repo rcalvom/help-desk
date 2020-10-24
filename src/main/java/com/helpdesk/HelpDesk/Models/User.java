@@ -1,9 +1,6 @@
 package com.helpdesk.HelpDesk.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,9 +33,16 @@ public class User {
     @NotNull
     Dependency dependency;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_requests",
+            joinColumns = {
+                    @JoinColumn(name = "username")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "id")
+            })
     @NotNull
-    private Set<Request> request;
+    private Set<Request> requests;
 
     public String getUsername() {
         return this.username;
@@ -89,10 +93,10 @@ public class User {
     }
 
     public Set<Request> getRequest() {
-        return request;
+        return requests;
     }
 
     public void setRequest(Set<Request> request) {
-        this.request = request;
+        this.requests = request;
     }
 }

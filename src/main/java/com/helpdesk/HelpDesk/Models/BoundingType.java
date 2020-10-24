@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 public class BoundingType {
 
     @Id
-    @NotBlank
     @Size(max = 255)
+    @NotBlank
     private String name;
 
     public String getName() {

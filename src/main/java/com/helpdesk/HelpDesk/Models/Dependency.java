@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 public class Dependency {
 
     @Id
-    @NotBlank
     @Size(max = 255)
+    @NotBlank
     private String Name;
 
     public String getName() {
