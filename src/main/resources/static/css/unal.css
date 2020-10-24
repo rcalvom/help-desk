@@ -1043,3 +1043,10 @@ footer .logos {
 }
 }
 
+textarea{
+	resize: vertical;
+}
+
+.cursor-default{
+	cursor: default;
+}
