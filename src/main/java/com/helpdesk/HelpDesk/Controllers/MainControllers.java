@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,11 @@ public class MainControllers {
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
+    @RequestMapping("/index")
+    public String indexDefault(){
+        return "index";
+    }
+
     @PostMapping("/login")
     public String loginPost(@ModelAttribute LoginForm form, Model model){
         if(form.getUserName().equals("savargas")){
