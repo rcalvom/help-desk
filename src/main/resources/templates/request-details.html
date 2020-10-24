@@ -22,10 +22,10 @@
 		<script src="../static/js/jquery.js" type="text/javascript"></script>
 		<script src="../static/js/unal.js" type="text/javascript"></script>
 		
-		<script src="Old/js/jquery.js" type="text/javascript"></script>
-		<script src="Old/js/unal.js" type="text/javascript"></script>
+		<script src="js/jquery.js" type="text/javascript"></script>
+		<script src="js/unal.js" type="text/javascript"></script>
 		
-		<title>Plantilla - Help Desk</title>
+		<title>Detalles solicitud - Help Desk</title>
 	</head>
 
 	<body>
@@ -44,52 +44,35 @@
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
 						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 1
+							<a href="create-request-user.html" class="btn btn-default dropdown-toggle">
+								Crear solicitud
 							</a>
 							<span class="caret-right"></span>
 						</div>
 						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 2
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 3
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 4
+							<a href="my-requests-user.html" class="btn btn-default dropdown-toggle">
+								Mis solicitudes
 							</a>
 							<span class="caret-right"></span>
 						</div>
 						<div class="btn-group">
 							<div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								Rol
+								Rol (Usuario)
 								<span class="caret"></span>
 							</div>
 							<ul class="dropdown-menu dropItem-16">
 								<li>
-									<a href="" target="_blank">
-										Rol 1
+									<a href="" target="_self" disabled>
+										Usuario
 									</a>
 								</li>
 								<li>
-									<a href="" target="_blank">
-										Rol 2
+									<a href="" target="_self">
+										Agente
 									</a>
 								</li>
 								<li>
-									<a href="" target="_blank">
-										Rol 3
-									</a>
-								</li>
-								<li>
-									<a href="" target="_blank">
+									<a href="login.html" target="_self">
 										<strong>Cerrar Sesión</strong>
 									</a>
 								</li>
@@ -103,9 +86,67 @@
 		<br>
 			
 		<main class="jumbotron w-auto p-3">
-			
+            <h2>Detalles de la solicitud</h2>
+            <br>
+			<div class="container">
+				<form class="form-horizontal" method="post">
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Id:</h4>
+						<div class="col-md-6">
+							<input id="id" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Fecha de creación:</h4>
+						<div class="col-md-6">
+							<input id="creationDate" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Fecha de finalización:</h4>
+						<div class="col-md-6">
+							<input id="endingDate" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Estado:</h4>
+						<div class="col-md-6">
+							<input id="status" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Placa de inventario:</h4>
+						<div class="col-md-6">
+							<input id="inventoryPlate" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Número de equipos:</h4>
+						<div class="col-md-6">
+							<input id="equipmentNumber" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Calificación:</h4>
+						<div class="col-md-6">
+							<input id="feedback" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Retroalimentación de la calificación:</h4>
+						<div class="col-md-6">
+							<textarea id="feedbackSpecification" name="message" rows="5" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Descripción:</h4>
+						<div class="col-md-6">
+							<textarea id="description" name="message" rows="5" class="form-control"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
 		</main>
-
 		<footer class="clear align-center">
             <div class="padding align-center">
 				© 2020 Help Desk. Ingeniería de Software I.
