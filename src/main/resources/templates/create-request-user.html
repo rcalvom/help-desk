@@ -85,21 +85,20 @@
 		<br>
 		<br>
 			
-		<main class="container-fluid jumbotron">
+		<main class="jumbotron w-auto p-3">
             <h2>Crear una solicitud</h2>
             <br>
-			<div class="container">
+			<div class="container-fluid">
                 <form th:object="${createRequestForm}" method="post">
                     <div class="form-group">
-                        <div class="container">
+                        <div class="w-auto p-3">
                             <label class="formLabel" for="Description">Descripción: </label>
-                            <textarea class="form-control" th:field="*{Description}" id="Description" placeholder="Ingrese la descripción de su problema" rows="10"></textarea>
+                            <textarea class="form-control " th:field="*{Description}" id="Description" placeholder="Ingrese la descripción de su problema" rows="10"></textarea>
                         </div>
                     </div>
                     <br>
-                    <div class="col-sm-7">
-                        <br>
-                        <input class="" type="submit" value="Crear solicitud">
+                    <div class="col-sm-2">
+						<button class="btn btn-lg btn-primary btn-block font-weight-bold mb-2" type="submit">Enviar</button>
                     </div>
                 </form>
             </div>
