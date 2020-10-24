@@ -25,7 +25,7 @@ public class MainControllers {
 
     @PostMapping("/")
     public String loginPost(@ModelAttribute LoginForm form, Model model){
-        System.out.println(form.getUserName());
+        System.out.println(form.getUserName()); //tests
         System.out.println(form.getPassword());
         if(form.getUserName().equals("savargas")){
             return "redirect:/create-request-user";
