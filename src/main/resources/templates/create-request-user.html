@@ -91,14 +91,13 @@
 			<div class="container">
                 <form th:object="${createRequestForm}" method="post">
                     <div class="form-group">
-                        <div class="col-lg-2">
+                        <div class="container">
                             <label class="formLabel" for="Description">Descripción: </label>
-                        </div>
-                        <div class="col-lg-5">
-                            <textarea class="form-control" th:field="*{Description}" id="Description" placeholder="Ingrese la descripción de su problema" rows="3"></textarea>
+                            <textarea class="form-control" th:field="*{Description}" id="Description" placeholder="Ingrese la descripción de su problema" rows="10"></textarea>
                         </div>
                     </div>
-                    <div class="col-sm-7 align-right">
+                    <br>
+                    <div class="col-sm-7">
                         <br>
                         <input class="" type="submit" value="Crear solicitud">
                     </div>

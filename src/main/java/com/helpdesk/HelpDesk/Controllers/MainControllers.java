@@ -41,10 +41,6 @@ public class MainControllers {
     @GetMapping("/create-request-user")
     public String createRequestUserDefault(Model model){
         model.addAttribute("createRequestForm", new CreateRequestForm());
-        List<String> categorias = new ArrayList<String>();
-        categorias.add("Juan");
-        // La lista va a ser la busqueda de las categorias en la BD
-        model.addAttribute("opcionesCategorias", categorias);
         return "create-request-user";
     }
     @PostMapping("/create-request-user")
