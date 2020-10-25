@@ -67,7 +67,8 @@ public class MainControllers {
     @GetMapping("request-details/{id}")
     public String requestDetailsDefault(@PathVariable("id") String id, Model model){
         // TODO: Con el id del formilario pasar toda la información a un objeto request
-
+        // Request RequestDetail = Buscar la solicitud en la BD
+        // model.addAttribute("requestDetail", RequestRetail);
         return "request-details-user";
     }
 
