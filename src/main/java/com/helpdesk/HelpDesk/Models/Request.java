@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -21,9 +21,11 @@ public class Request {
     private String specification;
 
     @NotNull
-    private Date creationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar creationDate;
 
-    private Date endingDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar endingDate;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -65,10 +67,6 @@ public class Request {
         return feedback;
     }
 
-    private enum Status{
-        ACTIVO, CERRADO, CERRADO_SIN_CALIFICACION, CERRADO_POR_ESCALAMIENTO, NO_ASIGNADO
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -77,11 +75,11 @@ public class Request {
         this.specification = specification;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Calendar creationDate) {
         this.creationDate = creationDate;
     }
 
-    public void setEndingDate(Date endingDate) {
+    public void setEndingDate(Calendar endingDate) {
         this.endingDate = endingDate;
     }
 
@@ -113,11 +111,11 @@ public class Request {
         return specification;
     }
 
-    public Date getCreationDate() {
+    public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public Date getEndingDate() {
+    public Calendar getEndingDate() {
         return endingDate;
     }
 
@@ -140,4 +138,9 @@ public class Request {
     public Set<User> getAgents() {
         return agents;
     }
+
+    private enum Status{
+        ACTIVO, CERRADO, CERRADO_SIN_CALIFICACION, CERRADO_POR_ESCALAMIENTO, NO_ASIGNADO
+    }
+
 }
