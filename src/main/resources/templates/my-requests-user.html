@@ -111,9 +111,11 @@
                     <!--<tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
                         <td data-th-text="${requests.creationDate}">...</td>
-                        <td data-th"${requests.agents}"><ul><\ul></td>
+                        <td data-th-each="agent : ${requests.agents}"><ul>
+                        	<li data-th-text="${agent.name}"></li>
+                        	<\ul></td>
                         <td data-th-text="${requests.Category}">...</td>
-                        <td><a th:href="@{/request-details/{id}(id=${requests.id})}">Ver más</a></td>
+                        <td><a th:href="@{/request-details-user/{id}(id=${requests.id})}">Ver más</a></td>
                     </tr>-->
                 </table>
             </div>

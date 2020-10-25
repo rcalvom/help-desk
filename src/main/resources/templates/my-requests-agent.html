@@ -101,20 +101,6 @@
                             <th>Detalles</th>
                         </tr>
                     </thead>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td><button class="hidden-button" #ids type="submit">Ver más</button></td>
-                    </tr>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td></td>
-                    </tr>
 					<tr>
                         <td>...</td>
                         <td>...</td>
@@ -125,9 +111,9 @@
                     <!--<tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
                         <td data-th-text="${requests.creationDate}">...</td>
-                        <td data-th-text="${requests.agents}">...</td>
-                        <td data-th-text="${requests.Category}">...</td>
-                        <td><a href="">Ver más</a></td>
+                        <td data-th-text="${requests.user.name}">...</td>
+                        <td data-th-text="${requests.category.name}">...</td>
+                        <td><a th:href="@{/request-details-agent/{id}(id=${requests.id})}">Ver más</a></td>
                     </tr>-->
                 </table>
             </div>
