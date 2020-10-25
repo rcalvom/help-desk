@@ -44,20 +44,20 @@
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
 						<div class="btn-group">
-							<a href="create-request-user.html" class="btn btn-default dropdown-toggle">
-								Crear solicitud
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<a href="my-requests-user.html" class="btn btn-default dropdown-toggle">
+							<a href="my-requests-agent.html" class="btn btn-default dropdown-toggle">
 								Mis solicitudes
 							</a>
 							<span class="caret-right"></span>
 						</div>
 						<div class="btn-group">
+							<a href="" class="btn btn-default dropdown-toggle">
+								Mis métricas
+							</a>
+							<span class="caret-right"></span>
+						</div>
+						<div class="btn-group">
 							<div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								Rol (Usuario)
+								Rol (Agente)
 								<span class="caret"></span>
 							</div>
 							<ul class="dropdown-menu dropItem-16">
@@ -94,7 +94,7 @@
                         <tr class="success">
                             <th>Id</th>
                             <th>Fecha de creación</th>
-                            <th>Nombre del agente</th>
+                            <th>Nombre del solicitante</th>
                             <th>Categoria</th>
                             <th>Detalles</th>
                         </tr>
@@ -104,112 +104,14 @@
                         <td>...</td>
                         <td>...</td>
                         <td>...</td>
-                        <td><button class="hidden-button" type="submit">Ver más</button></td>
+                        <td><button class="hidden-button" #ids type="submit">Ver más</button></td>
                     </tr>
                     <tr>
                         <td>...</td>
                         <td>...</td>
                         <td>...</td>
                         <td>...</td>
-                        <td><button class="hidden-button" type="submit">Ver más</button></td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
+                        <td></td>
                     </tr>
 					<tr>
                         <td>...</td>
@@ -221,7 +123,7 @@
                     <!--<tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
                         <td data-th-text="${requests.creationDate}">...</td>
-                        <td data-th"${requests.agents}"><ul><\ul></td>
+                        <td data-th-text="${requests.agents}">...</td>
                         <td data-th-text="${requests.Category}">...</td>
                         <td><a href="">Ver más</a></td>
                     </tr>-->

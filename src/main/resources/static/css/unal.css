@@ -1050,3 +1050,8 @@ textarea{
 .cursor-default{
 	cursor: default;
 }
+.hidden-button{
+    background: transparent; 
+    border: none !important;
+    text-decoration: underline;
+}
