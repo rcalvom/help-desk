@@ -44,13 +44,13 @@
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
 						<div class="btn-group">
-							<a href="create-request-user" class="btn btn-default dropdown-toggle">
+							<a th:href="@{/create-request-user}" class="btn btn-default dropdown-toggle">
 								Crear solicitud
 							</a>
 							<span class="caret-right"></span>
 						</div>
 						<div class="btn-group">
-							<a href="my-requests-user" class="btn btn-default dropdown-toggle">
+							<a h:href="@{/my-requests-user}" class="btn btn-default dropdown-toggle">
 								Mis solicitudes
 							</a>
 							<span class="caret-right"></span>
@@ -86,6 +86,8 @@
 		<br>
 			
 		<main class="jumbotron w-auto p-3">
+            <br>
+            <br>
             <h2>Mis solicitudes</h2>
             <br>
 			<div class="container">
@@ -104,126 +106,14 @@
                         <td>...</td>
                         <td>...</td>
                         <td>...</td>
-                        <td><button class="hidden-button" type="submit">Ver más</button></td>
-                    </tr>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td><button class="hidden-button" type="submit">Ver más</button></td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
+                        <td><a th:href="@{/request-details/{Id}(Id=${prueba.Description})}">Ver más</a></td>
                     </tr>
                     <!--<tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
                         <td data-th-text="${requests.creationDate}">...</td>
                         <td data-th"${requests.agents}"><ul><\ul></td>
                         <td data-th-text="${requests.Category}">...</td>
-                        <td><a href="">Ver más</a></td>
+                        <td><a th:href="@{/request-details/{id}(id=${requests.id})}">Ver más</a></td>
                     </tr>-->
                 </table>
             </div>

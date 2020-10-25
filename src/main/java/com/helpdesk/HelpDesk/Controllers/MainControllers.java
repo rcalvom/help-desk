@@ -4,10 +4,7 @@ import com.helpdesk.HelpDesk.Forms.CreateRequestForm;
 import com.helpdesk.HelpDesk.Forms.LoginForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainControllers {
@@ -58,6 +55,9 @@ public class MainControllers {
         /* List<Request> requests = new ArrayList<Request>();
         requests = lista con las solicitudes de la base de datos filtrada por el usuario
         model.addAttribute("Requests", list);*/
+        CreateRequestForm ff = new CreateRequestForm();
+        ff.setDescription("Hola");
+        model.addAttribute("prueba", ff );
         return "my-requests-user";
     }
     @PostMapping("/my-requests-user")
@@ -66,14 +66,14 @@ public class MainControllers {
         return "my-requests-user";
     }
 
-    //
-    @RequestMapping("/request-details")
-    public String a(){
+    //Detalles de la solicitud usuario
+    @GetMapping("request-details/{id}")
+    public String requestDetailsDefault(@PathVariable("id") String id, Model model){
+        System.out.println(id);
         return "request-details-user";
     }
 
-    // Controladores del Agente
-
+        // Controladores del Agente
     //Mis solicitudes
     @GetMapping("/my-requests-agent")
     public String myRequestsAgentDefault(Model model){
