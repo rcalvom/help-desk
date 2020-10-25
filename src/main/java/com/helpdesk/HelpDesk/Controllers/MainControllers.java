@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class MainControllers {
 
-    // Vistas del Login
+        // Vistas del Login
 
-    @RequestMapping("/login")
+    @RequestMapping("/login")       // Vista auxiliar para la redirección del login
     public String login(){
         return "redirect:/";
     }
@@ -30,18 +27,17 @@ public class MainControllers {
 
     @PostMapping("/")
     public String loginPost(@ModelAttribute LoginForm form, Model model){
-        System.out.println(form.getUserName()); //tests
-        System.out.println(form.getPassword());
+        // System.out.println(form.getUserName()); tests
+        // System.out.println(form.getPassword());
         if(form.getUserName().equals("savargas@unal.edu.co")){
             return "redirect:/create-request-user";
         }else if(form.getUserName().equals("rcalvom@unal.edu.co")){
              return "redirect:/my-requests-agent";
-        }// Es necesario hacer acá el login con respecto a la BD
+        }// TODO: Conectar con la base de datos para el login
         return "login";
     }
 
         // Controladores del Usuario
-
     //Crear solicitud
     @GetMapping("/create-request-user")
     public String createRequestUserDefault(Model model){
@@ -50,7 +46,7 @@ public class MainControllers {
     }
     @PostMapping("/create-request-user")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
-        System.out.println(form.getDescription());
+        // TODO: Crear el objeto request con respecto al constructor
         // Request request = new Request(form.getDescription());
         return "redirect:/my-requests-user";
     }
@@ -58,6 +54,7 @@ public class MainControllers {
     //Mis solicitudes
     @GetMapping("/my-requests-user")
     public String myRequestsUserDefault(Model model){
+        // TODO: Hacer la busqueda de las solicitudes que ha pedido el usuario
         /* List<Request> requests = new ArrayList<Request>();
         requests = lista con las solicitudes de la base de datos filtrada por el usuario
         model.addAttribute("Requests", list);*/
@@ -65,12 +62,14 @@ public class MainControllers {
     }
     @PostMapping("/my-requests-user")
     public String myRequestsUserPost(Model model){
+        // TODO: Revisar si este controlador sirve para algo
         return "my-requests-user";
     }
 
+    //
     @RequestMapping("/request-details")
     public String a(){
-        return "request-details";
+        return "request-details-user";
     }
 
     // Controladores del Agente
@@ -89,3 +88,17 @@ public class MainControllers {
         return "my-requests-agent";
     }
 }
+
+
+/*
+@RequestMapping(method = RequestMethod.DELETE, path = "/greeting/{id}")
+   public void delete(@PathVariable Integer id)
+         throws NoSuchRequestHandlingMethodException {
+      try {
+         data.removeGreeting(id);
+      } catch (IndexOutOfBoundsException e) {
+         throw new NoSuchRequestHandlingMethodException("greeting",
+               GreetingController.class);
+      }
+   }
+ */
