@@ -68,7 +68,7 @@ public class MainControllers {
         return "my-requests-user";
     }
 
-    @RequestMapping("/request-details/{ID?}")
+    @RequestMapping("/request-details")
     public String a(){
         return "request-details";
     }
