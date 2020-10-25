@@ -55,9 +55,6 @@ public class MainControllers {
         /* List<Request> requests = new ArrayList<Request>();
         requests = lista con las solicitudes de la base de datos filtrada por el usuario
         model.addAttribute("Requests", list);*/
-        CreateRequestForm ff = new CreateRequestForm();
-        ff.setDescription("Hola");
-        model.addAttribute("prueba", ff );
         return "my-requests-user";
     }
     @PostMapping("/my-requests-user")
@@ -69,7 +66,8 @@ public class MainControllers {
     //Detalles de la solicitud usuario
     @GetMapping("request-details/{id}")
     public String requestDetailsDefault(@PathVariable("id") String id, Model model){
-        System.out.println(id);
+        // TODO: Con el id del formilario pasar toda la información a un objeto request
+
         return "request-details-user";
     }
 
