@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class MainControllers {
 
@@ -68,7 +70,7 @@ public class MainControllers {
     public String requestDetailsDefault(@PathVariable("id") String id, Model model){
         // TODO: Con el id del formilario pasar toda la información a un objeto request
         // Request RequestDetail = Buscar la solicitud en la BD
-        // model.addAttribute("requestDetail", RequestRetail);
+        // model.addAttribute("requestDetail", RequestRetail;
         return "request-details-user";
     }
 
