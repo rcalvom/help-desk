@@ -6,6 +6,10 @@ import com.helpdesk.HelpDesk.Repository.UserRepository;
 public class UserDAO {
     private UserRepository userRepository;
 
+
+    public Iterable<User> select(){
+        return userRepository.findAll();
+    }
     public boolean insert(User user){
         try{
             userRepository.save(user);
@@ -19,14 +23,14 @@ public class UserDAO {
     public boolean update(User oldUser, User newUser){
         Iterable<User> users = userRepository.findAll();
         for(User u : users){
-            /*if(u.getUsername().equals(oldUser.getUsername())){
+            if(u.getUsername().equals(oldUser.getUsername())){
                 u.setAgent(newUser.isAgent());
                 u.setName(newUser.getName());
                 u.setAdministrator(newUser.isAdministrator());
-
-                ///FALTA DEPENDENCIA, VINCULACIÓN
+                u.setBoundingType(newUser.getBoundingType());
+                u.setDependency(newUser.getDependency());
                 return true;
-            }*/
+            }
         }
         return false;
     }

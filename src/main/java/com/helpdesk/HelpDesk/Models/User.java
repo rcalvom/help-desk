@@ -25,16 +25,16 @@ public class User {
     @NotNull
     private boolean isAdministrator;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
-    BoundingType boundingType;
+    private BoundingType boundingType;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
-    Dependency dependency;
+    private Dependency dependency;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_requests",
+    @JoinTable(name = "agent_request",
             joinColumns = {
                     @JoinColumn(name = "username")
             },

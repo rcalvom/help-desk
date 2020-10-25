@@ -42,8 +42,102 @@ public class Request {
     @NotNull
     private Set<User> agents;
 
+    @ManyToOne
+    private Category category;
+
+    @OneToOne
+    private Feedback feedback;
+
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
     private enum Status{
         ACTIVO, CERRADO, CERRADO_SIN_CALIFICACION, CERRADO_POR_ESCALAMIENTO, NO_ASIGNADO
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setEndingDate(Date endingDate) {
+        this.endingDate = endingDate;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setInventoryPlate(int inventoryPlate) {
+        this.inventoryPlate = inventoryPlate;
+    }
+
+    public void setEquipmentNumber(int equipmentNumber) {
+        this.equipmentNumber = equipmentNumber;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setAgents(Set<User> agents) {
+        this.agents = agents;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public Date getEndingDate() {
+        return endingDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public int getInventoryPlate() {
+        return inventoryPlate;
+    }
+
+    public int getEquipmentNumber() {
+        return equipmentNumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Set<User> getAgents() {
+        return agents;
+    }
 }

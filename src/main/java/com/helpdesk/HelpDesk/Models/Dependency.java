@@ -12,14 +12,14 @@ public class Dependency {
     @Id
     @Size(max = 255)
     @NotBlank
-    private String Name;
+    private String name;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 
 }
