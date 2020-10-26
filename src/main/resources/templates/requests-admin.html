@@ -43,43 +43,51 @@
 			</div>
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
-						<div class="btn-group">
-							<a th:href="@{/create-request-user}" class="btn btn-default dropdown-toggle">
-								Crear solicitud
-							</a>
-							<span class="caret-right"></span>
+					<div class="btn-group">
+						<a href="inbox-requests-admin" class="btn btn-default dropdown-toggle">
+							Bandeja de entrada
+						</a>
+						<span class="caret-right"></span>
+					</div>
+					<div class="btn-group">
+						<a href="requests-admin" class="btn btn-default dropdown-toggle">
+							Solicitudes
+						</a>
+						<span class="caret-right"></span>
+					</div>
+					<div class="btn-group">
+						<a href="" class="btn btn-default dropdown-toggle">
+							Categorias
+						</a>
+						<span class="caret-right"></span>
+					</div>
+					<div class="btn-group">
+						<a href="" class="btn btn-default dropdown-toggle">
+							Agentes
+						</a>
+						<span class="caret-right"></span>
+					</div>
+					<div class="btn-group">
+						<a href="" class="btn btn-default dropdown-toggle">
+							Reportes
+						</a>
+						<span class="caret-right"></span>
+					</div>
+					<div class="btn-group">
+						<div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							Administrador
+							<span class="caret"></span>
 						</div>
-						<div class="btn-group">
-							<a th:href="@{/my-requests-user}" class="btn btn-default dropdown-toggle">
-								Mis solicitudes
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								Rol (Usuario)
-								<span class="caret"></span>
-							</div>
-							<ul class="dropdown-menu dropItem-16">
-								<li>
-									<a href="" target="_self" disabled>
-										Usuario
-									</a>
-								</li>
-								<li>
-									<a href="" target="_self">
-										Agente
-									</a>
-								</li>
-								<li>
-									<a href="login" target="_self">
-										<strong>Cerrar Sesión</strong>
-									</a>
-								</li>
-							</ul>
-						</div>
+						<ul class="dropdown-menu dropItem-16">
+							<li>
+								<a href="login" target="_self">
+									<strong>Cerrar Sesión</strong>
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
+			</div>
 		</header>
 			
 		<br>
@@ -95,10 +103,11 @@
                     <thead>
                         <tr class="success">
                             <th>Id</th>
-                            <th>Fecha de creación</th>
-                            <th>Nombre del agente</th>
-                            <th>Categoria</th>
-                            <th>Detalles</th>
+							<th>Fecha de creación</th>
+							<th>Nombre del solicitante</th>
+							<th>Nombre del agente</th>
+							<th>Categoria</th>
+							<th>Detalles</th>
                         </tr>
                     </thead>
                     <tr>
@@ -106,11 +115,12 @@
                         <td>...</td>
                         <td>...</td>
                         <td>...</td>
-                        <td><a th:href="@{/request-details-user/{Id}(Id=2)}">Ver más</a></td>
+                        <td><a th:href="@{/request-details-admin/{Id}(Id=2)}">Ver más</a></td>
                     </tr>
                     <!--<tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
                         <td data-th-text="${requests.creationDate}">...</td>
+                        <td data-th-text="${requests.user.name}">...</td>
                         <td data-th-each="agent : ${requests.agents}"><ul>
                         	<li data-th-text="${agent.name}"></li>
                         	<\ul></td>

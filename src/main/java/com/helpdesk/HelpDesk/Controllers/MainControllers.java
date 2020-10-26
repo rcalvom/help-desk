@@ -114,6 +114,13 @@ public class MainControllers {
         return "request-details-admin";
     }
 
+    @RequestMapping("/inbox-requests-admin")       // Vista auxiliar para la redirección del login
+    public String inboxRequestsAdmin(){
+        return "inbox-requests-admin";
+    }
+
 }
+
+// TODO: De grado general, revisar porque con la anotación @PathVariable no funcionan los menu desplegables
 
 
