@@ -1,12 +1,15 @@
 package com.helpdesk.HelpDesk.Controllers;
 
+import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
 import com.helpdesk.HelpDesk.Forms.CreateRequestForm;
 import com.helpdesk.HelpDesk.Forms.LoginForm;
+import org.apache.juli.logging.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainControllers {
@@ -28,11 +31,11 @@ public class MainControllers {
     public String loginPost(@ModelAttribute LoginForm form, Model model){
         // System.out.println(form.getUserName()); tests
         // System.out.println(form.getPassword());
-        if(form.getUserName().equals("user@unal.edu.co")){
+        if(form.getUsername().equals("user@unal.edu.co")){
             return "redirect:/create-request-user";
-        }else if(form.getUserName().equals("agent@unal.edu.co")){
+        }else if(form.getUsername().equals("agent@unal.edu.co")){
              return "redirect:/my-requests-agent";
-        }else if(form.getUserName().equals("admin@unal.edu.co")){
+        }else if(form.getUsername().equals("admin@unal.edu.co")){
             return "redirect:/inbox-requests-admin";
         }// TODO: Conectar con la base de datos para el login
         return "login";
@@ -130,14 +133,21 @@ public class MainControllers {
     @GetMapping("assign-request-admin/{id}")
     public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
         // TODO: Con el id del formilario pasar toda la información a un objeto request
-        // Request RequestDetail = Buscar la solicitud en la BD
-        // model.addAttribute("requestDetail", RequestRetail;
+        // AssignRequestForm assignRequest = new AssignRequestForm("ID","CreationDate","userUsername","D1");
+        // model.addAttribute("assignRequest", assignRequest);
+        AssignRequestForm req = new AssignRequestForm("D1","D1","D1","D1");
+        model.addAttribute("assignRequest", req);
+        List<String> agt = new ArrayList<>();
+        model.addAttribute("agents", agt); // Solo guardar los correos de los agentes
+        List<String> ctg = new ArrayList<>();
+        model.addAttribute("agents", ctg); // solo guardar los nombres de las categorias
         return "assign-request-admin";
     }
 
     @PostMapping("assign-request-admin/{id}")
-    public String assignRequestAdminPost(@PathVariable("id") String id, Model model){
-        return "assign-request-admin";
+    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form, Model model){
+        System.out.println(form.getAgentUsername());
+        return "redirect:/requests-admin";
     }
 
     // Solicitudes del sistema

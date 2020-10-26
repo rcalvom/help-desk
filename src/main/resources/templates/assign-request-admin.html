@@ -99,97 +99,100 @@
             <h2>Asignación</h2>
             <br>
 			<div class="container">
-				<form th:object="${requestDetail}" class="form-horizontal" method="post">
-					<!-- <div class="form-group">
+				<form th:object="${assignRequest}" class="form-horizontal" method="post">
+					<div class="form-group">
 						<h4 class="col-md-2 align-left">Id:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.id}" id="id" type="text" readonly class="form-control" value="a">
-						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Descripción:</h4>
-						<div class="col-md-6">
-							<textarea th:value="${requestDetail.specification}" id="description" readonly rows="5" class="form-control"></textarea>
+							<input th:field="*{id}" th:value="${assignRequest.id}" id="id" readonly type="text" class="form-control" value="a">
 						</div>
 					</div>
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Fecha de creación:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.creationDate}" id="creationDate" type="text" readonly class="form-control">
+							<input th:field="*{creationDate}" th:value="${assignRequest.creationDate}" id="creationDate" type="text" readonly class="form-control">
 						</div>
 					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Correo del solicitante:</h4>
+						<div class="col-md-6">
+							<input th:field="*{userUsername}" th:value="${assignRequest.userUsername}" id="userUsername" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Descripción:</h4>
+						<div class="col-md-6">
+							<textarea th:field="*{specification}" th:value="${assignRequest.specification}" id="specification" rows="5" readonly class="form-control"></textarea>
+						</div>
+					</div>
+
+					<!-- Aqui empiezan los datos que hay que recopilar -->
+
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Agentes:</h4>
+						<div class="col-md-6">
+							<select th:field="*{agentUsername}" id="agentUserName" class="form-control">
+								<option th:each="i : ${agents}" th:value="${i}" th:text="${i}">
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Categoría:</h4>
+						<div class="col-md-6">
+							<select th:field="*{category}" id="category" class="form-control">
+								<option th:each="i : ${category}" th:value="${i}" th:text="${i}">
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Placa de inventario:</h4>
+						<div class="col-md-6">
+							<input th:field="*{inventoryPlate}" th:value="${assignRequest.inventoryPlate}" id="inventoryPlate" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Número de equipos:</h4>
+						<div class="col-md-6">
+							<input th:field="*{equipmentNumber}" th:value="${assignRequest.equipmentNumber}" id="equipmentNumber" type="text" class="form-control">
+						</div>
+					</div>
+					<!--
+
+
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Fecha de finalización:</h4>
 						<div class="col-md-6">
 							<input th:value="${requestDetail.endingDate}" id="endingDate" type="text" readonly class="form-control">
 						</div>
 					</div>
+
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Estado:</h4>
 						<div class="col-md-6">
 							<input th:value="${requestDetail.status}" id="status" type="text" readonly class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Placa de inventario:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.inventoryPlate}" id="inventoryPlate" type="text" readonly class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Número de equipos:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.equipmentNumber}" id="equipmentNumber" type="text" readonly class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Categoría:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.category.name}" id="category" type="text" readonly class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Correo del solicitante:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.user.username}" id="user-username" type="text" readonly class="form-control">
-						</div>
-					</div>
+
+
+
+
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Nombre del solicitante:</h4>
 						<div class="col-md-6">
 							<input th:value="${requestDetail.user.name}" id="user-name" type="text" readonly class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Correo de los agentes:</h4>
-						<div class="col-md-6">
-							<input th:each="i : ${requestDetail.agents}" th:value="${i.username}" id="agent-userName" type="text" readonly class="form-control">
-						</div>
-					</div>
+
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Nombre de los agentes:</h4>
 						<div class="col-md-6">
 							<input th:each="i : ${requestDetail.agents}" th:value="${i.name}" id="agent-name" type="text" readonly class="form-control">
 						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Calificación:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.feedback.rating}" id="feedbackRating" type="text" readonly class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Fecha de calificación:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.feedback.date}" id="feedbackDate" type="text" readonly class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Retroalimentación de calificación:</h4>
-						<div class="col-md-6">
-							<textarea th:value="${requestDetail.feedback.specification}" id="feedbackSpecification" readonly rows="5" class="form-control"></textarea>
-						</div>
 					</div> -->
+					<div class="col-sm-2">
+						<button class="btn btn-lg btn-primary btn-block font-weight-bold mb-2" type="submit">Asignar</button>
+					</div>
 				</form>
             </div>
 		</main>
