@@ -28,10 +28,12 @@ public class MainControllers {
     public String loginPost(@ModelAttribute LoginForm form, Model model){
         // System.out.println(form.getUserName()); tests
         // System.out.println(form.getPassword());
-        if(form.getUserName().equals("savargas@unal.edu.co")){
+        if(form.getUserName().equals("user@unal.edu.co")){
             return "redirect:/create-request-user";
-        }else if(form.getUserName().equals("rcalvom@unal.edu.co")){
+        }else if(form.getUserName().equals("agent@unal.edu.co")){
              return "redirect:/my-requests-agent";
+        }else if(form.getUserName().equals("admin@unal.edu.co")){
+            return "redirect:/inbox-requests-admin";
         }// TODO: Conectar con la base de datos para el login
         return "login";
     }
@@ -103,8 +105,55 @@ public class MainControllers {
         return "request-details-agent";
     }
 
+    @PostMapping("request-details-agent/{id}")
+    public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
+        return "request-details-agent";
+    }
+
 
     // Controladores del Administrador
+    //Bandeja de entrada
+    @GetMapping("/inbox-requests-admin")
+    public String inboxRequestsAdminDefault(Model model){
+        /* List<Request> requests = new ArrayList<Request>();
+        requests = lista con las solicitudes de la base de datos filtrada por estado sin asignar
+        // TODO: Crear esta busqueda en la BD
+        model.addAttribute("Requests", list);*/
+        return "inbox-requests-admin";
+    }
+    @PostMapping("/inbox-requests-admin")
+    public String inboxRequestsAdminPost(Model model){
+        return "inbox-requests-admin";
+    }
+
+    //Detalles de la solicitud agente
+    @GetMapping("assign-request-admin/{id}")
+    public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
+        // TODO: Con el id del formilario pasar toda la información a un objeto request
+        // Request RequestDetail = Buscar la solicitud en la BD
+        // model.addAttribute("requestDetail", RequestRetail;
+        return "request-details-agent";
+    }
+
+    @PostMapping("assign-request-admin/{id}")
+    public String assignRequestAdminPost(@PathVariable("id") String id, Model model){
+        return "assign-request-admin";
+    }
+
+    // Solicitudes del sistema
+    @GetMapping("/requests-admin")
+    public String requestsAdminDefault(Model model){
+        /* List<Request> requests = new ArrayList<Request>();
+        requests = lista con todas las solicitudes de la base de datos
+        // TODO: Crear esta busqueda en la BD
+        model.addAttribute("Requests", list);*/
+        return "requests-admin";
+    }
+    @PostMapping("/requests-admin")
+    public String requestsAdminPost(Model model){
+        return "requests-admin";
+    }
+
     //Detalles de la solicitud administrador
     @GetMapping("request-details-admin/{id}")
     public String requestDetailsAdminDefault(@PathVariable("id") String id, Model model){
@@ -114,10 +163,11 @@ public class MainControllers {
         return "request-details-admin";
     }
 
-    @RequestMapping("/inbox-requests-admin")       // Vista auxiliar para la redirección del login
-    public String inboxRequestsAdmin(){
-        return "inbox-requests-admin";
+    @PostMapping("request-details-admin/{id}")
+    public String requestDetailsAdminPost(@PathVariable("id") String id, Model model){
+        return "request-details-admin";
     }
+
 
 }
 
