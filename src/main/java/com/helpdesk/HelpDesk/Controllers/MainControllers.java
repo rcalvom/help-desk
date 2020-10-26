@@ -132,7 +132,7 @@ public class MainControllers {
         // TODO: Con el id del formilario pasar toda la información a un objeto request
         // Request RequestDetail = Buscar la solicitud en la BD
         // model.addAttribute("requestDetail", RequestRetail;
-        return "request-details-agent";
+        return "assign-request-admin";
     }
 
     @PostMapping("assign-request-admin/{id}")

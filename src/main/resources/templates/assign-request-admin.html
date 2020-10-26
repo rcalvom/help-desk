@@ -96,38 +96,101 @@
 		<main class="jumbotron w-auto p-3">
             <br>
             <br>
-            <h2>Mis solicitudes</h2>
+            <h2>Asignación</h2>
             <br>
 			<div class="container">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr class="success">
-                            <th>Id</th>
-							<th>Fecha de creación</th>
-							<th>Nombre del solicitante</th>
-							<th>Nombre del agente</th>
-							<th>Categoria</th>
-							<th>Detalles</th>
-                        </tr>
-                    </thead>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td><a th:href="@{/assign-request-admin.html/{Id}(Id=2)}">Ver más</a></td>
-                    </tr>
-                    <!--<tr data-th-each="requests : ${Requests}">
-                        <td data-th-text="${requests.id}">...</td>
-                        <td data-th-text="${requests.creationDate}">...</td>
-                        <td data-th-text="${requests.user.name}">...</td>
-                        <td data-th-each="agent : ${requests.agents}"><ul>
-                        	<li data-th-text="${agent.name}"></li>
-                        	<\ul></td>
-                        <td data-th-text="${requests.Category}">...</td>
-                        <td><a th:href="@{/request-details-user/{id}(id=${requests.id})}">Ver más</a></td>
-                    </tr>-->
-                </table>
+				<form th:object="${requestDetail}" class="form-horizontal" method="post">
+					<!-- <div class="form-group">
+						<h4 class="col-md-2 align-left">Id:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.id}" id="id" type="text" readonly class="form-control" value="a">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Descripción:</h4>
+						<div class="col-md-6">
+							<textarea th:value="${requestDetail.specification}" id="description" readonly rows="5" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Fecha de creación:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.creationDate}" id="creationDate" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Fecha de finalización:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.endingDate}" id="endingDate" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Estado:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.status}" id="status" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Placa de inventario:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.inventoryPlate}" id="inventoryPlate" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Número de equipos:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.equipmentNumber}" id="equipmentNumber" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Categoría:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.category.name}" id="category" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Correo del solicitante:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.user.username}" id="user-username" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Nombre del solicitante:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.user.name}" id="user-name" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Correo de los agentes:</h4>
+						<div class="col-md-6">
+							<input th:each="i : ${requestDetail.agents}" th:value="${i.username}" id="agent-userName" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Nombre de los agentes:</h4>
+						<div class="col-md-6">
+							<input th:each="i : ${requestDetail.agents}" th:value="${i.name}" id="agent-name" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Calificación:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.feedback.rating}" id="feedbackRating" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Fecha de calificación:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.feedback.date}" id="feedbackDate" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Retroalimentación de calificación:</h4>
+						<div class="col-md-6">
+							<textarea th:value="${requestDetail.feedback.specification}" id="feedbackSpecification" readonly rows="5" class="form-control"></textarea>
+						</div>
+					</div> -->
+				</form>
             </div>
 		</main>
 		<footer class="clear align-center">
