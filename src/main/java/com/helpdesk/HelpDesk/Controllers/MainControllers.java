@@ -67,10 +67,15 @@ public class MainControllers {
 
     //Detalles de la solicitud usuario
     @GetMapping("request-details-user/{id}")
-    public String requestDetailsDefault(@PathVariable("id") String id, Model model){
+    public String requestDetailsUserDefault(@PathVariable("id") String id, Model model){
         // TODO: Con el id del formilario pasar toda la información a un objeto request
         // Request RequestDetail = Buscar la solicitud en la BD
         // model.addAttribute("requestDetail", RequestRetail;
+        return "request-details-user";
+    }
+
+    @PostMapping("request-details-user/{id}")
+    public String requestDetailsUserPost(@PathVariable("id") String id, Model model){
         return "request-details-user";
     }
 
@@ -88,18 +93,27 @@ public class MainControllers {
     public String myRequestsAgentPost(Model model){
         return "my-requests-agent";
     }
+
+    //Detalles de la solicitud agente
+    @GetMapping("request-details-agent/{id}")
+    public String requestDetailsAgentDefault(@PathVariable("id") String id, Model model){
+        // TODO: Con el id del formilario pasar toda la información a un objeto request
+        // Request RequestDetail = Buscar la solicitud en la BD
+        // model.addAttribute("requestDetail", RequestRetail;
+        return "request-details-agent";
+    }
+
+
+    // Controladores del Administrador
+    //Detalles de la solicitud administrador
+    @GetMapping("request-details-admin/{id}")
+    public String requestDetailsAdminDefault(@PathVariable("id") String id, Model model){
+        // TODO: Con el id del formilario pasar toda la información a un objeto request
+        // Request RequestDetail = Buscar la solicitud en la BD
+        // model.addAttribute("requestDetail", RequestRetail;
+        return "request-details-admin";
+    }
+
 }
 
 
-/*
-@RequestMapping(method = RequestMethod.DELETE, path = "/greeting/{id}")
-   public void delete(@PathVariable Integer id)
-         throws NoSuchRequestHandlingMethodException {
-      try {
-         data.removeGreeting(id);
-      } catch (IndexOutOfBoundsException e) {
-         throw new NoSuchRequestHandlingMethodException("greeting",
-               GreetingController.class);
-      }
-   }
- */
