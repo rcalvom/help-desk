@@ -37,15 +37,28 @@ public class UserDAO {
 
     public boolean delete(User user){
         Iterable<User> users = userRepository.findAll();
-        /*for(User u : users){
+        for(User u : users){
             if(u.getUsername().equals(user.getUsername())){
                 userRepository.delete(u);
                 return true;
             }
-        }*/
+        }
         return  false;
     }
 
+    public Iterable<User> selectAgent(){
+        return userRepository.getUserAgent();
+    }
 
+    public  Iterable<User> selectAgent(User user){
+        return userRepository.getAgentByUsername(user.getUsername());
+    }
 
+    public  Iterable<User> selectUser(){
+        return userRepository.getUserUser();
+    }
+
+    public  Iterable<User> selectUser(User user){
+        return  userRepository.getUserByUsername(user.getUsername());
+    }
 }

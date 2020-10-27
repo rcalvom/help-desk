@@ -22,6 +22,14 @@ public class Feedback {
     @NotNull
     private Date date;
 
+    public Feedback(){}
+    public Feedback(String specification, Rating rating){
+        this.specification = specification;
+        this.rating = rating;
+        this.date = new Date();
+    }
+
+
     public Integer getId() {
         return this.id;
     }

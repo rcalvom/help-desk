@@ -14,6 +14,10 @@ public class BoundingType {
     @NotBlank
     private String name;
 
+    public BoundingType(){}
+    public BoundingType(String name){
+        this.name = name;
+    }
     public String getName() {
         return name;
     }

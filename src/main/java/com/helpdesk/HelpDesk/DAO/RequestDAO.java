@@ -1,6 +1,7 @@
 package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.Request;
+import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.RequestRepository;
 
 public class RequestDAO {
@@ -33,8 +34,8 @@ public class RequestDAO {
                 r.setSpecification(newRequest.getSpecification());
                 r.setStatus(newRequest.getStatus());
                 r.setUser(newRequest.getUser());
-
-                //FALTA FEEDBACK , CATEGORY
+                r.setFeedback(newRequest.getFeedback());
+                r.setCategory(newRequest.getCategory());
                 return true;
             }
         }
@@ -50,6 +51,14 @@ public class RequestDAO {
             }
         }
         return  false;
+    }
+
+    public Iterable<Request> selectByUser(User user){
+        return requestRepository.getRequestByUser(user.getUsername());
+    }
+
+    public Iterable<Request> selectByStatus(String status){
+        return requestRepository.getRequestByState(status);
     }
 
 }

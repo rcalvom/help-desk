@@ -49,6 +49,14 @@ public class Request {
     private Feedback feedback;
 
 
+    public  Request(){}
+    public Request(String specification, User user){
+        this.specification = specification;
+        this.creationDate = new Date();
+        this.status = Status.NO_ASIGNADO;
+        this.user = user;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }

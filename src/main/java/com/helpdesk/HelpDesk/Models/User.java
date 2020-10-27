@@ -44,6 +44,15 @@ public class User {
     @NotNull
     private Set<Request> requests;
 
+    public User(){}
+    public User(String name, BoundingType boundingType, Dependency dependency){
+        this.name = name;
+        this.isAgent = false;
+        this.isAdministrator = false;
+        this.boundingType = boundingType;
+        this.dependency = dependency;
+    }
+
     public String getUsername() {
         return this.username;
     }

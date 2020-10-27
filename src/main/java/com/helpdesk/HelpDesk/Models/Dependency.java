@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.security.PublicKey;
 
 @Entity
 public class Dependency {
@@ -13,6 +14,11 @@ public class Dependency {
     @Size(max = 255)
     @NotBlank
     private String name;
+
+    public Dependency(){}
+    public Dependency(String name){
+        this.name = name;
+    }
 
     public String getName() {
         return name;
