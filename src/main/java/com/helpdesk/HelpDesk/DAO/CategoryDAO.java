@@ -2,10 +2,14 @@ package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryDAO {
-    private CategoryRepository categoryRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public Iterable<Category> select(){
         return categoryRepository.findAll();

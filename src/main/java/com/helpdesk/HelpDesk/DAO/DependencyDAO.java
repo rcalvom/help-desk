@@ -2,11 +2,14 @@ package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.Dependency;
 import com.helpdesk.HelpDesk.Repository.DependencyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DependencyDAO {
 
+    @Autowired
     private DependencyRepository dependencyRepository;
-
 
     public Iterable<Dependency> select(){
         return dependencyRepository.findAll();
