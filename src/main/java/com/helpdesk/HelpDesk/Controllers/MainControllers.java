@@ -1,10 +1,10 @@
 package com.helpdesk.HelpDesk.Controllers;
 
-import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
-import com.helpdesk.HelpDesk.Forms.CreateRequestForm;
-import com.helpdesk.HelpDesk.Forms.LoginForm;
-import org.apache.juli.logging.Log;
+import com.helpdesk.HelpDesk.Forms.*;
+import com.helpdesk.HelpDesk.Repository.*;
+import com.helpdesk.HelpDesk.Models.Request;
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +13,13 @@ import java.util.List;
 
 @Controller
 public class MainControllers {
+
+    @Autowired
+    private RequestRepository requestRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private UserRepository userRepository;
 
         // Vistas del Login
 
@@ -85,13 +92,13 @@ public class MainControllers {
     }
 
         // Controladores del Agente
+
     //Mis solicitudes
     @GetMapping("/my-requests-agent")
     public String myRequestsAgentDefault(Model model){
-        /* List<Request> requests = new ArrayList<Request>();
-        requests = lista con las solicitudes de la base de datos filtrada por el usuario
-
-        model.addAttribute("Requests", list);*/
+        //List<Request> requests = new ArrayList<Request>();
+        // requests = lista con las solicitudes de la base de datos filtrada por el usuario
+        // model.addAttribute("Requests", requests);
         return "my-requests-agent";
     }
     @PostMapping("/my-requests-agent")
@@ -118,10 +125,11 @@ public class MainControllers {
     //Bandeja de entrada
     @GetMapping("/inbox-requests-admin")
     public String inboxRequestsAdminDefault(Model model){
-        /* List<Request> requests = new ArrayList<Request>();
-        requests = lista con las solicitudes de la base de datos filtrada por estado sin asignar
+        //List<Request> requests = new ArrayList<Request>();
+        // requests =
+        //requests = lista con las solicitudes de la base de datos filtrada por estado sin asignar
         // TODO: Crear esta busqueda en la BD
-        model.addAttribute("Requests", list);*/
+        //model.addAttribute("Requests", list);
         return "inbox-requests-admin";
     }
     @PostMapping("/inbox-requests-admin")
@@ -140,7 +148,7 @@ public class MainControllers {
         List<String> agt = new ArrayList<>();
         model.addAttribute("agents", agt); // Solo guardar los correos de los agentes
         List<String> ctg = new ArrayList<>();
-        model.addAttribute("agents", ctg); // solo guardar los nombres de las categorias
+        model.addAttribute("category", ctg); // solo guardar los nombres de las categorias
         return "assign-request-admin";
     }
 
