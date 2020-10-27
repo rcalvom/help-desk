@@ -7,8 +7,8 @@ public class AssignRequestForm {
     private String specification;
     private String agentUsername;
     private String category;
-    private String inventoryPlate;
-    private String equipmentNumber;
+    private int inventoryPlate;
+    private int equipmentNumber;
 
 
     public AssignRequestForm(String id, String creationDate, String userUsername, String specification) {
@@ -66,19 +66,19 @@ public class AssignRequestForm {
         this.category = category;
     }
 
-    public String getInventoryPlate() {
+    public int getInventoryPlate() {
         return inventoryPlate;
     }
 
-    public void setInventoryPlate(String inventoryPlate) {
+    public void setInventoryPlate(int inventoryPlate) {
         this.inventoryPlate = inventoryPlate;
     }
 
-    public String getEquipmentNumber() {
+    public int getEquipmentNumber() {
         return equipmentNumber;
     }
 
-    public void setEquipmentNumber(String equipmentNumber) {
+    public void setEquipmentNumber(int equipmentNumber) {
         this.equipmentNumber = equipmentNumber;
     }
 }

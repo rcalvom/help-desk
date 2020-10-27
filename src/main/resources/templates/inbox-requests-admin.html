@@ -114,7 +114,7 @@
 						<td data-th-text="${requests.user.username}">...</td>
 						<td data-th-text="${requests.specification}">...</td>
                         <td data-th-text="${requests.creationDate.getTime()}">...</td>
-                        <td><a th:href="@{/request-details-admin/{id}(id=${requests.id})}">Ver más</a></td>
+                        <td><a th:href="@{assign-request/{id}(id=${requests.id})}">Ver más</a></td>
                     </tr>
                 </table>
             </div>

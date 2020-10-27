@@ -46,4 +46,8 @@ public class CategoryDAO {
         }
         return  false;
     }
+    public Iterable<Category> select(String name){
+        return categoryRepository.getCategoryByName(name);
+    }
+
 }

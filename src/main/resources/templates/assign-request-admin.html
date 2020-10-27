@@ -131,7 +131,7 @@
 						<h4 class="col-md-2 align-left">Agentes:</h4>
 						<div class="col-md-6">
 							<select th:field="*{agentUsername}" id="agentUserName" class="form-control">
-								<option th:each="i : ${agents}" th:value="${i}" th:text="${i}">
+								<option th:each="i : ${agents}" th:value="${i.username}" th:text="${i.username}">
 								</option>
 							</select>
 						</div>
@@ -140,7 +140,7 @@
 						<h4 class="col-md-2 align-left">Categoría:</h4>
 						<div class="col-md-6">
 							<select th:field="*{category}" id="category" class="form-control">
-								<option th:each="i : ${category}" th:value="${i}" th:text="${i}">
+								<option th:each="i : ${category}" th:value="${i.name}" th:text="${i.name}">
 								</option>
 							</select>
 						</div>

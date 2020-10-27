@@ -1,8 +1,10 @@
 package com.helpdesk.HelpDesk.Controllers;
 
+import com.helpdesk.HelpDesk.DAO.CategoryDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
+import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -24,6 +28,9 @@ public class AdminController {
 
     @Autowired
     RequestDAO requestDAO;
+
+    @Autowired
+    CategoryDAO categoryDAO;
 
     //Bandeja de entrada
     @GetMapping("/admin/inbox")
@@ -36,21 +43,35 @@ public class AdminController {
     //Asignar solicitud agente
     @GetMapping("/admin/assign-request/{id}")
     public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
-        // TODO: Con el id del formulario pasar toda la información a un objeto request
-        // AssignRequestForm assignRequest = new AssignRequestForm("ID","CreationDate","userUsername","D1");
-        // model.addAttribute("assignRequest", assignRequest);
-        AssignRequestForm req = new AssignRequestForm("D1","D1","D1","D1");
+
+        Request request = requestDAO.selectById(id).iterator().next();
+
+        AssignRequestForm req = new AssignRequestForm(request.getId(),request.getCreationDate().getTime().toString(),request.getUser().getUsername(),request.getSpecification());
         model.addAttribute("assignRequest", req);
-        List<String> agt = new ArrayList<>();
-        model.addAttribute("agents", agt); // Solo guardar los correos de los agentes
-        List<String> ctg = new ArrayList<>();
-        model.addAttribute("category", ctg); // solo guardar los nombres de las categorias
+        List<User> agt = (List<User>) userDAO.selectAgent();
+        model.addAttribute("agents", agt);
+        List<Category> ctg = (List<Category>) categoryDAO.select();
+        model.addAttribute("category", ctg);
         return "assign-request-admin";
     }
 
     @PostMapping("/admin/assign-request/{id}")
     public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form, Model model){
-        System.out.println(form.getAgentUsername());
+
+        Request request = requestDAO.selectById(id).iterator().next();
+        Request newRequest = new Request();
+        newRequest.setId(request.getId());
+        newRequest.setSpecification(request.getSpecification());
+        newRequest.setCreationDate(request.getCreationDate());
+        newRequest.setStatus(Request.Status.ACTIVO);
+        newRequest.setInventoryPlate(form.getInventoryPlate());
+        newRequest.setEquipmentNumber(form.getEquipmentNumber());
+        newRequest.setUser(request.getUser());
+        newRequest.setAgents(new HashSet<>());
+        newRequest.getAgents().add(userDAO.selectAgent(form.getAgentUsername()).iterator().next());
+        newRequest.setCategory(categoryDAO.select(form.getCategory()).iterator().next());
+        requestDAO.update(request, newRequest);
+
         return "redirect:/admin/requests";
     }
 
@@ -83,3 +104,4 @@ public class AdminController {
     }
 
 }
+

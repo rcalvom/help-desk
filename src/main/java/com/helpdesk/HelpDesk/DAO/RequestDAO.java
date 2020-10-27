@@ -40,6 +40,7 @@ public class RequestDAO {
                 r.setUser(newRequest.getUser());
                 r.setFeedback(newRequest.getFeedback());
                 r.setCategory(newRequest.getCategory());
+                requestRepository.save(r);
                 return true;
             }
         }
@@ -63,6 +64,10 @@ public class RequestDAO {
 
     public Iterable<Request> selectByStatus(String status){
         return requestRepository.getRequestByState(status);
+    }
+
+    public Iterable<Request> selectById(String id){
+        return requestRepository.getRequestById(id);
     }
 
 }

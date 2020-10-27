@@ -141,8 +141,8 @@ public class Request {
         return agents;
     }
 
-    private enum Status{
+    public enum Status{
         ACTIVO, CERRADO, CERRADO_SIN_CALIFICACION, CERRADO_POR_ESCALAMIENTO, NO_ASIGNADO
     }
-
 }
+
