@@ -1,6 +1,11 @@
 package com.helpdesk.HelpDesk.Controllers;
 
+import com.helpdesk.HelpDesk.DAO.RequestDAO;
+import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
+import com.helpdesk.HelpDesk.Models.Request;
+import com.helpdesk.HelpDesk.Models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,26 +19,24 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-    // Controladores del Administrador
+    @Autowired
+    UserDAO userDAO;
+
+    @Autowired
+    RequestDAO requestDAO;
+
     //Bandeja de entrada
     @GetMapping("/admin/inbox")
     public String inboxRequestsAdminDefault(Model model){
-        //List<Request> requests = new ArrayList<Request>();
-        // requests =
-        //requests = lista con las solicitudes de la base de datos filtrada por estado sin asignar
-        // TODO: Crear esta busqueda en la BD
-        //model.addAttribute("Requests", list);
-        return "inbox-requests-admin";
-    }
-    @PostMapping("/admin/inbox")
-    public String inboxRequestsAdminPost(Model model){
+        List<Request> requests = (List<Request>) requestDAO.selectByStatus("NO_ASIGNADO");
+        model.addAttribute("Requests", requests);
         return "inbox-requests-admin";
     }
 
     //Asignar solicitud agente
     @GetMapping("/admin/assign-request/{id}")
     public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
-        // TODO: Con el id del formilario pasar toda la información a un objeto request
+        // TODO: Con el id del formulario pasar toda la información a un objeto request
         // AssignRequestForm assignRequest = new AssignRequestForm("ID","CreationDate","userUsername","D1");
         // model.addAttribute("assignRequest", assignRequest);
         AssignRequestForm req = new AssignRequestForm("D1","D1","D1","D1");

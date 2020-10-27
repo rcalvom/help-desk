@@ -109,20 +109,13 @@
                             <th>Asignar</th>
                         </tr>
                     </thead>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td><a th:href="@{/assign-request-admin/{Id}(Id=2)}">Asignar</a></td>
-                    </tr>
-                    <!--<tr data-th-each="requests : ${Requests}">
+                    <tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
 						<td data-th-text="${requests.user.username}">...</td>
 						<td data-th-text="${requests.specification}">...</td>
-                        <td data-th-text="${requests.creationDate}">...</td>
+                        <td data-th-text="${requests.creationDate.getTime()}">...</td>
                         <td><a th:href="@{/request-details-admin/{id}(id=${requests.id})}">Ver más</a></td>
-                    </tr>-->
+                    </tr>
                 </table>
             </div>
 		</main>

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 @Controller
 public class UserController {
 
@@ -42,16 +45,9 @@ public class UserController {
     //Mis solicitudes
     @GetMapping("/user/my-requests")
     public String myRequestsUserDefault(Model model){
-        // TODO: Hacer la busqueda de las solicitudes que ha pedido el usuario
-        /* List<Request> requests = new ArrayList<Request>();
-        requests = lista con las solicitudes de la base de datos filtrada por el usuario
-        model.addAttribute("Requests", list);*/
-        return "my-requests-user";
-    }
-
-    @PostMapping("/user/my-requests")
-    public String myRequestsUserPost(Model model){
-        // TODO: Revisar si este controlador sirve para algo
+        User user = userDAO.selectUser("rcalvom").iterator().next();
+        List<Request> requests = (List<Request>) requestDAO.selectByUser(user);
+        model.addAttribute("Requests", requests);
         return "my-requests-user";
     }
 

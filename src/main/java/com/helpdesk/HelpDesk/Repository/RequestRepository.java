@@ -14,4 +14,7 @@ public interface RequestRepository extends CrudRepository<Request, String> {
     @Query(value = "select * from request where request.status like ?1 ;", nativeQuery = true)
     public Iterable<Request> getRequestByState(String status);
 
+    @Query(value = "select * from request where request.id like ?1 ;", nativeQuery = true)
+    public Iterable<Request> getRequestById(String id);
+
 }
