@@ -27,7 +27,7 @@ public class Feedback {
     public Feedback(String specification, Rating rating){
         this.specification = specification;
         this.rating = rating;
-        this.date = new Date();
+        this.date = Calendar.getInstance();
     }
 
 

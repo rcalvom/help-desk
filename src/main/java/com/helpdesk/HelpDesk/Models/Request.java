@@ -54,7 +54,7 @@ public class Request {
     public  Request(){}
     public Request(String specification, User user){
         this.specification = specification;
-        this.creationDate = new Date();
+        this.creationDate = Calendar.getInstance();
         this.status = Status.NO_ASIGNADO;
         this.user = user;
     }
