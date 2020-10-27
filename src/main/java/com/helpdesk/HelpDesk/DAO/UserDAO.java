@@ -33,6 +33,7 @@ public class UserDAO {
                 u.setAdministrator(newUser.isAdministrator());
                 u.setBoundingType(newUser.getBoundingType());
                 u.setDependency(newUser.getDependency());
+                userRepository.save(u);
                 return true;
             }
         }
