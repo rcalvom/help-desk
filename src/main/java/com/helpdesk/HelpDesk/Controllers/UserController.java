@@ -5,9 +5,6 @@ import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.CreateRequestForm;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
-import com.helpdesk.HelpDesk.Repository.CategoryRepository;
-import com.helpdesk.HelpDesk.Repository.RequestRepository;
-import com.helpdesk.HelpDesk.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     @Autowired
-    private RequestRepository requestRepository;
+    UserDAO userDAO;
 
     @Autowired
-    private UserRepository userRepository;
+    RequestDAO requestDAO;
 
     //Crear solicitud
     @GetMapping("/user/create-request")
@@ -34,9 +31,6 @@ public class UserController {
 
     @PostMapping("/user/create-request")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
-        UserDAO userDAO = new UserDAO(this.userRepository);
-        RequestDAO requestDAO = new RequestDAO(this.requestRepository);
-
         User user = userDAO.selectUser("rcalvom").iterator().next();
         Request request = new Request(form.getDescription(), user);
         request.setId("FI0001");

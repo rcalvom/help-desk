@@ -2,13 +2,14 @@ package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDAO {
-    private final UserRepository userRepository;
 
-    public UserDAO(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     public Iterable<User> select(){
         return userRepository.findAll();

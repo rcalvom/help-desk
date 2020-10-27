@@ -1,10 +1,7 @@
 package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -30,18 +27,15 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    //@Size(max = 10)
     private int inventoryPlate;
 
-    //@Positive
-    //@Size(max = 10)
+    @Max(10)
     private int equipmentNumber;
 
     @OneToOne
     private User user;
 
     @ManyToMany(mappedBy = "requests")
-    //@NotNull
     private Set<User> agents;
 
     @ManyToOne
