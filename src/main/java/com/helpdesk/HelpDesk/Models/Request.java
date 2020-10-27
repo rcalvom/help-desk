@@ -30,18 +30,18 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Size(max = 10)
+    //@Size(max = 10)
     private int inventoryPlate;
 
-    @Positive
-    @Size(max = 10)
+    //@Positive
+    //@Size(max = 10)
     private int equipmentNumber;
 
     @OneToOne
     private User user;
 
     @ManyToMany(mappedBy = "requests")
-    @NotNull
+    //@NotNull
     private Set<User> agents;
 
     @ManyToOne

@@ -4,8 +4,11 @@ import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.UserRepository;
 
 public class UserDAO {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    public UserDAO(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Iterable<User> select(){
         return userRepository.findAll();
@@ -58,7 +61,7 @@ public class UserDAO {
         return userRepository.getUserUser();
     }
 
-    public  Iterable<User> selectUser(User user){
-        return  userRepository.getUserByUsername(user.getUsername());
+    public  Iterable<User> selectUser(String username){
+        return  userRepository.getUserByUsername(username);
     }
 }

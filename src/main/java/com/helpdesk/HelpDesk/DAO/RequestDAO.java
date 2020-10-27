@@ -3,10 +3,15 @@ package com.helpdesk.HelpDesk.DAO;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.RequestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RequestDAO {
-    private RequestRepository requestRepository;
 
+    private final RequestRepository requestRepository;
+
+    public RequestDAO(RequestRepository requestRepository) {
+        this.requestRepository = requestRepository;
+    }
 
     public Iterable<Request> select(){
         return requestRepository.findAll();
