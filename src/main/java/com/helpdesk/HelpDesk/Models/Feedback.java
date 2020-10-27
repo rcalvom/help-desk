@@ -3,7 +3,7 @@ package com.helpdesk.HelpDesk.Models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.util.Calendar;
 
 @Entity
 public class Feedback {
@@ -20,7 +20,8 @@ public class Feedback {
     private Rating rating;
 
     @NotNull
-    private Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar date;
 
     public Feedback(){}
     public Feedback(String specification, Rating rating){
@@ -54,11 +55,11 @@ public class Feedback {
         this.rating = rating;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
