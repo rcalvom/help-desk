@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -37,7 +36,7 @@ public class UserController {
         User user = userDAO.selectUser("rcalvom").iterator().next();
         Request request = new Request(form.getDescription(), user);
         request.setId("FI0001");
-        boolean a = requestDAO.insert(request);
+        requestDAO.insert(request);
 
         return "redirect:/user/my-requests";
     }
