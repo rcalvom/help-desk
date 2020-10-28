@@ -82,22 +82,12 @@ public class AdminController {
         model.addAttribute("Requests", list);*/
         return "requests-admin";
     }
-    @PostMapping("/admin/requests")
-    public String requestsAdminPost(Model model){
-        return "requests-admin";
-    }
 
     //Detalles de la solicitud administrador
-    @GetMapping("admin/datails/{id}")
+    @GetMapping("admin/details/{id}")
     public String requestDetailsAdminDefault(@PathVariable("id") String id, Model model){
-        // TODO: Con el id del formilario pasar toda la información a un objeto request
-        // Request RequestDetail = Buscar la solicitud en la BD
-        // model.addAttribute("requestDetail", RequestRetail;
-        return "request-details-admin";
-    }
-
-    @PostMapping("admin/details/{id}")
-    public String requestDetailsAdminPost(@PathVariable("id") String id, Model model){
+        Request RequestDetail = requestDAO.selectById(id).iterator().next();
+        model.addAttribute("requestDetail", RequestDetail);
         return "request-details-admin";
     }
 
