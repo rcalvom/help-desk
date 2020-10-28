@@ -32,15 +32,7 @@ public class User {
     @NotNull
     private Dependency dependency;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "agent_request",
-            joinColumns = {
-                    @JoinColumn(name = "username")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "id")
-            })
-    @NotNull
+    @ManyToMany(mappedBy = "agents")
     private Set<Request> requests;
 
     public User(){}

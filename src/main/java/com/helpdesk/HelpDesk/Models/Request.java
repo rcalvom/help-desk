@@ -1,5 +1,7 @@
 package com.helpdesk.HelpDesk.Models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Calendar;
@@ -35,7 +37,14 @@ public class Request {
     @OneToOne
     private User user;
 
-    @ManyToMany(mappedBy = "requests")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "agent_request",
+            joinColumns = {
+                    @JoinColumn(name = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "username")
+            })
     private Set<User> agents;
 
     @ManyToOne
