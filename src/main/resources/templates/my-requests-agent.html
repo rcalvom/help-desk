@@ -101,20 +101,13 @@
                             <th>Detalles</th>
                         </tr>
                     </thead>
-					<tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-						<td><a th:href="@{/request-details-agent/{id}(id=1)}">Ver más</a></td>
-                    </tr>
-                    <!--<tr data-th-each="requests : ${Requests}">
-                        <td data-th-text="${requests.id}">...</td>
-                        <td data-th-text="${requests.creationDate}">...</td>
-                        <td data-th-text="${requests.user.name}">...</td>
-                        <td data-th-text="${requests.category.name}">...</td>
+					<tr data-th-each="requests : ${Requests}">
+						<td data-th-text="${requests.id}">...</td>
+						<td data-th-text="${requests.creationDate.getTime()}">...</td>
+						<td data-th-text="${requests.user.name}">...</td>
+						<td data-th-text="${requests.category.name} ?:'No Asignado'">...</td>
                         <td><a th:href="@{/request-details-agent/{id}(id=${requests.id})}">Ver más</a></td>
-                    </tr>-->
+                    </tr>
                 </table>
             </div>
 		</main>
