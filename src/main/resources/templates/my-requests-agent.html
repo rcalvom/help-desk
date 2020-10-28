@@ -105,7 +105,7 @@
 						<td data-th-text="${requests.id}">...</td>
 						<td data-th-text="${requests.creationDate.getTime()}">...</td>
 						<td data-th-text="${requests.user.name}">...</td>
-						<td data-th-text="${requests.category.name} ?:'No Asignado'">...</td>
+						<td data-th-text="${requests.category} ? ${requests.category.name} : 'No Asignado'">...</td>
                         <td><a th:href="@{/request-details-agent/{id}(id=${requests.id})}">Ver más</a></td>
                     </tr>
                 </table>

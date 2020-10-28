@@ -110,7 +110,7 @@
 								<li data-th-text="${agent.name}"></li>
 							</ul>
 						</td>
-                        <td data-th-text="${requests.category.name} ?:'No Asignado'">...</td>
+                        <td data-th-text="${requests.category} ? ${requests.category.name} :'No Asignado'">...</td>
                         <td><a th:href="@{/request-details-user/{id}(id=${requests.id})}">Ver más</a></td>
                     </tr>
                 </table>
