@@ -35,7 +35,6 @@ public class UserController {
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
         User user = userDAO.selectUser("rcalvom").iterator().next();
         Request request = new Request(form.getDescription(), user);
-        request.setId("FI0001");
         requestDAO.insert(request);
 
         return "redirect:/user/my-requests";

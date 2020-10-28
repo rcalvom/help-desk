@@ -1,7 +1,7 @@
 package com.helpdesk.HelpDesk.Models;
 
 import org.hibernate.annotations.GenericGenerator;
-
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Calendar;
@@ -11,8 +11,15 @@ import java.util.Set;
 public class Request {
 
     @Id
-    @Size(max = 16)
-    @NotBlank
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id_Gen")
+    @GenericGenerator(
+            name = "Id_Gen",
+            strategy = "com.helpdesk.HelpDesk.Models.StringPrefixedSequenceIdGenerator",
+            parameters = {
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "FI"),
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")
+            })
     private String id;
 
     @Lob
