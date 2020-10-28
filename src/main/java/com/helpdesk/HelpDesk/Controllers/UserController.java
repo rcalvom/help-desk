@@ -53,14 +53,9 @@ public class UserController {
     //Detalles de la solicitud usuario
     @GetMapping("/user/details/{id}")
     public String requestDetailsUserDefault(@PathVariable("id") String id, Model model){
-        // TODO: Con el id del formilario pasar toda la información a un objeto request
-        // Request RequestDetail = Buscar la solicitud en la BD
-        // model.addAttribute("requestDetail", RequestRetail;
+        Request RequestDetail = requestDAO.selectById(id).iterator().next();
+        model.addAttribute("requestDetail", RequestDetail);
         return "request-details-user";
     }
 
-    @PostMapping("request-details-user/{id}")
-    public String requestDetailsUserPost(@PathVariable("id") String id, Model model){
-        return "request-details-user";
-    }
 }

@@ -92,7 +92,7 @@
             <br>
 			<div class="container">
 				<form th:object="${requestDetail}" class="form-horizontal" method="post">
-					<!--<div class="form-group">
+					<div class="form-group">
 						<h4 class="col-md-2 align-left">Id:</h4>
 						<div class="col-md-6">
 							<input th:value="${requestDetail.id}" id="id" type="text" readonly class="form-control" value="a">
@@ -101,19 +101,19 @@
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Descripción:</h4>
 						<div class="col-md-6">
-							<textarea th:value="${requestDetail.specification}" id="description" readonly rows="5" class="form-control"></textarea>
+							<textarea th:text="${requestDetail.specification}" id="description" readonly rows="5" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Fecha de creación:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.creationDate}" id="creationDate" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.creationDate.getTime()}" id="creationDate" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Fecha de finalización:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.endingDate}" id="endingDate" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.endingDate} ?:'No Asignado'" id="endingDate" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
@@ -125,19 +125,19 @@
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Placa de inventario:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.inventoryPlate}" id="inventoryPlate" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.inventoryPlate} ?:'No Asignado'" id="inventoryPlate" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Número de equipos:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.equipmentNumber}" id="equipmentNumber" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.equipmentNumber} ?:'No Asignado'" id="equipmentNumber" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Categoría:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.category.name}" id="category" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.category.name} ?:'No Asignado'" id="category" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
@@ -152,36 +152,56 @@
 							<input th:value="${requestDetail.user.name}" id="user-name" type="text" readonly class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Correo de los agentes:</h4>
-						<div class="col-md-6">
-							<input th:each="i : ${requestDetail.agents}" th:value="${i.username}" id="agent-userName" type="text" readonly class="form-control">
+					<div th:if="${requestDetail.agents.size() == 0}">
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Agente:</h4>
+							<div class="col-md-6">
+								<input value="Actualmente no se ha asignado ningun agente" id="AgentMessage" type="text" readonly class="form-control">
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Nombre de los agentes:</h4>
-						<div class="col-md-6">
-							<input th:each="i : ${requestDetail.agents}" th:value="${i.name}" id="agent-name" type="text" readonly class="form-control">
+					<div th:unless="${requestDetail.agents.size() == 0}">
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Correo de los agentes:</h4>
+							<div class="col-md-6">
+								<input th:each="i : ${requestDetail.agents}" th:value="${i.username}" id="agent-userName" type="text" readonly class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Nombre de los agentes:</h4>
+							<div class="col-md-6">
+								<input th:each="i : ${requestDetail.agents}" th:value="${i.name}" id="agent-name" type="text" readonly class="form-control">
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Calificación:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.feedback.rating}" id="feedbackRating" type="text" readonly class="form-control">
+					<div th:if="${requestDetail.feedback == Null}">
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Retroalimentación:</h4>
+							<div class="col-md-6">
+								<input value="Actualmente no se ha asignado ninguna retroalimentación" id="feedbackMessage" type="text" readonly class="form-control">
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Fecha de calificación:</h4>
-						<div class="col-md-6">
-							<input th:value="${requestDetail.feedback.date}" id="feedbackDate" type="text" readonly class="form-control">
+					<div th:unless="${requestDetail.feedback == Null}">
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Calificación:</h4>
+							<div class="col-md-6">
+								<input th:value="${requestDetail.feedback.rating} ?:'No Asignado'" id="feedbackRating" type="text" readonly class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Fecha de calificación:</h4>
+							<div class="col-md-6">
+								<input th:value="${requestDetail.feedback.date} ?:'No Asignado'" id="feedbackDate" type="text" readonly class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<h4 class="col-md-2 align-left">Retroalimentación de calificación:</h4>
+							<div class="col-md-6">
+								<textarea th:value="${requestDetail.feedback.specification} ?:'No Asignado'" id="feedbackSpecification" readonly rows="5" class="form-control"></textarea>
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<h4 class="col-md-2 align-left">Retroalimentación de calificación:</h4>
-						<div class="col-md-6">
-							<textarea th:value="${requestDetail.feedback.specification}" id="feedbackSpecification" readonly rows="5" class="form-control"></textarea>
-						</div>
-					</div> -->
 				</form>
 			</div>
 		</main>
