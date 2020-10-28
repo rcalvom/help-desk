@@ -76,10 +76,8 @@ public class AdminController {
     // Solicitudes del sistema
     @GetMapping("/admin/requests")
     public String requestsAdminDefault(Model model){
-        /* List<Request> requests = new ArrayList<Request>();
-        requests = lista con todas las solicitudes de la base de datos
-        // TODO: Crear esta busqueda en la BD
-        model.addAttribute("Requests", list);*/
+        List<Request> requests = (List<Request>) requestDAO.select();
+        model.addAttribute("Requests", requests);
         return "requests-admin";
     }
 
