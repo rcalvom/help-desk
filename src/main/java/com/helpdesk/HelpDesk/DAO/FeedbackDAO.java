@@ -32,6 +32,7 @@ public class FeedbackDAO {
                 f.setDate(newFeedback.getDate());
                 f.setRating(newFeedback.getRating());
                 f.setSpecification(newFeedback.getSpecification());
+                feedbackRepository.save(f);
                 return true;
             }
         }

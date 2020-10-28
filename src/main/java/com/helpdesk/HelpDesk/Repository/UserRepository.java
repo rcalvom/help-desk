@@ -17,4 +17,7 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     @Query(value = "SELECT * FROM user where (is_agent = 0) and (username like ?1 );", nativeQuery = true)
     public Iterable<User> getUserByUsername(String username);
+
+    @Query(value = "SELECT * FROM user where (is_administrator = 1) ;", nativeQuery = true)
+    public Iterable<User> getAdminsitrator();
 }

@@ -30,6 +30,7 @@ public class CategoryDAO {
         for(Category c : categorys){
             if(c.getId().equals(oldCategory.getId())){
                 c.setName(newCategory.getName());
+                categoryRepository.save(c);
                 return true;
             }
         }

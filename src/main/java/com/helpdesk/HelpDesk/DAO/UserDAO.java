@@ -33,6 +33,7 @@ public class UserDAO {
                 u.setAdministrator(newUser.isAdministrator());
                 u.setBoundingType(newUser.getBoundingType());
                 u.setDependency(newUser.getDependency());
+                userRepository.save(u);
                 return true;
             }
         }
@@ -65,4 +66,9 @@ public class UserDAO {
     public  Iterable<User> selectUser(String username){
         return  userRepository.getUserByUsername(username);
     }
+
+    public User selectAdmin(){
+        return userRepository.getAdminsitrator().iterator().next();
+    }
+
 }
