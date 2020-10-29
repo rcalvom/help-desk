@@ -22,13 +22,13 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    RequestDAO requestDAO;
+    private RequestDAO requestDAO;
 
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
 
     //Bandeja de entrada
     @GetMapping("/admin/inbox")

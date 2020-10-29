@@ -17,10 +17,10 @@ import java.util.List;
 public class AgentController {
 
     @Autowired
-    RequestDAO requestDAO;
+    private RequestDAO requestDAO;
 
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     //Mis solicitudes
     @GetMapping("agent/my-requests")

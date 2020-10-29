@@ -19,10 +19,10 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    RequestDAO requestDAO;
+    private RequestDAO requestDAO;
 
     //Crear solicitud
     @GetMapping("/user/create-request")
