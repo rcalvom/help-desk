@@ -9,7 +9,7 @@ $(document).ready(function () {
         $(options).each(function(){
             s = s + '<option value="' + $(this).val() + '">' + $(this).val() + "</option>";
         });
-        s = s + '</select><button type="button" class="delete">Quitar</button></div><br>';
+        s = s + '</select><button type="button" class="delete">Quitar</button><br></div>';
         $(wrapper).append(s);
     });
 

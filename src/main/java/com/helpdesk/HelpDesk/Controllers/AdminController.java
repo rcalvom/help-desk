@@ -64,7 +64,9 @@ public class AdminController {
         newRequest.setEquipmentNumber(form.getEquipmentNumber());
         newRequest.setUser(request.getUser());
         newRequest.setAgents(new HashSet<>());
-        newRequest.getAgents().add(userDAO.selectAgent(form.getAgentUsername()));
+        for(String username : form.getAgentUsername()){
+            newRequest.getAgents().add(userDAO.selectAgent(username));
+        }
         newRequest.setCategory(categoryDAO.select(form.getCategory()).iterator().next());
         requestDAO.update(request, newRequest);
         return "redirect:/admin/requests";

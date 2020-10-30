@@ -60,7 +60,7 @@
                     <form th:object="${loginForm}" method="post">
                         <div class="form-label-group">
                             <label for="username">Correo institucional</label>
-                            <input th:field="*{username}" id="userName" type="email" class="form-control" placeholder="@unal.edu.co" required autofocus>
+                            <input th:field="*{username}" id="userName" type="text" class="form-control" placeholder="@unal.edu.co" required autofocus>
                             <br>
                             <label for="password">Contraseña</label>
                             <input th:field="*{password}" id="password" type="password" class="form-control" placeholder="********" required>

@@ -5,7 +5,7 @@ public class AssignRequestForm {
     private String creationDate;
     private String userUsername;
     private String specification;
-    private String agentUsername;
+    private String[] agentUsername;
     private String category;
     private int inventoryPlate;
     private int equipmentNumber;
@@ -51,11 +51,11 @@ public class AssignRequestForm {
         this.specification = specification;
     }
 
-    public String getAgentUsername() {
+    public String[] getAgentUsername() {
         return agentUsername;
     }
 
-    public void setAgentUsername(String agentUsername) {
+    public void setAgentUsername(String[] agentUsername) {
         this.agentUsername = agentUsername;
     }
 
