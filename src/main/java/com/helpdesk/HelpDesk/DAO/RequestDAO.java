@@ -16,6 +16,9 @@ public class RequestDAO {
         return requestRepository.findAll();
     }
 
+    public RequestDAO(RequestRepository requestRepository){
+        this.requestRepository = requestRepository;
+    }
     public boolean insert(Request request){
         try{
             requestRepository.save(request);

@@ -11,6 +11,10 @@ public class UserDAO {
     @Autowired
     private UserRepository userRepository;
 
+    public UserDAO(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
     public Iterable<User> select(){
         return userRepository.findAll();
     }
