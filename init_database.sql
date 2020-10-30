@@ -20,7 +20,7 @@ insert into category values ("Mantenimiento correctivo");
 insert into category values ("Conceptos técticos: Baja de equipos");
 insert into category values ("Conceptos técticos: Baja de inventario de equipos");
 insert into category values ("Conceptos técticos: Repotenciación de equipos");
-insert into category values ("Conceptod técnicos: Compra de equipos");
+insert into category values ("Conceptos técnicos: Compra de equipos");
 insert into category values ("Limpieza");
 insert into category values ("Baja de equipos");
 insert into user values ("user", 0, 0, "Usuario", "Profesor", "Departamento de ingeniería eléctrica y electrónica");
