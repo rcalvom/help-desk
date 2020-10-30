@@ -46,13 +46,13 @@
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
 					<div class="btn-group">
-						<a th:href="@{/create-request-user}" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/user/create-request}" class="btn btn-default dropdown-toggle">
 							Crear solicitud
 						</a>
 						<span class="caret-right"></span>
 					</div>
 					<div class="btn-group">
-						<a th:href="@{/my-requests-user}" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/user/my-requests}" class="btn btn-default dropdown-toggle">
 							Mis solicitudes
 						</a>
 						<span class="caret-right"></span>
@@ -64,15 +64,17 @@
 						</div>
 						<ul class="dropdown-menu dropItem-16">
 							<li>
-								<a href="" target="_self" disabled>
+								<a th:href="@{/user/my-requests}" target="_self" disabled>
 									Usuario
 								</a>
 							</li>
-							<li>
+
+							<li th:if="${false}"> <!--CONDICIONAL SI ESTE USUARIO ES AGENTE O NO-->
 								<a href="" target="_self">
 									Agente
 								</a>
 							</li>
+
 							<li>
 								<a th:href="@{/login}" target="_self">
 									<strong>Cerrar Sesión</strong>
