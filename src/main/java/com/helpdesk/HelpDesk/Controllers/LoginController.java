@@ -26,10 +26,4 @@ public class LoginController {
         } // TODO: Conectar con la base de datos para el login
         return "login";
     }
-
-    @RequestMapping("/plantilla")
-    public String plantilla(String id, Model model){
-        return "plantilla";
-    }
-
 }
