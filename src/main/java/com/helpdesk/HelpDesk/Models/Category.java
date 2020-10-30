@@ -2,12 +2,14 @@ package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 
 @Entity
 public class Category {
 
     @Id
+    @Size(max = 255)
     private String name;
 
     public Category(){}

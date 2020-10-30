@@ -35,6 +35,7 @@ public class Request {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar endingDate;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
 
