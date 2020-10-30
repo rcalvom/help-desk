@@ -103,7 +103,7 @@
                     </thead>
                     <tr data-th-each="requests : ${Requests}">
                         <td data-th-text="${requests.id}">...</td>
-                        <td data-th-text="${requests.creationDate.getTime()}">...</td>
+                        <td data-th-text="${requests.formatCreationDate()}">...</td>
 						<td th:if="${requests.getAgents().size() == 0}">No Asignado</td>
 						<td th:unless="${requests.getAgents().size() == 0}">
 							<ul data-th-each="agent : ${requests.agents}">

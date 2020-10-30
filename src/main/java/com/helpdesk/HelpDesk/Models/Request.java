@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -155,6 +157,16 @@ public class Request {
 
     public Set<User> getAgents() {
         return agents;
+    }
+
+    public String formatCreationDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        return dateFormat.format(this.creationDate.getTime());
+    }
+
+    public String formatEndingDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        return dateFormat.format(this.endingDate.getTime());
     }
 
     public enum Status{

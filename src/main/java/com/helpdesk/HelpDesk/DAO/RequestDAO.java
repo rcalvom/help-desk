@@ -62,12 +62,12 @@ public class RequestDAO {
         return requestRepository.getRequestByUser(user.getUsername());
     }
 
-    public Iterable<Request> selectByStatus(String status){
-        return requestRepository.getRequestByState(status);
+    public Iterable<Request> selectByStatus(Request.Status status){
+        return requestRepository.getRequestByState(status.name());
     }
 
-    public Iterable<Request> selectById(String id){
-        return requestRepository.getRequestById(id);
+    public Request selectById(String id){
+        return requestRepository.getRequestById(id).iterator().next();
     }
 
 }

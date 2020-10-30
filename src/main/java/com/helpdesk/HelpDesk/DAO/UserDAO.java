@@ -55,16 +55,16 @@ public class UserDAO {
         return userRepository.getUserAgent();
     }
 
-    public  Iterable<User> selectAgent(String username){
-        return userRepository.getAgentByUsername(username);
-    }
-
-    public  Iterable<User> selectUser(){
+    public Iterable<User> selectUser(){
         return userRepository.getUserUser();
     }
 
-    public  Iterable<User> selectUser(String username){
-        return  userRepository.getUserByUsername(username);
+    public User selectAgent(String username){
+        return userRepository.getAgentByUsername(username).iterator().next();
+    }
+
+    public User selectUser(String username){
+        return  userRepository.getUserByUsername(username).iterator().next();
     }
 
     public User selectAdmin(){

@@ -3,6 +3,8 @@ package com.helpdesk.HelpDesk.Models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 @Entity
@@ -61,6 +63,11 @@ public class Feedback {
 
     public void setDate(Calendar date) {
         this.date = date;
+    }
+
+    public String formatDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        return dateFormat.format(this.date.getTime());
     }
 
     private enum Rating{

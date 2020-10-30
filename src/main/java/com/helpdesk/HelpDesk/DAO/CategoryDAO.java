@@ -26,9 +26,9 @@ public class CategoryDAO {
     }
 
     public boolean update(Category oldCategory, Category newCategory){
-        Iterable<Category> categorys = categoryRepository.findAll();
-        for(Category c : categorys){
-            if(c.getId().equals(oldCategory.getId())){
+        Iterable<Category> categories = categoryRepository.findAll();
+        for(Category c : categories){
+            if(c.getName().equals(oldCategory.getName())){
                 c.setName(newCategory.getName());
                 categoryRepository.save(c);
                 return true;
@@ -38,9 +38,9 @@ public class CategoryDAO {
     }
 
     public boolean delete(Category category){
-        Iterable<Category> categorys = categoryRepository.findAll();
-        for(Category c : categorys){
-            if(c.getId().equals(category.getId())){
+        Iterable<Category> categories = categoryRepository.findAll();
+        for(Category c : categories){
+            if(c.getName().equals(category.getName())){
                 categoryRepository.delete(c);
                 return true;
             }

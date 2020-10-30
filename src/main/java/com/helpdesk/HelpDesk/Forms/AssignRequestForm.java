@@ -10,6 +10,7 @@ public class AssignRequestForm {
     private int inventoryPlate;
     private int equipmentNumber;
 
+    public AssignRequestForm() {}
 
     public AssignRequestForm(String id, String creationDate, String userUsername, String specification) {
         this.id = id;

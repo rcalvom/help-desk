@@ -33,7 +33,7 @@ public class AdminController {
     //Bandeja de entrada
     @GetMapping("/admin/inbox")
     public String inboxRequestsAdminDefault(Model model){
-        List<Request> requests = (List<Request>) requestDAO.selectByStatus("NO_ASIGNADO");
+        List<Request> requests = (List<Request>) requestDAO.selectByStatus(Request.Status.NO_ASIGNADO);
         model.addAttribute("Requests", requests);
         return "inbox-requests-admin";
     }
@@ -41,10 +41,9 @@ public class AdminController {
     //Asignar solicitud agente
     @GetMapping("/admin/assign-request/{id}")
     public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
-
-        Request request = requestDAO.selectById(id).iterator().next();
-
-        AssignRequestForm req = new AssignRequestForm(request.getId(),request.getCreationDate().getTime().toString(),request.getUser().getUsername(),request.getSpecification());
+        // TODO: Comprobar que la solicitud no haya sido asignada.
+        Request request = requestDAO.selectById(id);
+        AssignRequestForm req = new AssignRequestForm(request.getId(), request.formatCreationDate(), request.getUser().getUsername(), request.getSpecification());
         model.addAttribute("assignRequest", req);
         List<User> agt = (List<User>) userDAO.selectAgent();
         model.addAttribute("agents", agt);
@@ -54,9 +53,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin/assign-request/{id}")
-    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form, Model model){
-
-        Request request = requestDAO.selectById(id).iterator().next();
+    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form){
+        Request request = requestDAO.selectById(id);
         Request newRequest = new Request();
         newRequest.setId(request.getId());
         newRequest.setSpecification(request.getSpecification());
@@ -66,10 +64,9 @@ public class AdminController {
         newRequest.setEquipmentNumber(form.getEquipmentNumber());
         newRequest.setUser(request.getUser());
         newRequest.setAgents(new HashSet<>());
-        newRequest.getAgents().add(userDAO.selectAgent(form.getAgentUsername()).iterator().next());
+        newRequest.getAgents().add(userDAO.selectAgent(form.getAgentUsername()));
         newRequest.setCategory(categoryDAO.select(form.getCategory()).iterator().next());
         requestDAO.update(request, newRequest);
-
         return "redirect:/admin/requests";
     }
 
@@ -84,7 +81,7 @@ public class AdminController {
     //Detalles de la solicitud administrador
     @GetMapping("admin/details/{id}")
     public String requestDetailsAdminDefault(@PathVariable("id") String id, Model model){
-        Request RequestDetail = requestDAO.selectById(id).iterator().next();
+        Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-admin";
     }

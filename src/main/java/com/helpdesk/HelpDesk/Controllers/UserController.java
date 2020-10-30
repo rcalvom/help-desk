@@ -33,17 +33,16 @@ public class UserController {
 
     @PostMapping("/user/create-request")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
-        User user = userDAO.selectUser("rcalvom").iterator().next();
+        User user = userDAO.selectUser("user");
         Request request = new Request(form.getDescription(), user);
         requestDAO.insert(request);
-
         return "redirect:/user/my-requests";
     }
 
     //Mis solicitudes
     @GetMapping("/user/my-requests")
     public String myRequestsUserDefault(Model model){
-        User user = userDAO.selectUser("rcalvom").iterator().next();
+        User user = userDAO.selectUser("user");
         List<Request> requests = (List<Request>) requestDAO.selectByUser(user);
         model.addAttribute("Requests", requests);
         return "my-requests-user";
@@ -52,7 +51,7 @@ public class UserController {
     //Detalles de la solicitud usuario
     @GetMapping("/user/details/{id}")
     public String requestDetailsUserDefault(@PathVariable("id") String id, Model model){
-        Request RequestDetail = requestDAO.selectById(id).iterator().next();
+        Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-user";
     }

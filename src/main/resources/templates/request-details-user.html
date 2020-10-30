@@ -107,13 +107,13 @@
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Fecha de creación:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.creationDate.getTime()}" id="creationDate" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.formatCreationDate()}" id="creationDate" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Fecha de finalización:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.endingDate} ?:'No Asignado'" id="endingDate" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.formatEndingDate()} ?:'No Asignado'" id="endingDate" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
@@ -192,7 +192,7 @@
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Fecha de calificación:</h4>
 							<div class="col-md-6">
-								<input th:value="${requestDetail.feedback.date} ?:'No Asignado'" id="feedbackDate" type="text" readonly class="form-control">
+								<input th:value="${requestDetail.feedback.formatDate()} ?:'No Asignado'" id="feedbackDate" type="text" readonly class="form-control">
 							</div>
 						</div>
 						<div class="form-group">

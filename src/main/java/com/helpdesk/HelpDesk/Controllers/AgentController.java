@@ -25,7 +25,7 @@ public class AgentController {
     //Mis solicitudes
     @GetMapping("agent/my-requests")
     public String myRequestsAgentDefault(Model model){
-        User user = userDAO.selectAgent("savargas").iterator().next();
+        User user = userDAO.selectAgent("savargas");
         List<Request> requests = (List<Request>) requestDAO.selectByUser(user);
         model.addAttribute("Requests", requests);
         return "my-requests-agent";
@@ -34,7 +34,7 @@ public class AgentController {
     //Detalles de la solicitud agente
     @GetMapping("agent/details/{id}")
     public String requestDetailsAgentDefault(@PathVariable("id") String id, Model model){
-        Request RequestDetail = requestDAO.selectById(id).iterator().next();
+        Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-agent";
     }
