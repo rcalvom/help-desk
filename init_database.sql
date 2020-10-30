@@ -10,7 +10,6 @@ drop table category;
 drop table feedback;
 drop table bounding_type;
 drop table dependency;
-drop table agent_request;
 
 insert into bounding_type values ("Profesor");
 insert into bounding_type values ("Administrativo");
