@@ -58,7 +58,11 @@
 					<br>
 					<h2><i>Disculpe las molestias</i></h2>
 					<br>
-					<a th:href="@{/login}" target="_self"><h3>Volver al inicio</h3></a>
+					<h3>
+						<a href="#" onclick="history.go(-1)">Volver atrás</a>
+						&nbsp;
+						<a th:href="@{/login}" target="_self">Volver al inicio</a>
+					</h3>
 				</div>
 			</div>
 		</main>
