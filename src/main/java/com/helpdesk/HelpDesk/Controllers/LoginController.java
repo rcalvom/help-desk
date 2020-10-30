@@ -27,11 +27,11 @@ public class LoginController {
         // System.out.println(form.getUserName()); tests
         // System.out.println(form.getPassword());
         if(form.getUsername().equals("user@unal.edu.co")){
-            return "redirect:/create-request-user";
+            return "redirect:/user/create-request";
         }else if(form.getUsername().equals("agent@unal.edu.co")){
-            return "redirect:/my-requests-agent";
+            return "redirect:/agent/my-requests";
         }else if(form.getUsername().equals("admin@unal.edu.co")){
-            return "redirect:/inbox-requests-admin";
+            return "redirect:/admin/inbox";
         }// TODO: Conectar con la base de datos para el login
         return "login";
     }
