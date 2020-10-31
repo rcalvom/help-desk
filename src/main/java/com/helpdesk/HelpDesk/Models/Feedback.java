@@ -25,7 +25,8 @@ public class Feedback {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
 
-    public Feedback(){}
+    public Feedback() {}
+
     public Feedback(String specification, Rating rating){
         this.specification = specification;
         this.rating = rating;

@@ -41,6 +41,7 @@ public class AgentController {
 
     @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
+        //TODO: El agente puede cerrar la solicitud.
         return "request-details-agent";
     }
     

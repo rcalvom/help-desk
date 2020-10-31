@@ -15,7 +15,8 @@ public class Dependency {
     @NotBlank
     private String name;
 
-    public Dependency(){}
+    public Dependency() {}
+
     public Dependency(String name){
         this.name = name;
     }

@@ -15,7 +15,7 @@ public class LoginController {
     }
 
     @PostMapping("/")
-    public String loginPost(@ModelAttribute LoginForm form, Model model){
+    public String loginPost(@ModelAttribute LoginForm form){
         switch (form.getUsername()) {
             case "user":
                 return "redirect:/user/create-request";

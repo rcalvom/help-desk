@@ -35,8 +35,10 @@ public class User {
     @ManyToMany(mappedBy = "agents")
     private Set<Request> requests;
 
-    public User(){}
+    public User() {}
+
     public User(String username, String name, BoundingType boundingType, Dependency dependency){
+        this.username = username;
         this.name = name;
         this.isAgent = false;
         this.isAdministrator = false;

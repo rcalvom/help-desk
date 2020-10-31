@@ -65,7 +65,8 @@ public class Request {
     private Feedback feedback;
 
 
-    public  Request(){}
+    public Request() {}
+
     public Request(String specification, User user){
         this.specification = specification;
         this.creationDate = Calendar.getInstance();

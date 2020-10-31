@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/user/create-request")
-    public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
+    public String createRequestUserPost(@ModelAttribute CreateRequestForm form){
         User user = userDAO.selectUser("user");
         Request request = new Request(form.getDescription(), user);
         requestDAO.insert(request);
