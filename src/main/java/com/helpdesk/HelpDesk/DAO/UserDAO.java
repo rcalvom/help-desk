@@ -5,6 +5,8 @@ import com.helpdesk.HelpDesk.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
+
 @Component
 public class UserDAO {
 
@@ -64,15 +66,39 @@ public class UserDAO {
     }
 
     public User selectAgent(String username){
-        return userRepository.getAgentByUsername(username).iterator().next();
+        try{
+            return userRepository.getAgentByUsername(username).iterator().next();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public User selectUser(String username){
-        return  userRepository.getUserByUsername(username).iterator().next();
+        try {
+            return  userRepository.getUserByUsername(username).iterator().next();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public User selectAdmin(){
-        return userRepository.getAdminsitrator().iterator().next();
+        try {
+            return userRepository.getAdminsitrator().iterator().next();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public User selectPerson(String username){
+        try {
+            return userRepository.getPerson(username).iterator().next();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 }

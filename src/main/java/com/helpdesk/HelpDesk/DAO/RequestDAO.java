@@ -19,14 +19,31 @@ public class RequestDAO {
     public RequestDAO(RequestRepository requestRepository){
         this.requestRepository = requestRepository;
     }
-    public boolean insert(Request request){
-        try{
-            requestRepository.save(request);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+
+    public boolean validateInsertRequest(Request request){
+        if(request == null){
             return false;
         }
+        if( (request.getAgents() != null) != (request.getStatus() == Request.Status.ACTIVO)){
+            return false;
+        }
+        if( (request.getAgents() != null) == (request.getCategory() == null) ){
+            return  false;
+        }
         return true;
+    }
+
+    public boolean insert(Request request){
+        if(validateInsertRequest(request)){
+            try{
+                requestRepository.save(request);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     public boolean update(Request oldRequest, Request newRequest){
@@ -70,7 +87,11 @@ public class RequestDAO {
     }
 
     public Request selectById(String id){
-        return requestRepository.getRequestById(id).iterator().next();
+        try{
+            return requestRepository.getRequestById(id).iterator().next();
+        }catch (Exception e){
+            return null;
+        }
     }
 
 }
