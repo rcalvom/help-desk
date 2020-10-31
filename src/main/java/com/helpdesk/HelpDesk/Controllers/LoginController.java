@@ -14,7 +14,7 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/")
+    @PostMapping({"/", "/login"})
     public String loginPost(@ModelAttribute LoginForm form){
         switch (form.getUsername()) {
             case "user":
