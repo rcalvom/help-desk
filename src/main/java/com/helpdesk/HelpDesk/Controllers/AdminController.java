@@ -92,7 +92,7 @@ public class AdminController {
     }
 
     //Detalles de la solicitud administrador
-    @GetMapping("admin/details/{id}")
+    @GetMapping("/admin/details/{id}")
     public String requestDetailsAdminDefault(@PathVariable("id") String id, Model model){
         Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);

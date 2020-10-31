@@ -23,7 +23,7 @@ public class AgentController {
     private UserDAO userDAO;
 
     //Mis solicitudes
-    @GetMapping("agent/my-requests")
+    @GetMapping("/agent/my-requests")
     public String myRequestsAgentDefault(Model model){
         User user = userDAO.selectAgent("agent1");
         List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
@@ -32,14 +32,14 @@ public class AgentController {
     }
 
     //Detalles de la solicitud agente
-    @GetMapping("agent/details/{id}")
+    @GetMapping("/agent/details/{id}")
     public String requestDetailsAgentDefault(@PathVariable("id") String id, Model model){
         Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-agent";
     }
 
-    @PostMapping("agent/details/{id}")
+    @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
         return "request-details-agent";
     }

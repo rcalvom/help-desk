@@ -21,9 +21,11 @@
 		
 		<script src="../static/js/jquery.js" type="text/javascript"></script>
 		<script src="../static/js/unal.js" type="text/javascript"></script>
-		
-		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="js/unal.js" type="text/javascript"></script>
+
+		<script src="/js/jquery.js" type="text/javascript"></script>
+		<script src="/js/unal.js" type="text/javascript"></script>
+
+		<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 		
 		<title>Mis solicitudes - Help Desk</title>
 	</head>
@@ -36,39 +38,39 @@
 				</svg>
 			</div>
 			<div class="firstMenu">
-            	<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+				<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
 					<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 				</button>
-				
+
 			</div>
 			<div id="bs-navbar" class="navbar-collapse collapse navigation">
 				<div class="mainMenu">
 					<div class="btn-group">
-						<a href="inbox-requests-admin" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/admin/inbox}" class="btn btn-default dropdown-toggle">
 							Bandeja de entrada
 						</a>
 						<span class="caret-right"></span>
 					</div>
 					<div class="btn-group">
-						<a href="requests-admin" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/admin/requests}" class="btn btn-default dropdown-toggle">
 							Solicitudes
 						</a>
 						<span class="caret-right"></span>
 					</div>
 					<div class="btn-group">
-						<a href="" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/no-existe}" class="btn btn-default dropdown-toggle">
 							Categorias
 						</a>
 						<span class="caret-right"></span>
 					</div>
 					<div class="btn-group">
-						<a href="" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/no-existe}" class="btn btn-default dropdown-toggle">
 							Agentes
 						</a>
 						<span class="caret-right"></span>
 					</div>
 					<div class="btn-group">
-						<a href="" class="btn btn-default dropdown-toggle">
+						<a th:href="@{/no-existe}" class="btn btn-default dropdown-toggle">
 							Reportes
 						</a>
 						<span class="caret-right"></span>
@@ -80,7 +82,7 @@
 						</div>
 						<ul class="dropdown-menu dropItem-16">
 							<li>
-								<a href="login" target="_self">
+								<a th:href="@{/login}" target="_self">
 									<strong>Cerrar Sesión</strong>
 								</a>
 							</li>
