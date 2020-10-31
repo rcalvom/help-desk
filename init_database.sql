@@ -17,9 +17,9 @@ insert into dependency values ("Departamento de ingeniería de sistemas e indust
 insert into dependency values ("Departamento de ingeniería eléctrica y electrónica");
 insert into category values ("Mantenimiento preventivo");
 insert into category values ("Mantenimiento correctivo");
-insert into category values ("Conceptos técticos: Baja de equipos");
-insert into category values ("Conceptos técticos: Baja de inventario de equipos");
-insert into category values ("Conceptos técticos: Repotenciación de equipos");
+insert into category values ("Conceptos técnicos: Baja de equipos");
+insert into category values ("Conceptos técnicos: Baja de inventario de equipos");
+insert into category values ("Conceptos técnicos: Repotenciación de equipos");
 insert into category values ("Conceptos técnicos: Compra de equipos");
 insert into category values ("Limpieza");
 insert into category values ("Baja de equipos");

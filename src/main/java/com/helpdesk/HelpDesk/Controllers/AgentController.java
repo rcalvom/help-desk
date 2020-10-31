@@ -25,8 +25,8 @@ public class AgentController {
     //Mis solicitudes
     @GetMapping("agent/my-requests")
     public String myRequestsAgentDefault(Model model){
-        User user = userDAO.selectAgent("savargas");
-        List<Request> requests = (List<Request>) requestDAO.selectByUser(user);
+        User user = userDAO.selectAgent("agent1");
+        List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
         model.addAttribute("Requests", requests);
         return "my-requests-agent";
     }

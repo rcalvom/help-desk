@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
 import java.util.List;
@@ -53,7 +54,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/assign-request/{id}")
-    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form){
+    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form, RedirectAttributes redirectAttributes){
         Request request = requestDAO.selectById(id);
         Request newRequest = new Request();
         newRequest.setId(request.getId());
@@ -68,8 +69,18 @@ public class AdminController {
             newRequest.getAgents().add(userDAO.selectAgent(username));
         }
         newRequest.setCategory(categoryDAO.select(form.getCategory()).iterator().next());
-        requestDAO.update(request, newRequest);
-        return "redirect:/admin/requests";
+        if (!requestDAO.update(request, newRequest)){
+            if(newRequest.getEquipmentNumber() > 10) {
+                redirectAttributes
+                        .addFlashAttribute("alert", "El número de equipos debe ser menor o igual a 10, solicitud \"" + id + " \"no asignada.")
+                        .addFlashAttribute("clase", "danger");
+            }else if(newRequest.getEquipmentNumber() <= 0) {
+                redirectAttributes
+                        .addFlashAttribute("alert", "El número de equipos debe ser un valor positivo, solicitud \"" + id + " \"no asignada.")
+                        .addFlashAttribute("clase", "danger");
+            }
+        }
+        return "redirect:/admin/inbox";
     }
 
     // Solicitudes del sistema

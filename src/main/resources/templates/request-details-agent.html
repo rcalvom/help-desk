@@ -137,7 +137,7 @@
 					<div class="form-group">
 						<h4 class="col-md-2 align-left">Categoría:</h4>
 						<div class="col-md-6">
-							<input th:value="${requestDetail.category.name} ?:'No Asignado'" id="category" type="text" readonly class="form-control">
+							<input th:value="${requestDetail.category} ? ${requestDetail.category.name} :'No Asignado'" id="category" type="text" readonly class="form-control">
 						</div>
 					</div>
 					<div class="form-group">

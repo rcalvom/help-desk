@@ -98,6 +98,10 @@
             <br>
             <h2>Bandeja de entrada</h2>
             <br>
+			<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${alert != null}"
+				 th:text="${alert}"
+				 class="alert">
+			</div>
 			<div class="container">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>

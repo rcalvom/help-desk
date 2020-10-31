@@ -43,11 +43,14 @@ public class RequestDAO {
                 r.setUser(newRequest.getUser());
                 r.setFeedback(newRequest.getFeedback());
                 r.setCategory(newRequest.getCategory());
-                requestRepository.save(r);
-                return true;
+                try{
+                    requestRepository.save(r);
+                }catch (Exception e){
+                    return false;
+                }
             }
         }
-        return false;
+        return true;
     }
 
     public boolean delete(Request request){
@@ -64,6 +67,11 @@ public class RequestDAO {
     public Iterable<Request> selectByUser(User user){
         return requestRepository.getRequestByUser(user.getUsername());
     }
+
+    public Iterable<Request> selectByAgent(User user){
+        return requestRepository.getRequestByAgent(user.getUsername());
+    }
+
 
     public Iterable<Request> selectByStatus(Request.Status status){
         return requestRepository.getRequestByState(status.name());

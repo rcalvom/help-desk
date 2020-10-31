@@ -42,6 +42,7 @@ public class Request {
     private int inventoryPlate;
 
     @Max(10)
+    @Min(0)
     private int equipmentNumber;
 
     @OneToOne
@@ -167,7 +168,7 @@ public class Request {
 
     public String formatEndingDate(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        return dateFormat.format(this.endingDate.getTime());
+        return this.endingDate != null ? dateFormat.format(this.endingDate.getTime()) : null;
     }
 
     public enum Status{
