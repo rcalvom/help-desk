@@ -68,7 +68,7 @@ public class Feedback {
     }
 
     public String formatDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         return dateFormat.format(this.date.getTime());
     }
 

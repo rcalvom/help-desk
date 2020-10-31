@@ -168,12 +168,12 @@ public class Request {
     }
 
     public String formatCreationDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         return dateFormat.format(this.creationDate.getTime());
     }
 
     public String formatEndingDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         return this.endingDate != null ? dateFormat.format(this.endingDate.getTime()) : null;
     }
 
