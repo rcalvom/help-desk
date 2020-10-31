@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
+import java.util.TimeZone;
 
 @Entity
 public class Request {
@@ -69,7 +70,7 @@ public class Request {
 
     public Request(String specification, User user){
         this.specification = specification;
-        this.creationDate = Calendar.getInstance();
+        this.creationDate = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
         this.status = Status.NO_ASIGNADO;
         this.user = user;
     }
