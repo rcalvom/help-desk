@@ -20,4 +20,7 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     @Query(value = "SELECT * FROM user where (is_administrator = 1) ;", nativeQuery = true)
     public Iterable<User> getAdminsitrator();
+
+    @Query(value = "SELECT * FROM user where (username like ?1 ) ;", nativeQuery = true)
+    public Iterable<User> getPerson(String username);
 }

@@ -15,6 +15,10 @@ public class CategoryDAO {
         return categoryRepository.findAll();
     }
 
+    public  CategoryDAO(CategoryRepository categoryRepository){
+        this.categoryRepository = categoryRepository;
+    }
+
     public boolean insert(Category category){
         try{
             categoryRepository.save(category);
@@ -47,8 +51,14 @@ public class CategoryDAO {
         }
         return  false;
     }
-    public Iterable<Category> select(String name){
-        return categoryRepository.getCategoryByName(name);
+    public Category select(String name){
+        try {
+            return categoryRepository.getCategoryByName(name).iterator().next();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
     }
 
 }

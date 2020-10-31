@@ -25,7 +25,7 @@ public class Request {
     private String id;
 
     @Lob
-    @NotNull
+    @NotEmpty
     private String specification;
 
     @NotNull
@@ -123,6 +123,10 @@ public class Request {
 
     public void setAgents(Set<User> agents) {
         this.agents = agents;
+    }
+
+    public void setAgents(User agent){
+        this.agents = Set.of(agent);
     }
 
     public String getId() {
