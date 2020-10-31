@@ -68,7 +68,7 @@ public class AdminController {
         for(String username : form.getAgentUsername()){
             newRequest.getAgents().add(userDAO.selectAgent(username));
         }
-        newRequest.setCategory(categoryDAO.select(form.getCategory()).iterator().next());
+        newRequest.setCategory(categoryDAO.select(form.getCategory()));
         if (!requestDAO.update(request, newRequest)){
             if(newRequest.getEquipmentNumber() > 10) {
                 redirectAttributes
