@@ -28,20 +28,7 @@
 	</head>
 
 	<body>
-		<header id="unalTop">
-			<div class="logo">
-				<svg width="93%" height="93%">
-					<image xlink:href="../static/images/escudoUnal.png" th:href="@{/images/escudoUnal.png}" width="100%" height="100%" class="hidden-print"/>
-				</svg>
-			</div>
-			<div class="firstMenu">
-            	<br><br>
-				
-			</div>
-			<div id="bs-navbar" class="navbar-collapse collapse navigation">
-				<br> <br>
-            </div>
-		</header>
+		<header th:insert="header.html" id="unalTop"></header>
 			
 		<br>
 		<br>
@@ -75,11 +62,7 @@
                 </div>
             </div>
 		</main>
-		<footer class="clear align-center">
-            <div class="padding align-center">
-				© 2020 Help Desk. Ingeniería de Software I.
-            </div>
-		</footer>
+		<footer th:insert="footer.html" class="clear align-center"></footer>
 	</body>
 
 </html>

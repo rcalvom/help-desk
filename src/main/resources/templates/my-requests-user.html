@@ -28,60 +28,7 @@
 	</head>
 
 	<body>
-		<header id="unalTop">
-			<div class="logo">
-				<svg width="93%" height="93%">
-					<image xlink:href="../static/images/escudoUnal.png" th:href="@{/images/escudoUnal.png}" width="100%" height="100%" class="hidden-print"/>
-				</svg>
-			</div>
-			<div class="firstMenu">
-				<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
-					<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-				</button>
-
-			</div>
-			<div id="bs-navbar" class="navbar-collapse collapse navigation">
-				<div class="mainMenu">
-					<div class="btn-group">
-						<a th:href="@{/user/create-request}" class="btn btn-default dropdown-toggle">
-							Crear solicitud
-						</a>
-						<span class="caret-right"></span>
-					</div>
-					<div class="btn-group">
-						<a th:href="@{/user/my-requests}" class="btn btn-default dropdown-toggle">
-							Mis solicitudes
-						</a>
-						<span class="caret-right"></span>
-					</div>
-					<div class="btn-group">
-						<div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							Rol (Usuario)
-							<span class="caret"></span>
-						</div>
-						<ul class="dropdown-menu dropItem-16">
-							<li>
-								<a th:href="@{/user/my-requests}" target="_self" disabled>
-									Usuario
-								</a>
-							</li>
-
-							<li th:if="${false}"> <!--CONDICIONAL SI ESTE USUARIO ES AGENTE O NO-->
-								<a href="" target="_self">
-									Agente
-								</a>
-							</li>
-
-							<li>
-								<a th:href="@{/login}" target="_self">
-									<strong>Cerrar Sesión</strong>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</header>
+		<header th:insert="header-user.html" id="unalTop"></header>
 			
 		<br>
 		<br>
@@ -117,11 +64,7 @@
                 </table>
             </div>
 		</main>
-		<footer class="clear align-center">
-            <div class="padding align-center">
-				© 2020 Help Desk. Ingeniería de Software I.
-            </div>
-		</footer>
+		<footer th:insert="footer.html" class="clear align-center"></footer>
 	</body>
 
 </html>
