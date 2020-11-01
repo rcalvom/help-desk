@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest
-public class RequestTest {
+public class CreateRequestTest {
 
 
 
@@ -28,17 +28,16 @@ public class RequestTest {
     public final boolean FAILED_REQUEST_CREATION = false;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDAO userDAO;
     @Autowired
-    private RequestRepository requestRepository;
+    private RequestDAO requestDAO;
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryDAO categoryDAO;
+
 
 
     @Test
-    public void UserRequestFaild() {
-        RequestDAO requestDAO = new RequestDAO(requestRepository);
-        UserDAO userDAO = new UserDAO(userRepository);
+    public void UserRequestFailed() {
         User user = userDAO.selectPerson("user");
         System.out.println(user);
         Request request = new Request("",user);
@@ -53,8 +52,6 @@ public class RequestTest {
 
     @Test
     public void UserRequestSuccess() {
-        RequestDAO requestDAO = new RequestDAO(requestRepository);
-        UserDAO userDAO = new UserDAO(userRepository);
         User user = userDAO.selectPerson("user");
         System.out.println(user);
         Request request = new Request("Concepto de baja de equipo",user);
@@ -68,9 +65,7 @@ public class RequestTest {
 
     @Test
     public void AdminRequestFailed(){
-        RequestDAO requestDAO = new RequestDAO(requestRepository);
-        UserDAO userDAO = new UserDAO(userRepository);
-        CategoryDAO categoryDAO = new CategoryDAO(categoryRepository);
+
 
         Request request;
         try {
@@ -109,9 +104,6 @@ public class RequestTest {
 
     @Test
     public void AdminRequestSuccess(){
-        RequestDAO requestDAO = new RequestDAO(requestRepository);
-        UserDAO userDAO = new UserDAO(userRepository);
-        CategoryDAO categoryDAO = new CategoryDAO(categoryRepository);
 
         Request request;
         try {
@@ -145,4 +137,5 @@ public class RequestTest {
         }
         assertEquals(SUCCESSFUL_REQUEST_CREATION, requestDAO.insert(request2));
     }
+
 }

@@ -46,6 +46,7 @@ public class Request {
     private int equipmentNumber;
 
     @OneToOne
+    @NotNull
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -16,9 +16,6 @@ public class RequestDAO {
         return requestRepository.findAll();
     }
 
-    public RequestDAO(RequestRepository requestRepository){
-        this.requestRepository = requestRepository;
-    }
 
     public boolean validateInsertRequest(Request request){
         if(request == null){

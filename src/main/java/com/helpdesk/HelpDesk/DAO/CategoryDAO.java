@@ -15,9 +15,6 @@ public class CategoryDAO {
         return categoryRepository.findAll();
     }
 
-    public  CategoryDAO(CategoryRepository categoryRepository){
-        this.categoryRepository = categoryRepository;
-    }
 
     public boolean insert(Category category){
         try{
