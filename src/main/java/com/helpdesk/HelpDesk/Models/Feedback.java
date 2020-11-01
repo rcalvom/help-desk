@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 @Entity
 public class Feedback {
@@ -30,7 +31,7 @@ public class Feedback {
     public Feedback(String specification, Rating rating){
         this.specification = specification;
         this.rating = rating;
-        this.date = Calendar.getInstance();
+        this.date = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
     }
 
 
@@ -67,7 +68,7 @@ public class Feedback {
     }
 
     public String formatDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         return dateFormat.format(this.date.getTime());
     }
 
