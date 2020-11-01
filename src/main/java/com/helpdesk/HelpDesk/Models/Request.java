@@ -50,7 +50,7 @@ public class Request {
     @NotNull
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "agent_request",
             joinColumns = {
                     @JoinColumn(name = "id")

@@ -1,6 +1,5 @@
 package com.helpdesk.HelpDesk;
 
-import com.helpdesk.HelpDesk.DAO.CategoryDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Models.Request;
@@ -49,8 +48,8 @@ public class ViewRequestTest {
                 flag1 &= request.getUser().getUsername().equals(user2.getUsername());
             }
         }
-
         assertEquals(VIEW_REQUEST_FAILED, flag1);
+
     }
 
     @Test
@@ -86,6 +85,7 @@ public class ViewRequestTest {
             }
         }
         assertEquals(VIEW_REQUEST_FAILED, flag1);
+
     }
 
     @Test

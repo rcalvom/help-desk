@@ -21,13 +21,10 @@ public class RequestDAO {
         if(request == null){
             return false;
         }
-        if( (request.getAgents() != null) != (request.getStatus() == Request.Status.ACTIVO)){
+        if((request.getAgents() == null) == (request.getStatus() == Request.Status.ACTIVO)){
             return false;
         }
-        if( (request.getAgents() != null) == (request.getCategory() == null) ){
-            return  false;
-        }
-        return true;
+        return (request.getAgents() == null) == (request.getCategory() == null);
     }
 
     public boolean insert(Request request){
