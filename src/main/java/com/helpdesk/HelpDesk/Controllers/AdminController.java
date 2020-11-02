@@ -4,16 +4,14 @@ import com.helpdesk.HelpDesk.DAO.CategoryDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
+import com.helpdesk.HelpDesk.Forms.CategoryForm;
 import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
@@ -97,6 +95,31 @@ public class AdminController {
         Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-admin";
+    }
+
+    //Gestionar categorias
+    @GetMapping("/admin/categories")
+    public String categotyManagmentAdminDefault(@RequestParam(value = "category", required = false) String category, Model model){
+        List<Category> categories = (List<Category>) categoryDAO.select();
+        model.addAttribute("categories", categories);
+        model.addAttribute("newCategory", new CategoryForm());
+        return "category-managment-admin";
+    }
+
+    //Gestionar categorias
+    @PostMapping("/admin/categories")
+    public String categotyManagmentAdminPost(@RequestParam(value = "category", required = false) String category, @ModelAttribute CategoryForm form, Model model){
+        System.out.println(category);
+        System.out.println(form.getName());
+        if(category!=null){
+            Category cat= categoryDAO.select(category);
+            categoryDAO.delete(cat);
+        }else{
+            Category cat= new Category();
+            cat.setName(form.getName());
+            categoryDAO.insert(cat);
+        }
+        return "redirect:/admin/categories";
     }
 
 }
