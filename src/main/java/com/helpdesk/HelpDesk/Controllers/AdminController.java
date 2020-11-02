@@ -106,7 +106,6 @@ public class AdminController {
         return "category-managment-admin";
     }
 
-    //Gestionar categorias
     @PostMapping("/admin/categories")
     public String categotyManagmentAdminPost(@RequestParam(value = "category", required = false) String category, @ModelAttribute CategoryForm form, Model model){
         System.out.println(category);
