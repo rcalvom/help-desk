@@ -34,6 +34,7 @@ public class CategoryDAO {
         for(Category c : categories){
             if(c.getName().equals(oldCategory.getName())){
                 c.setName(newCategory.getName());
+                c.setActive(newCategory.isActive());
                 categoryRepository.save(c);
                 return true;
             }
@@ -58,7 +59,10 @@ public class CategoryDAO {
             System.out.println(e.getMessage());
             return null;
         }
+    }
 
+    public Iterable<Category> selectActiveCategories(){
+        return categoryRepository.getActiveCategories();
     }
 
 }

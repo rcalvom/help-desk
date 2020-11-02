@@ -100,7 +100,7 @@ public class AdminController {
     //Gestionar categorias
     @GetMapping("/admin/categories")
     public String categotyManagmentAdminDefault(@RequestParam(value = "category", required = false) String category, Model model){
-        List<Category> categories = (List<Category>) categoryDAO.select();
+        List<Category> categories = (List<Category>) categoryDAO.selectActiveCategories();
         model.addAttribute("categories", categories);
         model.addAttribute("newCategory", new CategoryForm());
         return "category-managment-admin";
@@ -109,12 +109,19 @@ public class AdminController {
     @PostMapping("/admin/categories")
     public String categotyManagmentAdminPost(@RequestParam(value = "category", required = false) String category, @ModelAttribute CategoryForm form, Model model){
         if(category!=null){
-            Category cat= categoryDAO.select(category);
-            categoryDAO.delete(cat);
+            Category cat = categoryDAO.select(category);
+            Category newCat = new Category();
+            newCat.setName(cat.getName());
+            newCat.setActive(false);
+            categoryDAO.update(cat,newCat);
         }else{
-            Category cat= new Category();
-            cat.setName(form.getName());
-            categoryDAO.insert(cat);
+            Category newCat= new Category(form.getName());
+            if(categoryDAO.select(form.getName())==null){
+                categoryDAO.insert(newCat);
+            }else{
+                Category cat = categoryDAO.select(form.getName());
+                categoryDAO.update(cat,newCat);
+            }
         }
         return "redirect:/admin/categories";
     }
