@@ -108,8 +108,6 @@ public class AdminController {
 
     @PostMapping("/admin/categories")
     public String categotyManagmentAdminPost(@RequestParam(value = "category", required = false) String category, @ModelAttribute CategoryForm form, Model model){
-        System.out.println(category);
-        System.out.println(form.getName());
         if(category!=null){
             Category cat= categoryDAO.select(category);
             categoryDAO.delete(cat);
@@ -120,6 +118,30 @@ public class AdminController {
         }
         return "redirect:/admin/categories";
     }
+
+    //Gestionar agentes
+    @GetMapping("/admin/agents")
+    public String agentManagmentAdminDefault(@RequestParam(value = "username", required = false) String username, Model model){
+        List<User> agents = (List<User>) userDAO.selectAgent();
+        model.addAttribute("agents", agents);
+        return "agent-managment-admin";
+    }
+
+    @PostMapping("/admin/agents")
+    public String agentManagmentAdminPost(@RequestParam(value = "username", required = false) String username, Model model){
+        User agent = userDAO.selectAgent(username);
+        User newAgent = new User();
+        newAgent.setUsername(agent.getUsername());
+        newAgent.setName(agent.getName());
+        newAgent.setAgent(false);
+        newAgent.setAdministrator(agent.isAdministrator());
+        newAgent.setBoundingType(agent.getBoundingType());
+        newAgent.setDependency(agent.getDependency());
+        newAgent.setRequest(agent.getRequest());
+        userDAO.update(agent,newAgent);
+        return "redirect:/admin/agents";
+    }
+
 
 }
 
