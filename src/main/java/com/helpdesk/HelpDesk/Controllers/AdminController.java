@@ -142,6 +142,28 @@ public class AdminController {
         return "redirect:/admin/agents";
     }
 
+    //Añadir agente
+    @GetMapping("admin/assign-agent")
+    public String agentAssignAdminDefault(@RequestParam(value = "username", required = false) String username, Model model){
+        List<User> users = (List<User>) userDAO.selectUser();
+        model.addAttribute("users", users);
+        return "agent-assign-admin";
+    }
+
+    @PostMapping("/admin/assign-agent")
+    public String agentAssignAdminPost(@RequestParam(value = "username", required = false) String username, Model model){
+        User agent = userDAO.selectUser(username);
+        User newAgent = new User();
+        newAgent.setUsername(agent.getUsername());
+        newAgent.setName(agent.getName());
+        newAgent.setAgent(true);
+        newAgent.setAdministrator(agent.isAdministrator());
+        newAgent.setBoundingType(agent.getBoundingType());
+        newAgent.setDependency(agent.getDependency());
+        newAgent.setRequest(agent.getRequest());
+        userDAO.update(agent,newAgent);
+        return "redirect:/admin/agents";
+    }
 
 }
 
