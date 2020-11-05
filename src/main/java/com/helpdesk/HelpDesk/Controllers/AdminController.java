@@ -4,16 +4,14 @@ import com.helpdesk.HelpDesk.DAO.CategoryDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
+import com.helpdesk.HelpDesk.Forms.CategoryForm;
 import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
@@ -97,6 +95,81 @@ public class AdminController {
         Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-admin";
+    }
+
+    //Gestionar categorias
+    @GetMapping("/admin/categories")
+    public String categotyManagmentAdminDefault(@RequestParam(value = "category", required = false) String category, Model model){
+        List<Category> categories = (List<Category>) categoryDAO.selectActiveCategories();
+        model.addAttribute("categories", categories);
+        model.addAttribute("newCategory", new CategoryForm());
+        return "category-managment-admin";
+    }
+
+    @PostMapping("/admin/categories")
+    public String categotyManagmentAdminPost(@RequestParam(value = "category", required = false) String category, @ModelAttribute CategoryForm form, Model model){
+        if(category!=null){
+            Category cat = categoryDAO.select(category);
+            Category newCat = new Category();
+            newCat.setName(cat.getName());
+            newCat.setActive(false);
+            categoryDAO.update(cat,newCat);
+        }else{
+            Category newCat= new Category(form.getName());
+            if(categoryDAO.select(form.getName())==null){
+                categoryDAO.insert(newCat);
+            }else{
+                Category cat = categoryDAO.select(form.getName());
+                categoryDAO.update(cat,newCat);
+            }
+        }
+        return "redirect:/admin/categories";
+    }
+
+    //Gestionar agentes
+    @GetMapping("/admin/agents")
+    public String agentManagmentAdminDefault(@RequestParam(value = "username", required = false) String username, Model model){
+        List<User> agents = (List<User>) userDAO.selectAgent();
+        model.addAttribute("agents", agents);
+        return "agent-managment-admin";
+    }
+
+    @PostMapping("/admin/agents")
+    public String agentManagmentAdminPost(@RequestParam(value = "username", required = false) String username, Model model){
+        User agent = userDAO.selectAgent(username);
+        User newAgent = new User();
+        newAgent.setUsername(agent.getUsername());
+        newAgent.setName(agent.getName());
+        newAgent.setAgent(false);
+        newAgent.setAdministrator(agent.isAdministrator());
+        newAgent.setBoundingType(agent.getBoundingType());
+        newAgent.setDependency(agent.getDependency());
+        newAgent.setRequest(agent.getRequest());
+        userDAO.update(agent,newAgent);
+        return "redirect:/admin/agents";
+    }
+
+    //Añadir agente
+    @GetMapping("admin/assign-agent")
+    public String agentAssignAdminDefault(@RequestParam(value = "username", required = false) String username, Model model){
+        List<User> users = (List<User>) userDAO.selectUser();
+        model.addAttribute("users", users);
+        return "agent-assign-admin";
+    }
+
+    @PostMapping("/admin/assign-agent")
+    public String agentAssignAdminPost(@RequestParam(value = "username", required = false) String username, Model model){
+        User agent = userDAO.selectUser(username);
+        User newAgent = new User();
+        newAgent.setUsername(agent.getUsername());
+        newAgent.setName(agent.getName());
+        newAgent.setAgent(true);
+        newAgent.setAdministrator(agent.isAdministrator());
+        newAgent.setBoundingType(agent.getBoundingType());
+        newAgent.setDependency(agent.getDependency());
+        newAgent.setRequest(agent.getRequest());
+        userDAO.update(agent,newAgent);
+        return "redirect:/admin/agents";
     }
 
 }
