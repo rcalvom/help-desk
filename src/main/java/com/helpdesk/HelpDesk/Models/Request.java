@@ -40,7 +40,7 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private int inventoryPlate;
+    private Integer inventoryPlate;
 
     @Max(10)
     @Min(0)
@@ -74,6 +74,14 @@ public class Request {
         this.creationDate = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
         this.status = Status.NO_ASIGNADO;
         this.user = user;
+    }
+    public Request(String specification, User user, Integer inventoryPlate, int equipmentNumber){
+        this.specification = specification;
+        this.creationDate = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
+        this.status = Status.NO_ASIGNADO;
+        this.user = user;
+        this.inventoryPlate = inventoryPlate;
+        this.equipmentNumber = equipmentNumber;
     }
 
     public void setCategory(Category category) {
@@ -112,7 +120,7 @@ public class Request {
         this.status = status;
     }
 
-    public void setInventoryPlate(int inventoryPlate) {
+    public void setInventoryPlate(Integer inventoryPlate) {
         this.inventoryPlate = inventoryPlate;
     }
 
@@ -152,7 +160,7 @@ public class Request {
         return status;
     }
 
-    public int getInventoryPlate() {
+    public Integer getInventoryPlate() {
         return inventoryPlate;
     }
 

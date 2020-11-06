@@ -42,7 +42,7 @@ public class AdminController {
     public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
         // TODO: Comprobar que la solicitud no haya sido asignada.
         Request request = requestDAO.selectById(id);
-        AssignRequestForm req = new AssignRequestForm(request.getId(), request.formatCreationDate(), request.getUser().getUsername(), request.getSpecification());
+        AssignRequestForm req = new AssignRequestForm(request.getId(), request.formatCreationDate(), request.getUser().getUsername(), request.getSpecification(), request.getInventoryPlate(), request.getEquipmentNumber());
         model.addAttribute("assignRequest", req);
         List<User> agt = (List<User>) userDAO.selectAgent();
         model.addAttribute("agents", agt);

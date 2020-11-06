@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping("/user/create-request")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form){
         User user = userDAO.selectUser("user");
-        Request request = new Request(form.getDescription(), user);
+        Request request = new Request(form.getDescription(), user, form.getInventoryPlate(), form.getEquipmentNumber());
         requestDAO.insert(request);
         return "redirect:/user/my-requests";
     }
