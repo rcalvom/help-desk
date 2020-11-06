@@ -134,19 +134,19 @@
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Calificación:</h4>
 							<div class="col-md-6">
-								<input th:value="${requestDetail.feedback.rating} ?:'No Asignado'" id="feedbackRating" type="text" readonly class="form-control">
+								<input th:value="${requestDetail.feedback.rating.name} ?:'No Asignado'" id="feedbackRating" type="text" readonly class="form-control">
 							</div>
 						</div>
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Fecha de calificación:</h4>
 							<div class="col-md-6">
-								<input th:value="${requestDetail.feedback.getDate()} ?:'No Asignado'" id="feedbackDate" type="text" readonly class="form-control">
+								<input th:value="${requestDetail.feedback.formatDate()} ?:'No Asignado'" id="feedbackDate" type="text" readonly class="form-control">
 							</div>
 						</div>
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Retroalimentación de calificación:</h4>
 							<div class="col-md-6">
-								<textarea th:value="${requestDetail.feedback.specification} ?:'No Asignado'" id="feedbackSpecification" readonly rows="5" class="form-control"></textarea>
+								<textarea th:text="${requestDetail.feedback.specification} ?:'No Asignado'" id="feedbackSpecification" readonly rows="5" class="form-control"></textarea>
 							</div>
 						</div>
 					</div>
