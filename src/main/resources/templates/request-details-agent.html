@@ -150,6 +150,9 @@
 							</div>
 						</div>
 					</div>
+					<div th:if="${requestDetail.status} == ${requestDetail.status.ACTIVO}" class="col-md-8 align-right">
+						<button class="btn btn-info btn-lg" type="submit">Cerrar</button>
+					</div>
 				</form>
 			</div>
 		</main>
