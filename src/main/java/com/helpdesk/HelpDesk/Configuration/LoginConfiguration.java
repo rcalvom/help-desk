@@ -15,7 +15,12 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .oauth2Login()
-                .loginPage("/login");
+                .loginPage("/login")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll(false);
 
     }
 }
