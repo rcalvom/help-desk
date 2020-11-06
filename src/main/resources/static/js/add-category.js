@@ -1,11 +1,11 @@
 $(document).ready(function () {
     const wrapper = $('.add_category');
     const add_button = $('.add_button');
-    var x = 0;
+    let x = 0;
 
     $(add_button).click(function (e) {
         e.preventDefault();
-        if(x==0){
+        if(x===0){
             $(wrapper).append('<div class="form-group">\n' +
                 '<div class="col-md-1">\n' +
                 '<label class="formLabel" for="category">Nombre: </label>\n' +
