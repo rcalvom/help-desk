@@ -112,13 +112,13 @@
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Correo de los agentes:</h4>
 							<div class="col-md-6">
-								<input th:each="i : ${requestDetail.agents}" th:value="${i.username}" id="agent-userName" type="text" readonly class="form-control">
+								<input th:each="i : ${requestDetail.agents}" th:value="${i.username}" id="agent-userName" type="text" readonly class="form-control" style="margin-bottom: 5px;">
 							</div>
 						</div>
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Nombre de los agentes:</h4>
 							<div class="col-md-6">
-								<input th:each="i : ${requestDetail.agents}" th:value="${i.name}" id="agent-name" type="text" readonly class="form-control">
+								<input th:each="i : ${requestDetail.agents}" th:value="${i.name}" id="agent-name" type="text" readonly class="form-control" style="margin-bottom: 5px;">
 							</div>
 						</div>
 					</div>
