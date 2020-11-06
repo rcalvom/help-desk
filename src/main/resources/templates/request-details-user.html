@@ -150,6 +150,9 @@
 							</div>
 						</div>
 					</div>
+					<div th:if="${requestDetail.status} == ${requestDetail.status.CERRADO_SIN_CALIFICACION}" class="col-md-8 align-right">
+						<a class="btn btn-info btn-lg" th:href="@{/user/feedback/{id}(id=${requestDetail.id})}">Calificar</a>
+					</div>
 				</form>
 			</div>
 		</main>
