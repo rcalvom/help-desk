@@ -3,11 +3,9 @@ package com.helpdesk.HelpDesk.DAO;
 import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.swing.*;
-
-@Component
+@Service
 public class UserDAO {
 
     @Autowired

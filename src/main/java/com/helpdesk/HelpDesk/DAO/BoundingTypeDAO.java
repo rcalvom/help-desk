@@ -3,9 +3,9 @@ package com.helpdesk.HelpDesk.DAO;
 import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Repository.BoundingTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class BoundingTypeDAO {
 
     @Autowired

@@ -4,9 +4,9 @@ import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class RequestDAO {
 
     @Autowired

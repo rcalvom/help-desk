@@ -3,9 +3,9 @@ package com.helpdesk.HelpDesk.DAO;
 import com.helpdesk.HelpDesk.Models.Dependency;
 import com.helpdesk.HelpDesk.Repository.DependencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class DependencyDAO {
 
     @Autowired
