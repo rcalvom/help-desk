@@ -59,6 +59,9 @@
 						<br>
                         <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Iniciar Sesión</button>
                     </form>
+					<p th:each="url : ${urls}">
+						<a th:text="${url.key}" th:href="${url.value}">Client</a>
+					</p>
                 </div>
             </div>
 		</main>
