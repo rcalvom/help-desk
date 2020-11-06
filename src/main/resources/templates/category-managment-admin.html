@@ -43,14 +43,14 @@
 					<h2>Gestionar categorias</h2>
 				</div>
 				<div class="col-md-5 align-right">
-					<button class="add_button"><a>
+					<button class="btn btn-success add_button">
 						Agregar categoria
-					</a></button>
+					</button>
 				</div>
 			</div>
             <br>
 			<div class="container-fluid">
-				<form th:object="${newCategory}" method="post">
+				<form th:object="${newCategory}" method="post" class="mb-5">
 					<div class="add_category">
 
 					</div>
@@ -65,9 +65,10 @@
 								<div class="col-md-7">
 									<p data-th-text="${category.name}"></p>
 								</div>
-								<div class="col-md-4">
-									<button type="submit" th:name="category" th:value="${category.name}">Borrar categoria</button>
+								<div class="col-md-2">
+									<button type="submit" th:name="category" th:value="${category.name}" class="mb-5 btn btn-danger btn-block">Borrar categoria</button>
 								</div>
+								<br>
 							</div>
 						</li>
 					</ul>

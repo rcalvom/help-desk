@@ -43,9 +43,9 @@
 					<h2>Gestionar agentes</h2>
 				</div>
 				<div class="col-md-5 align-right">
-					<button><a th:href="@{/admin/assign-agent}">
+					<a class="btn btn-success" th:href="@{/admin/assign-agent}">
 						Asignar agente
-					</a></button>
+					</a>
 				</div>
 			</div>
             <br>
@@ -57,8 +57,8 @@
 								<div class="col-md-7">
 									<p data-th-text="${agent.name}"></p>
 								</div>
-								<div class="col-md-4">
-									<button type="submit" th:name="username" th:value="${agent.username}">Eliminar agente</button>
+								<div class="col-md-2">
+									<button type="submit" th:name="username" th:value="${agent.username}" class="mb-5 btn btn-danger btn-block">Eliminar agente</button>
 								</div>
 							</div>
 						</li>
