@@ -1,7 +1,6 @@
 package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,8 +17,8 @@ public class Feedback {
     @Lob
     private String specification;
 
-    @NotBlank
-    @Enumerated(EnumType.STRING)
+    @NotNull
+    @ManyToOne
     private Rating rating;
 
     @NotNull
@@ -70,10 +69,6 @@ public class Feedback {
     public String formatDate(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         return dateFormat.format(this.date.getTime());
-    }
-
-    private enum Rating{
-        EXCELENTE, BUENO, REGULAR, MALO, DEFICIENTE
     }
 
 }
