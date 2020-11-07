@@ -16,11 +16,8 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll(false);
+                .defaultSuccessUrl("/loginSuccess")
+                .failureUrl("/user/create-request");
 
     }
 }

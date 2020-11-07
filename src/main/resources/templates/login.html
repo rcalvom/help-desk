@@ -59,9 +59,7 @@
 						<br>
                         <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Iniciar Sesión</button>
                     </form>
-					<p th:each="url : ${urls}">
-						<a th:text="${url.key}" th:href="${url.value}">Client</a>
-					</p>
+					<a th:text="Google" th:href="@{/oauth2/authorization/google}">Client</a>
                 </div>
             </div>
 		</main>
