@@ -2,10 +2,12 @@ package com.helpdesk.HelpDesk.Controllers;
 
 import com.helpdesk.HelpDesk.DAO.BoundingTypeDAO;
 import com.helpdesk.HelpDesk.DAO.DependencyDAO;
+import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.DataLogginForm;
 import com.helpdesk.HelpDesk.Forms.LoginForm;
 import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Models.Dependency;
+import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
@@ -35,6 +38,9 @@ public class LoginController {
     private DependencyDAO dependencyDAO;
 
     @Autowired
+    private UserDAO userDAO;
+
+    @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
 
     @Autowired
@@ -49,19 +55,6 @@ public class LoginController {
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
-
-    /*@PostMapping({"/", "/login"})
-    public String loginPost(@ModelAttribute LoginForm form){
-        switch (form.getUsername()) {
-            case "user":
-                return "redirect:/user/create-request";
-            case "agent":
-                return "redirect:/agent/my-requests";
-            case "admin":
-                return "redirect:/admin/inbox";
-        } // TODO: Conectar con la base de datos para el login
-        return "login";
-    }*/
 
     @GetMapping("/data-login")
     public String dataLoggingDefault(Model model){
@@ -80,18 +73,8 @@ public class LoginController {
         return "redirect:/data-login";
     }
 
-    @PostMapping("/logout")
-    public String logoutPost(){
-        return "login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(){
-        return "redirect:/login";
-    }
-
     @GetMapping("/loginSuccess")
-    public String loginSuccess(Model model, OAuth2AuthenticationToken authentication){
+    public String loginSuccess(Model model, OAuth2AuthenticationToken authentication, RedirectAttributes redirectAttributes) {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
         String userInfoEndpointUri = client.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
         if (!StringUtils.isEmpty(userInfoEndpointUri)) {
@@ -99,18 +82,27 @@ public class LoginController {
             HttpHeaders headers = new HttpHeaders();
             headers.add(org.springframework.http.HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken().getTokenValue());
             HttpEntity entity = new HttpEntity("", headers);
-            ResponseEntity<Map> response = restTemplate
-                    .exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
+            ResponseEntity<Map> response = restTemplate.exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
             Map userAttributes = response.getBody();
-            assert userAttributes != null;
-            model.addAttribute("name", userAttributes.get("name"));
-            model.addAttribute("email", userAttributes.get("email"));
-            System.out.println(userAttributes.get("name"));
-            System.out.println("ola");
-        }else{
-            System.out.println("bai");
-        }
 
+            assert userAttributes != null;
+            String username = ((String) userAttributes.get("email")).split("@")[0];
+            User user = userDAO.selectUser(username);
+            if(user == null){
+                redirectAttributes.addFlashAttribute("username", username);
+                redirectAttributes.addFlashAttribute("name", userAttributes.get("name"));
+                return "redirect:/data-login";
+            }else{
+                if(user.isAdministrator()){
+                    return "redirect:/admin/inbox";
+                }else if(user.isAgent()){
+                    return "redirect:/agent/my-requests";
+                }else{
+                    return "redirect:/user/create-request";
+                }
+            }
+        }
+        model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
 
