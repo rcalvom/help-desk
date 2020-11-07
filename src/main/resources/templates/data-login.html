@@ -40,7 +40,25 @@
 			<br>
 			<br>
 			<div class="container">
-				<form th:object="${dataLogging}" class="form-horizontal" method="post">
+				<form th:object="${dataLogin}" class="form-horizontal" method="post">
+					<div class="form-group">
+						<div class="col-md-2 align-left">
+							<label for="boundingType">Nombre:</label>
+						</div>
+						<div class="col-md-6 agent-selector">
+							<input th:field="*{name}" th:value="${dataLogin.name}" readonly type="text" class="form-control">
+							<br>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2 align-left">
+							<label for="boundingType">Usuario:</label>
+						</div>
+						<div class="col-md-6 agent-selector">
+							<input th:field="*{username}" th:value="${dataLogin.username}" readonly type="text" class="form-control">
+							<br>
+						</div>
+					</div>
 					<div class="form-group">
 						<div class="col-md-2 align-left">
 							<label for="boundingType">Tipo de vinculación:</label>

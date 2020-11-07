@@ -21,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
@@ -56,8 +55,8 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/data-login")
-    public String dataLoggingDefault(@RequestParam("name") final Object name, @RequestParam("username") final Object username, Model model){
+    /*@GetMapping("/data-login")
+    public String dataLoggingDefault(@ModelAttribute("name") Object name, @ModelAttribute("username") Object username, Model model){
         DataLoginForm form = new DataLoginForm();
         form.setName((String) name);
         form.setUsername((String) username);
@@ -66,15 +65,8 @@ public class LoginController {
         model.addAttribute("boundingTypes", boundingTypeList);
         List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
         model.addAttribute("dependencies", dependencies);
-        return "data-logging";
-    }
-
-    @PostMapping("/data-login")
-    public String dataLoggingPost(@ModelAttribute DataLoginForm form){
-        User user = new User(form.getUsername(), form.getName(), boundingTypeDAO.select(form.getBoundingType()), dependencyDAO.select(form.getDependency()));
-        userDAO.insert(user);
-        return "redirect:/user/create-request";
-    }
+        return "data-login";
+    }*/
 
     @GetMapping("/loginSuccess")
     public String loginSuccess(Model model, OAuth2AuthenticationToken authentication) {
@@ -91,10 +83,17 @@ public class LoginController {
             assert userAttributes != null;
             String username = ((String) userAttributes.get("email")).split("@")[0];
             User user = userDAO.selectUser(username);
+
             if(user == null){
-                model.addAttribute("name", userAttributes.get("email"));
-                model.addAttribute("username", username);
-                return "redirect:/data-login";
+                DataLoginForm form = new DataLoginForm();
+                form.setName((String) userAttributes.get("name"));
+                form.setUsername(username);
+                model.addAttribute("dataLogin", form);
+                List<BoundingType> boundingTypeList = (List<BoundingType>) boundingTypeDAO.select();
+                model.addAttribute("boundingTypes", boundingTypeList);
+                List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
+                model.addAttribute("dependencies", dependencies);
+                return "data-login";
             }else{
                 if(user.isAdministrator()){
                     return "redirect:/admin/inbox";
@@ -105,9 +104,14 @@ public class LoginController {
                 }
             }
         }
-        model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
 
+    @PostMapping("/loginSuccess")
+    public String dataLoggingPost(@ModelAttribute DataLoginForm form){
+        User user = new User(form.getUsername(), form.getName(), boundingTypeDAO.select(form.getBoundingType()), dependencyDAO.select(form.getDependency()));
+        userDAO.insert(user);
+        return "redirect:/user/create-request";
+    }
 
 }

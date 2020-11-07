@@ -12,7 +12,7 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
+        http.cors().and().csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/login", "/css/**", "/js/**", "/images/**")
                 .permitAll()
@@ -24,4 +24,7 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
                 .successHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/loginSuccess"))
                 .failureHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/login"));
     }
+
+
+
 }
