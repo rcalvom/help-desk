@@ -1,18 +1,21 @@
 package com.helpdesk.HelpDesk.Controllers;
 
+import com.helpdesk.HelpDesk.DAO.FeedbackDAO;
+import com.helpdesk.HelpDesk.DAO.RatingDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.CreateRequestForm;
+import com.helpdesk.HelpDesk.Forms.FeedbackForm;
+import com.helpdesk.HelpDesk.Models.Feedback;
+import com.helpdesk.HelpDesk.Models.Rating;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,12 @@ public class UserController {
 
     @Autowired
     private RequestDAO requestDAO;
+
+    @Autowired
+    private RatingDAO ratingDAO;
+
+    @Autowired
+    private FeedbackDAO feedbackDAO;
 
     //Crear solicitud
     @GetMapping("/user/create-request")
@@ -54,6 +63,38 @@ public class UserController {
         Request RequestDetail = requestDAO.selectById(id);
         model.addAttribute("requestDetail", RequestDetail);
         return "request-details-user";
+    }
+
+    //Calificar solicitud
+    @GetMapping("/user/feedback/{id}")
+    public String feedbackDefault(@PathVariable("id") String id, Model model){
+        model.addAttribute("feedbackForm", new FeedbackForm());
+        List<Rating> ratingsList = (List<Rating>) ratingDAO.select();
+        model.addAttribute("rtg", ratingsList);
+        return "feedback-user";
+    }
+
+    @PostMapping("/user/feedback/{id}")
+    public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model){
+        Rating rating = new Rating();
+        rating.setName(form.getRating());
+        Feedback feedback = new Feedback(form.getSpecification(), rating);
+        feedbackDAO.insert(feedback);
+        Request request = requestDAO.selectById(id);
+        Request newRequest = new Request();
+        newRequest.setId(request.getId());
+        newRequest.setSpecification(request.getSpecification());
+        newRequest.setCreationDate(request.getCreationDate());
+        newRequest.setEndingDate(request.getEndingDate());
+        newRequest.setStatus(Request.Status.CERRADO);
+        newRequest.setInventoryPlate(request.getInventoryPlate());
+        newRequest.setEquipmentNumber(request.getEquipmentNumber());
+        newRequest.setUser(request.getUser());
+        newRequest.setAgents(request.getAgents());
+        newRequest.setCategory(request.getCategory());
+        newRequest.setFeedback(feedback);
+        requestDAO.update(request, newRequest);
+        return "redirect:/user/my-requests";
     }
 
 }

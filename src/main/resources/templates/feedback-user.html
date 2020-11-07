@@ -18,53 +18,51 @@
 		<link rel="stylesheet" type="text/css" href="../static/css/phone.css" media="all" th:href="@{/css/phone.css}">
 		<link rel="stylesheet" type="text/css" href="../static/css/small.css" media="all" th:href="@{/css/small.css}">
 		<link rel="stylesheet" type="text/css" href="../static/css/printer.css" media="print" th:href="@{/css/printer.css}">
-		
+
 		<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
 		<script th:src="@{/js/unal.js}" type="text/javascript"></script>
-		<script th:src="@{/js/add-category.js}" type="text/javascript"></script>
 
 		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
-
-		<title>Gestionar agentes - Help Desk</title>
-
+		
+		<title>Detalles solicitud - Help Desk</title>
 	</head>
 
 	<body>
-		<header th:insert="header-admin.html" id="unalTop"></header>
+		<header th:insert="header-user.html" id="unalTop"></header>
 			
 		<br>
 		<br>
 			
 		<main class="jumbotron w-auto p-3">
+			<br>
+			<br>
+            <h2>Calificar la solicitud</h2>
             <br>
-            <br>
-            <div class="form-group">
-				<div class="col-md-6">
-					<h2>Gestionar agentes</h2>
-				</div>
-				<div class="col-md-5 align-right">
-					<a class="btn btn-success" th:href="@{/admin/assign-agent}">
-						Asignar agente
-					</a>
-				</div>
-			</div>
-            <br>
+			<p>Complete los siguientes campos de calificación con relación a la atención prestada en la solicitud: <span th:text="${id}"></span></p>
+			<br>
 			<div class="container">
-				<form method="post">
-					<ul data-th-each="agent : ${agents}">
-						<li>
-							<div class="form-group">
-								<div class="col-md-7">
-									<p data-th-text="${agent.name}"></p>
-								</div>
-								<div class="col-md-2">
-									<button type="submit" th:name="username" th:value="${agent.username}" class="mb-5 btn btn-danger btn-block">Eliminar agente</button>
-								</div>
-							</div>
-						</li>
-					</ul>
+				<form method="post" th:object="${feedbackForm}" class="form-horizontal">
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Calificación: </h4>
+						<div class="col-md-6">
+							<select th:field="*{rating}" id="rating" class="form-control">
+								<option th:each="i : ${rtg}" th:value="${i.name}" th:text="${i.name}">
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Retroalimentación de la calificación: </h4>
+						<div class="col-md-6">
+							<textarea th:field="*{specification}" id="specification" rows="5" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="form-group col-md-8 align-right">
+						<a th:href="@{/user/details/{id}(id=${id})}" class="btn btn-default btn-lg">Cancelar</a>
+						<button type="sumbit" class="btn btn-primary btn-lg">Calificar</button>
+					</div>
 				</form>
-            </div>
+			</div>
 		</main>
 		<footer th:insert="footer.html" class="clear align-center"></footer>
 	</body>

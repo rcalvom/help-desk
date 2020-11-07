@@ -46,13 +46,13 @@ public class AdminController {
         model.addAttribute("assignRequest", req);
         List<User> agt = (List<User>) userDAO.selectAgent();
         model.addAttribute("agents", agt);
-        List<Category> ctg = (List<Category>) categoryDAO.select();
+        List<Category> ctg = (List<Category>) categoryDAO.selectActiveCategories();
         model.addAttribute("category", ctg);
         return "assign-request-admin";
     }
 
     @PostMapping("/admin/assign-request/{id}")
-    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form, RedirectAttributes redirectAttributes){
+    public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form){
         Request request = requestDAO.selectById(id);
         Request newRequest = new Request();
         newRequest.setId(request.getId());
@@ -67,17 +67,7 @@ public class AdminController {
             newRequest.getAgents().add(userDAO.selectAgent(username));
         }
         newRequest.setCategory(categoryDAO.select(form.getCategory()));
-        if (!requestDAO.update(request, newRequest)){
-            if(newRequest.getEquipmentNumber() > 10) {
-                redirectAttributes
-                        .addFlashAttribute("alert", "El número de equipos debe ser menor o igual a 10, solicitud \"" + id + " \"no asignada.")
-                        .addFlashAttribute("clase", "danger");
-            }else if(newRequest.getEquipmentNumber() <= 0) {
-                redirectAttributes
-                        .addFlashAttribute("alert", "El número de equipos debe ser un valor positivo, solicitud \"" + id + " \"no asignada.")
-                        .addFlashAttribute("clase", "danger");
-            }
-        }
+        requestDAO.update(request, newRequest);
         return "redirect:/admin/inbox";
     }
 

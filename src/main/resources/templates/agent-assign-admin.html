@@ -38,7 +38,16 @@
 		<main class="jumbotron w-auto p-3">
 			<br>
 			<br>
-			<h2>Asignar agente</h2>
+			<div class="form-group">
+				<div class="col-md-6">
+					<h2>Asignar agente</h2>
+				</div>
+				<div class="col-md-5 align-right">
+					<a class="btn btn-default" th:href="@{/admin/agents}">
+						Cancelar
+					</a>
+				</div>
+			</div>
 			<br>
 			<div class="container">
 				<form method="post">
@@ -48,8 +57,8 @@
 								<div class="col-md-7">
 									<p data-th-text="${user.name}"></p>
 								</div>
-								<div class="col-md-4">
-									<button type="submit" th:name="username" th:value="${user.username}">Asignar agente</button>
+								<div class="col-md-2">
+									<button type="submit" th:name="username" th:value="${user.username}" class="mb-5 btn btn-danger btn-block">Asignar agente</button>
 								</div>
 							</div>
 						</li>

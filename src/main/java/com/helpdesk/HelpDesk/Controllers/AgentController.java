@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 @Controller
 public class AgentController {
@@ -41,8 +43,12 @@ public class AgentController {
 
     @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
-        //TODO: El agente puede cerrar la solicitud.
-        return "request-details-agent";
+        Request request = requestDAO.selectById(id);
+        Request newRequest = requestDAO.selectById(id);
+        newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
+        newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
+        requestDAO.update(request,newRequest);
+        return "redirect:/agent/my-requests";
     }
     
 }

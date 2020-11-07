@@ -2,20 +2,28 @@ $(document).ready(function () {
     const wrapper = $('.agent-selector');
     const add_button = $('.add_button');
     const options = $('.agentUserName option');
+    let x = 0;
+    let y = 0;
 
     $(add_button).click(function (e) {
         e.preventDefault();
-        let s = '<div><select id="agentUserName" class="form-control" name="agentUsername">';
+        let s = '<div ' + 'id="' + x + '"' + '><select id="agentUserName" class="form-control" name="agentUsername">';
         $(options).each(function(){
-            s = s + '<option value="' + $(this).val() + '">' + $(this).val() + "</option>";
+            s = s + '<option value="' + $(this).val() + '">' + $(this).val() + '</option>';
         });
-        s = s + '</select><button type="button" class="delete">Quitar</button><br></div>';
+        s = s + '</select><br></div>';
         $(wrapper).append(s);
+        document.getElementById("remover").classList.remove("hidden");
+        x++;
     });
 
-    $(wrapper).on("click", ".delete", function(e) {
+    $(wrapper).parent().on("click", ".delete", function(e) {
         e.preventDefault();
-        $(this).parent('div').remove();
+        document.getElementById(y).remove();
+        y++;
+        if (y===x){
+            document.getElementById("remover").classList.add("hidden");
+        }
     });
 
 });

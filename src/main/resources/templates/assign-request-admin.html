@@ -79,7 +79,10 @@
 							<br>
 						</div>
 						<div class="col-md-1">
-							<button type="button" class="add_button">+</button>
+							<button type="button" class="btb btn-success add_button form-control">+</button>
+						</div>
+						<div class="col-md-1">
+							<button id="remover" type="button" class="btb btn-danger delete form-control hidden">-</button>
 						</div>
 					</div>
 					<div class="form-group">
@@ -104,8 +107,8 @@
 							<input th:field="*{equipmentNumber}" th:value="${assignRequest.equipmentNumber}" id="equipmentNumber" readonly type="text" class="form-control">
 						</div>
 					</div>
-					<div class="col-sm-2">
-						<button class="btn btn-lg btn-primary btn-block font-weight-bold mb-2" type="submit">Asignar</button>
+					<div class="col-md-8 align-right">
+						<button class="btn btn-lg btn-primary font-weight-bold" type="submit">Asignar</button>
 					</div>
 				</form>
             </div>
