@@ -18,7 +18,6 @@ public class UserDAO {
         try{
             userRepository.save(user);
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -63,7 +62,6 @@ public class UserDAO {
         try{
             return userRepository.getAgentByUsername(username).iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -72,7 +70,6 @@ public class UserDAO {
         try {
             return  userRepository.getUserByUsername(username).iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -81,7 +78,6 @@ public class UserDAO {
         try {
             return userRepository.getAdminsitrator().iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -90,7 +86,6 @@ public class UserDAO {
         try {
             return userRepository.getPerson(username).iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }

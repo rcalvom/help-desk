@@ -3,7 +3,7 @@ package com.helpdesk.HelpDesk.Controllers;
 import com.helpdesk.HelpDesk.DAO.BoundingTypeDAO;
 import com.helpdesk.HelpDesk.DAO.DependencyDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
-import com.helpdesk.HelpDesk.Forms.DataLogginForm;
+import com.helpdesk.HelpDesk.Forms.DataLoginForm;
 import com.helpdesk.HelpDesk.Forms.LoginForm;
 import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Models.Dependency;
@@ -57,8 +57,10 @@ public class LoginController {
     }
 
     @GetMapping("/data-login")
-    public String dataLoggingDefault(Model model){
-        DataLogginForm form = new DataLogginForm();
+    public String dataLoggingDefault(@RequestParam("name") final Object name, @RequestParam("username") final Object username, Model model){
+        DataLoginForm form = new DataLoginForm();
+        form.setName((String) name);
+        form.setUsername((String) username);
         model.addAttribute("dataLogging", form);
         List<BoundingType> boundingTypeList = (List<BoundingType>) boundingTypeDAO.select();
         model.addAttribute("boundingTypes", boundingTypeList);
@@ -68,13 +70,14 @@ public class LoginController {
     }
 
     @PostMapping("/data-login")
-    public String dataLoggingPost(@ModelAttribute DataLogginForm form){
-        // TODO: Registrar los datos del usuario
-        return "redirect:/data-login";
+    public String dataLoggingPost(@ModelAttribute DataLoginForm form){
+        User user = new User(form.getUsername(), form.getName(), boundingTypeDAO.select(form.getBoundingType()), dependencyDAO.select(form.getDependency()));
+        userDAO.insert(user);
+        return "redirect:/user/create-request";
     }
 
     @GetMapping("/loginSuccess")
-    public String loginSuccess(Model model, OAuth2AuthenticationToken authentication, RedirectAttributes redirectAttributes) {
+    public String loginSuccess(Model model, OAuth2AuthenticationToken authentication) {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
         String userInfoEndpointUri = client.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
         if (!StringUtils.isEmpty(userInfoEndpointUri)) {
@@ -89,8 +92,8 @@ public class LoginController {
             String username = ((String) userAttributes.get("email")).split("@")[0];
             User user = userDAO.selectUser(username);
             if(user == null){
-                redirectAttributes.addFlashAttribute("username", username);
-                redirectAttributes.addFlashAttribute("name", userAttributes.get("name"));
+                model.addAttribute("name", userAttributes.get("email"));
+                model.addAttribute("username", username);
                 return "redirect:/data-login";
             }else{
                 if(user.isAdministrator()){
