@@ -22,7 +22,12 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .loginPage("/login")
                 .successHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/loginSuccess"))
-                .failureHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/login"));
+                .failureHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/login"))
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
+        ;
     }
 
 
