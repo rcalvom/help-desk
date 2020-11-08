@@ -24,95 +24,49 @@
 
 		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 
-		<title>Plantilla - Help Desk</title>
+		<title>FAQ - Help Desk</title>
 	</head>
 
 	<body>
-		<header id="unalTop">
-			<div class="logo">
-				<svg width="93%" height="93%">
-					<image xlink:href="../static/images/escudoUnal.png" th:href="@{/images/escudoUnal.png}" width="100%" height="100%" class="hidden-print"/>
-				</svg>
-			</div>
-			<div class="firstMenu">
-            	<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
-					<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-				</button>
-				
-			</div>
-			<div id="bs-navbar" class="navbar-collapse collapse navigation">
-				<div class="mainMenu">
-						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 1
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 2
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 3
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<a href="" class="btn btn-default dropdown-toggle">
-								Botón 4
-							</a>
-							<span class="caret-right"></span>
-						</div>
-						<div class="btn-group">
-							<div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								Rol
-								<span class="caret"></span>
-							</div>
-							<ul class="dropdown-menu dropItem-16">
-								<li>
-									<a href="" target="_blank">
-										Rol 1
-									</a>
-								</li>
-								<li>
-									<a href="" target="_blank">
-										Rol 2
-									</a>
-								</li>
-								<li>
-									<a href="" target="_blank">
-										Rol 3
-									</a>
-								</li>
-								<li>
-									<a href="" target="_blank">
-										<strong>Cerrar Sesión</strong>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-		</header>
-			
+
+		<header th:insert="header-user.html" id="unalTop"></header>
+
 		<br>
 		<br>
 			
 		<main class="jumbotron w-auto p-3">
 			<br>
 			<br>
+			<h2><strong>Preguntas y respuestas frecuentes</strong></h2>
 			<br>
 			<br>
+			<h3><strong>¿Como crear una solicitud?</strong></h3>
 			<br>
+			<p style="text-align:justify;font-size:120%;">
+				Por defecto la primera pantalla que veras al registrarte sera la de
+				<a th:href="@{/user/create-request}" target="_self">Crear solicitud</a>, en ella te aparecerá un
+				recuadro donde podrás explicar el motivo por el cual deseas crear tu solicitud.
+				No te preocupes, puedes escribir por completo tu problema o el tipo de ayuda que necesitas.
+				¡No te limites! Te recomendamos por favor ingresar una descripción completa de la situación y
+				suministrar la mayor cantidad de datos posibles, una vez terminado ese pequeño formulario
+				podrás visualizar tu solicitud en el menú de solitudes.</p>
 			<br>
+			<h3><strong>¿Como ver el detalle de una solicitud?</strong></h3>
 			<br>
+			<p style="text-align:justify;font-size:120%;">
+				Si has tenido la oportunidad antes de haber creado una solicitud es muy seguro que te preguntes como
+				visualizarla o donde encontrar información relacionada con ella. En ese caso o en cualquier otro,
+				siempre podrás hacer un seguimiento de todas tus solicitudes desde el panel de
+				<a th:href="@{/user/my-requests}" target="_self">Mis solicitudes</a>, este panel te ayudara a visualizar
+				el estado de cada una de tus solicitudes mostrando la información mas importante sobre ellas. Sin
+				embargo, si deseas consultar toda la información sobre una solicitud en especifico solo bastara con dar
+				clic en "Ver mas".</p>
+			<h3><strong>¿Tienes una pregunta diferente?</strong></h3>
 			<br>
-			<br>
-			<input>
-			<a th:href="@{/plantilla}">bbbbbb</a>
+			<p style="text-align:justify;font-size:120%;">
+				Tranquilo, estas preguntas son solo las preguntas mas frecuentes del sitio, pero estamos seguros de que
+				pueden existir otras. Para que podamos ayudarte en responder tu pregunta te invitamos por favor nos
+				escribas al email admin@unal.edu.co</p>
 		</main>
 
 		<footer th:insert="footer.html" class="clear align-center"></footer>

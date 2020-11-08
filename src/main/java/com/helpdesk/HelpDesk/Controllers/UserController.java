@@ -56,7 +56,8 @@ public class UserController {
         return "request-details-user";
     }
 
-    @GetMapping("/FAQ")
+    //FAQ
+    @GetMapping("/user/FAQ")
     public String FAQ(){
         return "FAQ";
     }
