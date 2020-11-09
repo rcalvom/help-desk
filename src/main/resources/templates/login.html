@@ -35,14 +35,24 @@
 			
 		<main class="jumbotron w-auto p-3">
 			<div class="align-middle jumbotron container">
-                <div class="col-sm-6 text-md-center">
-                    <div class="align-middle align-center">
+                <div class="col-sm-6">
+                    <div class="align-middle align-center hidden-xs">
 						<img class="img-fluid" src="../static/images/portada.png" th:src="@{/images/portada.png}" alt="imagen portada" width="60%" height="60%">
                     </div>
+					<div class="align-middle align-center visible-xs">
+						<img class="img-fluid" src="../static/images/portada.png" th:src="@{/images/portada.png}" alt="imagen portada" width="100%" height="100%">
+					</div>
                 </div>
                 <div class="col-sm-6">
-                    <h3 class="login-heading mb-4">Bienvenido</h3>
+					<div class="hidden-xs">
+						<h2 class="login-heading mb-4"><i>Bienvenido</i></h2>
+					</div>
+					<div class="visible-xs text-center">
+						<h1 class="login-heading mb-4"><i>Bienvenido</i></h1>
+						<br>
+					</div>
                     <br>
+					<!--
                     <form th:object="${loginForm}" method="post">
                         <div class="form-label-group">
                             <label for="username">Correo institucional</label>
@@ -59,7 +69,20 @@
 						<br>
                         <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Iniciar Sesión</button>
                     </form>
-					<a th:text="Google" th:href="@{/oauth2/authorization/google}">Client</a>
+                    -->
+					<a th:href="@{/oauth2/authorization/google}" class="btn btn-lg btn-block btn-light">
+						<div class="row">
+							<div class="hidden-xs">
+								<h3><i>Iniciar sesión</i></h3>
+								<img class="img-responsive align-center center-block" src="../static/images/google.png" th:src="@{/images/google.png}" alt="Google | Unal logo" width="50%" height="50%">
+							</div>
+							<div class="visible-xs">
+								<i>Iniciar sesión</i>
+								<img class="img-responsive align-center center-block" src="../static/images/google.png" th:src="@{/images/google.png}" alt="Google | Unal logo" width="100%" height="100%">
+							</div>
+
+						</div>
+					</a>
                 </div>
             </div>
 		</main>
