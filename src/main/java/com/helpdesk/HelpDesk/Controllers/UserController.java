@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -52,8 +54,19 @@ public class UserController {
     @GetMapping("/user/my-requests")
     public String myRequestsUserDefault(Model model){
         User user = userDAO.selectUser("user");
-        List<Request> requests = (List<Request>) requestDAO.selectByUser(user);
-        model.addAttribute("Requests", requests);
+        List<Request> requests = (List<Request>)  requestDAO.selectByUser(user);
+        List<Request> requestsAc = new ArrayList<>();
+        List<Request> requestsCl = new ArrayList<>();
+        for(Request req : requests){
+            if(req.getStatus() == Request.Status.ACTIVO || req.getStatus() == Request.Status.NO_ASIGNADO){
+                requestsAc.add(req);
+            }
+            else{
+                requestsCl.add(req);
+            }
+        }
+        model.addAttribute("RequestsAc", requestsAc);
+        model.addAttribute("RequestsCl", requestsCl);
         return "my-requests-user";
     }
 
