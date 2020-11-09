@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 @Controller
 public class AgentController {
@@ -29,7 +27,18 @@ public class AgentController {
     public String myRequestsAgentDefault(Model model){
         User user = userDAO.selectAgent("agent1");
         List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
-        model.addAttribute("Requests", requests);
+        List<Request> requestsAc = new ArrayList<>();
+        List<Request> requestsCl = new ArrayList<>();
+        for(Request req : requests){
+            if(req.getStatus() == Request.Status.ACTIVO || req.getStatus() == Request.Status.NO_ASIGNADO){
+                requestsAc.add(req);
+            }
+            else{
+                requestsCl.add(req);
+            }
+        }
+        model.addAttribute("RequestsAc", requestsAc);
+        model.addAttribute("RequestsCl", requestsCl);
         return "my-requests-agent";
     }
 

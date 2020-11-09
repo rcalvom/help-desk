@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 
 @Controller
 public class AdminController {
@@ -75,7 +77,19 @@ public class AdminController {
     @GetMapping("/admin/requests")
     public String requestsAdminDefault(Model model){
         List<Request> requests = (List<Request>) requestDAO.select();
-        model.addAttribute("Requests", requests);
+
+        List<Request> requestsAc = new ArrayList<>();
+        List<Request> requestsCl = new ArrayList<>();
+        for(Request req : requests){
+            if(req.getStatus() == Request.Status.ACTIVO || req.getStatus() == Request.Status.NO_ASIGNADO){
+                requestsAc.add(req);
+            }
+            else{
+                requestsCl.add(req);
+            }
+        }
+        model.addAttribute("RequestsAc", requestsAc);
+        model.addAttribute("RequestsCl", requestsCl);
         return "requests-admin";
     }
 

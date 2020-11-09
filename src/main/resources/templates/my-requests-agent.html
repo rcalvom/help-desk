@@ -39,6 +39,7 @@
             <h2>Mis solicitudes</h2>
             <br>
 			<div class="container">
+				<h3>Solicitudes Abiertas</h3>
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr class="success">
@@ -49,7 +50,7 @@
                             <th>Detalles</th>
                         </tr>
                     </thead>
-					<tr data-th-each="requests : ${Requests}">
+					<tr data-th-each="requests : ${RequestsAc}">
 						<td data-th-text="${requests.id}">...</td>
 						<td data-th-text="${requests.formatCreationDate()}">...</td>
 						<td data-th-text="${requests.user.name}">...</td>
@@ -58,6 +59,32 @@
                     </tr>
                 </table>
             </div>
+
+			<br>
+			<br>
+			<div class="container">
+				<h3>Solicitudes cerradas</h3>
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+					<tr class="danger">
+						<th>Id</th>
+						<th>Fecha de creación</th>
+						<th>Fecha de cierre</th>
+						<th>Nombre del solicitante</th>
+						<th>Categoria</th>
+						<th>Detalles</th>
+					</tr>
+					</thead>
+					<tr data-th-each="requests : ${RequestsCl}">
+						<td data-th-text="${requests.id}">...</td>
+						<td data-th-text="${requests.formatCreationDate()}">...</td>
+						<td data-th-text="${requests.formatEndingDate()}">...</td>
+						<td data-th-text="${requests.user.name}">...</td>
+						<td data-th-text="${requests.category} ? ${requests.category.name} : 'No Asignado'">...</td>
+						<td><a th:href="@{/agent/details/{id}(id=${requests.id})}">Ver más</a></td>
+					</tr>
+				</table>
+			</div>
 		</main>
 		<footer th:insert="footer.html" class="clear align-center"></footer>
 	</body>
