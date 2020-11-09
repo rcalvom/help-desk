@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @PostMapping("/user/feedback/{id}")
-    public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model){
+    public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model) {
         Rating rating = new Rating();
         rating.setName(form.getRating());
         Feedback feedback = new Feedback(form.getSpecification(), rating);
@@ -95,6 +95,12 @@ public class UserController {
         newRequest.setFeedback(feedback);
         requestDAO.update(request, newRequest);
         return "redirect:/user/my-requests";
+    }
+
+    //FAQ
+    @GetMapping("/user/FAQ")
+    public String FAQ(){
+        return "FAQ";
     }
 
 }

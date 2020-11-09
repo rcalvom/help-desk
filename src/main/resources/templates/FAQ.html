@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="../static/images/favicon.ico" type="image/x-icon">
+		<meta name="revisit-after" content="1 hour">
+		<meta name="distribution" content="all">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.5, user-scalable=yes">
+		<meta name="expires" content="1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="robots" content="all">
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" media="all" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-theme.min.css" media="all" th:href="@{/css/bootstrap-theme.min.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/reset.css" media="all" th:href="@{/css/reset.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/unal.css" media="all" th:href="@{/css/unal.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css" media="all" th:href="@{/css/bootstrap.base.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/tablet.css" media="all" th:href="@{/css/tablet.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/phone.css" media="all" th:href="@{/css/phone.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/small.css" media="all" th:href="@{/css/small.css}">
+		<link rel="stylesheet" type="text/css" href="../static/css/printer.css" media="print" th:href="@{/css/printer.css}">
+
+		<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+		<script th:src="@{/js/unal.js}" type="text/javascript"></script>
+
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
+
+		<title>FAQ - Help Desk</title>
+	</head>
+
+	<body>
+
+		<header th:insert="header-user.html" id="unalTop"></header>
+
+		<br>
+		<br>
+			
+		<main class="jumbotron w-auto p-3">
+			<br>
+			<br>
+			<h2><strong>Preguntas y respuestas frecuentes</strong></h2>
+			<br>
+			<br>
+			<h3><strong>¿Como crear una solicitud?</strong></h3>
+			<br>
+			<p style="text-align:justify;font-size:120%;">
+				Por defecto la primera pantalla que veras al registrarte sera la de
+				<a th:href="@{/user/create-request}" target="_self">Crear solicitud</a>, en ella te aparecerá un
+				recuadro donde podrás explicar el motivo por el cual deseas crear tu solicitud.
+				No te preocupes, puedes escribir por completo tu problema o el tipo de ayuda que necesitas.
+				¡No te limites! Te recomendamos por favor ingresar una descripción completa de la situación y
+				suministrar la mayor cantidad de datos posibles, una vez terminado ese pequeño formulario
+				podrás visualizar tu solicitud en el menú de solitudes.</p>
+			<br>
+			<h3><strong>¿Como ver el detalle de una solicitud?</strong></h3>
+			<br>
+			<p style="text-align:justify;font-size:120%;">
+				Si has tenido la oportunidad antes de haber creado una solicitud es muy seguro que te preguntes como
+				visualizarla o donde encontrar información relacionada con ella. En ese caso o en cualquier otro,
+				siempre podrás hacer un seguimiento de todas tus solicitudes desde el panel de
+				<a th:href="@{/user/my-requests}" target="_self">Mis solicitudes</a>, este panel te ayudara a visualizar
+				el estado de cada una de tus solicitudes mostrando la información mas importante sobre ellas. Sin
+				embargo, si deseas consultar toda la información sobre una solicitud en especifico solo bastara con dar
+				clic en "Ver mas".</p>
+			<h3><strong>¿Tienes una pregunta diferente?</strong></h3>
+			<br>
+			<p style="text-align:justify;font-size:120%;">
+				Tranquilo, estas preguntas son solo las preguntas mas frecuentes del sitio, pero estamos seguros de que
+				pueden existir otras. Para que podamos ayudarte en responder tu pregunta te invitamos por favor nos
+				escribas al email admin@unal.edu.co</p>
+		</main>
+
+		<footer th:insert="footer.html" class="clear align-center"></footer>
+	</body>
+
+</html>
