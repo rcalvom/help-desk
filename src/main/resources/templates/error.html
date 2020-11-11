@@ -41,12 +41,7 @@
 					<h2>La página no puede mostrar los datos correctamente</h2>
 					<br>
 					<h2><i>Disculpe las molestias</i></h2>
-					<br>
-					<h3>
-						<a href="#" onclick="history.go(-1)">Volver atrás</a>
-						&nbsp;
-						<a th:href="@{/login}" target="_self">Volver al inicio</a>
-					</h3>
+					<div th:insert="error-common.html"></div>
 				</div>
 			</div>
 		</main>
