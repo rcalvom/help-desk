@@ -87,7 +87,7 @@ public class LoginController {
 
             assert userAttributes != null;
             String username = ((String) userAttributes.get("email")).split("@")[0];
-            User user = userDAO.selectUser(username);
+            User user = userDAO.selectPerson(username);
 
             if(user == null){
                 DataLoginForm form = new DataLoginForm();

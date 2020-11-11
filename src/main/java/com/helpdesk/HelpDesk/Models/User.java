@@ -56,14 +56,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> roles = new ArrayList<>();
-        /*if(this.isAdministrator){
-            roles.add(new SimpleGrantedAuthority("admin"));
-        }
-        if(this.isAgent){
-            roles.add(new SimpleGrantedAuthority("agent"));
-        }
-        roles.add(new SimpleGrantedAuthority("user"));*/
-
         if(this.isAdministrator){
             roles.add(new SimpleGrantedAuthority("admin"));
         }else if(this.isAgent){
