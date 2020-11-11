@@ -28,11 +28,11 @@ public class ViewRequestTest {
     public void ViewRequestUser() {
         boolean flag = true;
         User user1 = userDAO.selectUser("user");
-        if ( user1 == null){
+        if (user1 == null) {
             flag = false;
-        }else{
+        } else {
             List<Request> requests = (List<Request>) requestDAO.selectByUser(user1);
-            for (Request request: requests) {
+            for (Request request : requests) {
                 flag &= request.getUser().getUsername().equals(user1.getUsername());
             }
         }
@@ -40,11 +40,11 @@ public class ViewRequestTest {
 
         boolean flag1 = true;
         User user2 = userDAO.selectUser("u");
-        if ( user2 == null ){
+        if (user2 == null) {
             flag1 = false;
-        }else{
+        } else {
             List<Request> requests1 = (List<Request>) requestDAO.selectByUser(user2);
-            for (Request request: requests1) {
+            for (Request request : requests1) {
                 flag1 &= request.getUser().getUsername().equals(user2.getUsername());
             }
         }
@@ -53,16 +53,16 @@ public class ViewRequestTest {
     }
 
     @Test
-    public void ViewRequestAgent(){
+    public void ViewRequestAgent() {
         boolean flag = true;
         User user1 = userDAO.selectAgent("agent1");
-        if ( user1 == null){
+        if (user1 == null) {
             flag = false;
-        }else{
+        } else {
             List<Request> requests = (List<Request>) requestDAO.selectByAgent(user1);
-            for (Request request: requests) {
+            for (Request request : requests) {
                 boolean flag2 = false;
-                for ( User user : request.getAgents() ) {
+                for (User user : request.getAgents()) {
                     flag2 |= user.getUsername().equals(user1.getUsername());
                 }
                 flag &= flag2;
@@ -72,13 +72,13 @@ public class ViewRequestTest {
 
         boolean flag1 = true;
         User user2 = userDAO.selectAgent("a");
-        if ( user2 == null){
+        if (user2 == null) {
             flag1 = false;
-        }else{
+        } else {
             List<Request> requests = (List<Request>) requestDAO.selectByAgent(user2);
-            for (Request request: requests) {
+            for (Request request : requests) {
                 boolean flag2 = false;
-                for ( User user : request.getAgents() ) {
+                for (User user : request.getAgents()) {
                     flag2 |= user.getUsername().equals(user2.getUsername());
                 }
                 flag1 &= flag2;
@@ -89,10 +89,11 @@ public class ViewRequestTest {
     }
 
     @Test
-    public void ViewRequestAdmin(){
+    public void ViewRequestAdmin() {
         User admin = userDAO.selectAdmin();
         List<Request> requests = (List<Request>) requestDAO.select();
         assertEquals(VIEW_REQUEST_SUCCESSFUL, admin != null);
         assertEquals(VIEW_REQUEST_SUCCESSFUL, requests != null);
     }
+
 }

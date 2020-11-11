@@ -15,8 +15,7 @@ public class CategoryDAO {
         return categoryRepository.findAll();
     }
 
-
-    public boolean insert(Category category){
+    public boolean insert_update(Category category){
         try{
             categoryRepository.save(category);
         }catch (Exception e){
@@ -27,16 +26,22 @@ public class CategoryDAO {
     }
 
     public boolean update(Category oldCategory, Category newCategory){
-        Iterable<Category> categories = categoryRepository.findAll();
-        for(Category c : categories){
-            if(c.getName().equals(oldCategory.getName())){
-                c.setName(newCategory.getName());
-                c.setActive(newCategory.isActive());
-                categoryRepository.save(c);
-                return true;
+        if( oldCategory != null && newCategory != null && oldCategory.isActive() != newCategory.isActive()){
+            Iterable<Category> categories = categoryRepository.findAll();
+            for(Category c : categories){
+                if(c.getName().equals(oldCategory.getName())){
+                    c.setName(newCategory.getName());
+                    c.setActive(newCategory.isActive());
+                    categoryRepository.save(c);
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
+        else{
+            return false;
+        }
+
     }
 
     public boolean delete(Category category){
