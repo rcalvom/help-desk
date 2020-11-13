@@ -26,16 +26,19 @@ public class UserDAO {
     }
 
     public boolean update(User oldUser, User newUser){
-        Iterable<User> users = userRepository.findAll();
-        for(User u : users){
-            if(u.getUsername().equals(oldUser.getUsername())){
-                u.setAgent(newUser.isAgent());
-                u.setName(newUser.getName());
-                u.setAdministrator(newUser.isAdministrator());
-                u.setBoundingType(newUser.getBoundingType());
-                u.setDependency(newUser.getDependency());
-                userRepository.save(u);
-                return true;
+
+        if(oldUser.isAgent() != newUser.isAgent()){
+            Iterable<User> users = userRepository.findAll();
+            for(User u : users){
+                if(u.getUsername().equals(oldUser.getUsername())){
+                    u.setAgent(newUser.isAgent());
+                    u.setName(newUser.getName());
+                    u.setAdministrator(newUser.isAdministrator());
+                    u.setBoundingType(newUser.getBoundingType());
+                    u.setDependency(newUser.getDependency());
+                    userRepository.save(u);
+                    return true;
+                }
             }
         }
         return false;
