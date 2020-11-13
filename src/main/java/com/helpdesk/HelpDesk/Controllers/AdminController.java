@@ -9,6 +9,7 @@ import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class AdminController {
     private CategoryDAO categoryDAO;
 
     //Bandeja de entrada
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/inbox")
     public String inboxRequestsAdminDefault(Model model){
         List<Request> requests = (List<Request>) requestDAO.selectByStatus(Request.Status.NO_ASIGNADO);
@@ -38,6 +40,7 @@ public class AdminController {
     }
 
     //Asignar solicitud agente
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/assign-request/{id}")
     public String assignRequestAdminDefault(@PathVariable("id") String id, Model model){
         // TODO: Comprobar que la solicitud no haya sido asignada.
@@ -51,6 +54,7 @@ public class AdminController {
         return "assign-request-admin";
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/assign-request/{id}")
     public String assignRequestAdminPost(@PathVariable("id") String id, @ModelAttribute AssignRequestForm form, RedirectAttributes redirectAttributes){
         Request request = requestDAO.selectById(id);
@@ -82,6 +86,7 @@ public class AdminController {
     }
 
     // Solicitudes del sistema
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/requests")
     public String requestsAdminDefault(Model model){
         List<Request> requests = (List<Request>) requestDAO.select();
@@ -90,6 +95,7 @@ public class AdminController {
     }
 
     //Detalles de la solicitud administrador
+    //@PreAuthorize("hasRole('admin')")
     @GetMapping("/admin/details/{id}")
     public String requestDetailsAdminDefault(@PathVariable("id") String id, Model model){
         Request RequestDetail = requestDAO.selectById(id);
@@ -98,6 +104,7 @@ public class AdminController {
     }
 
     //Gestionar categorias
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/categories")
     public String categotyManagmentAdminDefault(@RequestParam(value = "category", required = false) String category, Model model){
         List<Category> categories = (List<Category>) categoryDAO.selectActiveCategories();
@@ -106,6 +113,7 @@ public class AdminController {
         return "category-managment-admin";
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/categories")
     public String categotyManagmentAdminPost(@RequestParam(value = "category", required = false) String category, @ModelAttribute CategoryForm form, Model model){
         if(category!=null){
@@ -127,6 +135,7 @@ public class AdminController {
     }
 
     //Gestionar agentes
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/agents")
     public String agentManagmentAdminDefault(@RequestParam(value = "username", required = false) String username, Model model){
         List<User> agents = (List<User>) userDAO.selectAgent();
@@ -150,6 +159,7 @@ public class AdminController {
     }
 
     //Añadir agente
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("admin/assign-agent")
     public String agentAssignAdminDefault(@RequestParam(value = "username", required = false) String username, Model model){
         List<User> users = (List<User>) userDAO.selectUser();
@@ -157,6 +167,7 @@ public class AdminController {
         return "agent-assign-admin";
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/assign-agent")
     public String agentAssignAdminPost(@RequestParam(value = "username", required = false) String username, Model model){
         User agent = userDAO.selectUser(username);

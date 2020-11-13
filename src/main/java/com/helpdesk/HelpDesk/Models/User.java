@@ -3,15 +3,11 @@ package com.helpdesk.HelpDesk.Models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
@@ -57,12 +53,13 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> roles = new ArrayList<>();
         if(this.isAdministrator){
-            roles.add(new SimpleGrantedAuthority("admin"));
-        }else if(this.isAgent){
-            roles.add(new SimpleGrantedAuthority("agent"));
-        }else {
-            roles.add(new SimpleGrantedAuthority("user"));
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
+        if(this.isAgent){
+            roles.add(new SimpleGrantedAuthority("ROLE_AGENT"));
+        }
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+
         return roles;
     }
 
