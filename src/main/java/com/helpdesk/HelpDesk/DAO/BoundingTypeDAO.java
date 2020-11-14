@@ -15,6 +15,10 @@ public class BoundingTypeDAO {
         return boundingTypeRepository.findAll();
     }
 
+    public BoundingType select(String name){
+        return boundingTypeRepository.getName(name).iterator().next();
+    }
+
     public boolean insert(BoundingType boundingType){
         try{
             boundingTypeRepository.save(boundingType);

@@ -3,14 +3,17 @@ package com.helpdesk.HelpDesk.DAO;
 import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserDAO {
+public class UserDAO implements UserDetailsService{
 
     @Autowired
     private UserRepository userRepository;
-
 
     public Iterable<User> select(){
         return userRepository.findAll();
@@ -19,7 +22,6 @@ public class UserDAO {
         try{
             userRepository.save(user);
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -67,7 +69,6 @@ public class UserDAO {
         try{
             return userRepository.getAgentByUsername(username).iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -76,7 +77,6 @@ public class UserDAO {
         try {
             return  userRepository.getUserByUsername(username).iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -85,7 +85,6 @@ public class UserDAO {
         try {
             return userRepository.getAdminsitrator().iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -94,9 +93,14 @@ public class UserDAO {
         try {
             return userRepository.getPerson(username).iterator().next();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
     }
 
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User u = this.selectPerson(username);
+        return u;
+    }
 }

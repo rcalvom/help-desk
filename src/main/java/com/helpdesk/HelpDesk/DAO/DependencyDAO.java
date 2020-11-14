@@ -15,11 +15,14 @@ public class DependencyDAO {
         return dependencyRepository.findAll();
     }
 
+    public Dependency select(String name){
+        return dependencyRepository.getName(name).iterator().next();
+    }
+
     public boolean insert(Dependency dependency){
         try{
             dependencyRepository.save(dependency);
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
