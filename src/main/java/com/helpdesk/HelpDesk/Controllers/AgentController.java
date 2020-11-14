@@ -66,12 +66,20 @@ public class AgentController {
 
     @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id){
+        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request request = requestDAO.selectById(id);
-        Request newRequest = requestDAO.selectById(id);
-        newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
-        newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
-        requestDAO.update(request, newRequest);
-        return "redirect:/agent/my-requests";
+        if(user != null){
+            for(User u : request.getAgents()){
+                if(u.getUsername().equals(user.getUsername())) {
+                    Request newRequest = requestDAO.selectById(id);
+                    newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
+                    newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
+                    requestDAO.update(request, newRequest);
+                    return "redirect:/agent/my-requests";
+                }
+            }
+        }
+        return "redirect:/error";
     }
 
     @GetMapping("/agent/my-metrics")
