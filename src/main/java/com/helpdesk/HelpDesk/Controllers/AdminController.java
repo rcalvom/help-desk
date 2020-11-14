@@ -174,5 +174,10 @@ public class AdminController {
         return "redirect:/admin/agents";
     }
 
+    @GetMapping("/admin/reports")
+    public String reportsAdminDefault(Model model){
+        return "reports-admin";
+    }
+
 }
 
