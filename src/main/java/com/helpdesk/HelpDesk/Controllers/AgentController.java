@@ -50,5 +50,10 @@ public class AgentController {
         requestDAO.update(request,newRequest);
         return "redirect:/agent/my-requests";
     }
+
+    @GetMapping("/agent/my-metrics")
+    public String metricsAgentDefault(Model model){
+        return "my-metrics-agent";
+    }
     
 }

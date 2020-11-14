@@ -39,24 +39,30 @@
             <h2>Mis métricas</h2>
             <br>
 			<div class="container">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr class="success">
-                            <th>Id</th>
-                            <th>Fecha de creación</th>
-                            <th>Nombre del solicitante</th>
-                            <th>Categoria</th>
-                            <th>Detalles</th>
-                        </tr>
-                    </thead>
-					<tr data-th-each="requests : ${Requests}">
-						<td data-th-text="${requests.id}">...</td>
-						<td data-th-text="${requests.formatCreationDate()}">...</td>
-						<td data-th-text="${requests.user.name}">...</td>
-						<td data-th-text="${requests.category} ? ${requests.category.name} : 'No Asignado'">...</td>
-                        <td><a th:href="@{/agent/details/{id}(id=${requests.id})}">Ver más</a></td>
-                    </tr>
-                </table>
+				<p>Solicitudes gestionadas: <span>21</span> </p>
+				<ul>
+					<br>
+					<li>
+						<div class="col-md-1"> <img th:src="@{/images/Excelente.png}" width="25px" height="25px"> </div>
+						<div class="col-md-11 align-content-center"> <p>Excelentes: <span>9</span> </div>
+					</li>
+					<li>
+						<div class="col-md-1"> <img th:src="@{/images/Bueno.png}" width="25px" height="25px"> </div>
+						<div class="col-md-11 align-content-center"> <p>Buenos: <span>6</span> </div>
+					</li>
+					<li>
+						<div class="col-md-1"> <img th:src="@{/images/Regular.png}" width="25px" height="25px"> </div>
+						<div class="col-md-11 align-content-center"> <p>Regulares: <span>4</span> </div>
+					</li>
+					<li>
+						<div class="col-md-1"> <img th:src="@{/images/Malo.png}" width="25px" height="25px"> </div>
+						<div class="col-md-11 align-content-center"> <p>Malos: <span>2</span> </div>
+					</li>
+					<li>
+						<div class="col-md-1"> <img th:src="@{/images/Deficiente.png}" width="25px" height="25px"> </div>
+						<div class="col-md-11 align-content-center"> <p>Deficientes: <span>0</span> </div>
+					</li>
+				</ul>
             </div>
 		</main>
 		<footer th:insert="footer.html" class="clear align-center"></footer>

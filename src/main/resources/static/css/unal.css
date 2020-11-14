@@ -904,3 +904,7 @@ textarea{
 .mb-5 {
    margin-bottom: 5px;
  }
+
+ .separator {
+    padding-bottom: 100px;
+ }
