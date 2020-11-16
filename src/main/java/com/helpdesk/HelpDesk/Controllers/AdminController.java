@@ -181,7 +181,7 @@ public class AdminController {
             newAgent.setAdministrator(agent.isAdministrator());
             newAgent.setBoundingType(agent.getBoundingType());
             newAgent.setDependency(agent.getDependency());
-            newAgent.setRequest(agent.getRequest());
+            newAgent.setAssignedRequests(agent.getAssignedRequests());
             userDAO.update(agent, newAgent);
             return "redirect:/admin/agents";
         }else{
@@ -212,7 +212,7 @@ public class AdminController {
             newAgent.setAdministrator(agent.isAdministrator());
             newAgent.setBoundingType(agent.getBoundingType());
             newAgent.setDependency(agent.getDependency());
-            newAgent.setRequest(agent.getRequest());
+            newAgent.setAssignedRequests(agent.getAssignedRequests());
             userDAO.update(agent, newAgent);
             return "redirect:/admin/agents";
         }else{

@@ -15,6 +15,7 @@ public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id_Gen")
+    @Size(max = 255)
     @GenericGenerator(
             name = "Id_Gen",
             strategy = "com.helpdesk.HelpDesk.Models.StringPrefixedSequenceIdGenerator",
@@ -46,7 +47,7 @@ public class Request {
     @Min(0)
     private int equipmentNumber;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     private User user;
 
@@ -65,7 +66,6 @@ public class Request {
 
     @OneToOne
     private Feedback feedback;
-
 
     public Request() {}
 

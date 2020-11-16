@@ -36,9 +36,12 @@ public class User implements UserDetails {
     private Dependency dependency;
 
     @ManyToMany(mappedBy = "agents")
+    private Set<Request> assignedRequests;
+
+    @OneToMany(mappedBy = "user")
     private Set<Request> requests;
 
-    public User() {}
+    public User() { }
 
     public User(String username, String name, BoundingType boundingType, Dependency dependency){
         this.username = username;
@@ -136,11 +139,20 @@ public class User implements UserDetails {
         this.dependency = dependency;
     }
 
-    public Set<Request> getRequest() {
+    public Set<Request> getAssignedRequests() {
+        return assignedRequests;
+    }
+
+    public void setAssignedRequests(Set<Request> request) {
+        this.assignedRequests = request;
+    }
+
+    public Set<Request> getRequests() {
         return requests;
     }
 
-    public void setRequest(Set<Request> request) {
-        this.requests = request;
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
+
 }
