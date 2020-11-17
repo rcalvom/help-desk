@@ -39,6 +39,7 @@ public class UserController {
     //Crear solicitud
     @GetMapping("/user/create-request")
     public String createRequestUserDefault(Model model) {
+        header(model);
         if (userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]) != null){
             model.addAttribute("createRequestForm", new CreateRequestForm());
             return "create-request-user";
@@ -48,7 +49,8 @@ public class UserController {
     }
 
     @PostMapping("/user/create-request")
-    public String createRequestUserPost(@ModelAttribute CreateRequestForm form){
+    public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
+        header(model);
         User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
             Request request = new Request(form.getDescription(), user, form.getInventoryPlate(), form.getEquipmentNumber());
@@ -62,6 +64,7 @@ public class UserController {
     //Mis solicitudes
     @GetMapping("/user/my-requests")
     public String myRequestsUserDefault(Model model){
+        header(model);
         User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
             List<Request> requests = (List<Request>)  requestDAO.selectByUser(user);
@@ -86,6 +89,7 @@ public class UserController {
     //Detalles de la solicitud usuario
     @GetMapping("/user/details/{id}")
     public String requestDetailsUserDefault(@PathVariable("id") String id, Model model){
+        header(model);
         User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request RequestDetail = requestDAO.selectById(id);
         if(user != null){
@@ -100,6 +104,7 @@ public class UserController {
     //Calificar solicitud
     @GetMapping("/user/feedback/{id}")
     public String feedbackDefault(@PathVariable("id") String id, Model model){
+        header(model);
         model.addAttribute("feedbackForm", new FeedbackForm());
         List<Rating> ratingsList = (List<Rating>) ratingDAO.select();
         model.addAttribute("rtg", ratingsList);
@@ -108,6 +113,7 @@ public class UserController {
 
     @PostMapping("/user/feedback/{id}")
     public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model) {
+        header(model);
         Rating rating = new Rating();
         rating.setName(form.getRating());
         Feedback feedback = new Feedback(form.getSpecification(), rating);
@@ -133,6 +139,15 @@ public class UserController {
     @GetMapping("/user/FAQ")
     public String FAQ(){
         return "FAQ";
+    }
+
+    private void header(Model model){
+        model.addAttribute("name",(String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name"))));
+        if(userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])!=null){
+            model.addAttribute("isAgent", true);
+        }else{
+            model.addAttribute("isAgent", false);
+        }
     }
 
 }

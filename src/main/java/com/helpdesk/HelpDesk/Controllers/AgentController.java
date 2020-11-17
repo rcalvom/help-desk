@@ -27,6 +27,7 @@ public class AgentController {
     //Mis solicitudes
     @GetMapping("/agent/my-requests")
     public String myRequestsAgentDefault(Model model){
+        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null){
             List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
@@ -51,6 +52,7 @@ public class AgentController {
     //Detalles de la solicitud agente
     @GetMapping("/agent/details/{id}")
     public String requestDetailsAgentDefault(@PathVariable("id") String id, Model model){
+        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request RequestDetail = requestDAO.selectById(id);
         if(user != null){
@@ -65,7 +67,8 @@ public class AgentController {
     }
 
     @PostMapping("/agent/details/{id}")
-    public String requestDetailsAgentPost(@PathVariable("id") String id){
+    public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
+        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request request = requestDAO.selectById(id);
         if(user != null){
@@ -83,8 +86,13 @@ public class AgentController {
     }
 
     @GetMapping("/agent/my-metrics")
-    public String metricsAgentDefault(){
+    public String metricsAgentDefault(Model model){
+        header(model);
         return "my-metrics-agent";
+    }
+
+    private void header(Model model){
+        model.addAttribute("name",(String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name"))));
     }
     
 }
