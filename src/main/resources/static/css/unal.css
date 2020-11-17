@@ -908,3 +908,8 @@ textarea{
  .separator {
     padding-bottom: 100px;
  }
+
+ .justify-center{
+   display: flex;
+   align-items: center;
+ }
