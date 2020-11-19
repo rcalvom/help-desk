@@ -88,7 +88,12 @@ public class AgentController {
     @GetMapping("/agent/my-metrics")
     public String metricsAgentDefault(Model model){
         header(model);
-        return "my-metrics-agent";
+        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        if(user != null) {
+
+            return "my-metrics-agent";
+        }
+        return "redirect:/error";
     }
 
     private void header(Model model){
