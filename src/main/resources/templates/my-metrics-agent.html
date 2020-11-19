@@ -39,28 +39,28 @@
             <h2>Mis métricas</h2>
             <br>
 			<div class="container">
-				<p>Solicitudes gestionadas: <span>21</span> </p>
+				<p>Solicitudes gestionadas: <span th:text="${metrics.total}">0</span> </p>
 				<ul>
 					<br>
 					<li>
 						<div class="col-md-1"> <img th:src="@{/images/Excelente.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Excelentes: <span>9</span> </div>
+						<div class="col-md-11 align-content-center"> <p>Excelentes: <span th:text="${metrics.excellent}">0</span> </div>
 					</li>
 					<li>
 						<div class="col-md-1"> <img th:src="@{/images/Bueno.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Buenos: <span>6</span> </div>
+						<div class="col-md-11 align-content-center"> <p>Buenos: <span th:text="${metrics.good}">0</span> </div>
 					</li>
 					<li>
 						<div class="col-md-1"> <img th:src="@{/images/Regular.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Regulares: <span>4</span> </div>
+						<div class="col-md-11 align-content-center"> <p>Regulares: <span th:text="${metrics.regular}">0</span> </div>
 					</li>
 					<li>
 						<div class="col-md-1"> <img th:src="@{/images/Malo.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Malos: <span>2</span> </div>
+						<div class="col-md-11 align-content-center"> <p>Malos: <span th:text="${metrics.bad}">0</span> </div>
 					</li>
 					<li>
 						<div class="col-md-1"> <img th:src="@{/images/Deficiente.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Deficientes: <span>0</span> </div>
+						<div class="col-md-11 align-content-center"> <p>Deficientes: <span th:text="${metrics.deficient}">0</span> </div>
 					</li>
 				</ul>
             </div>

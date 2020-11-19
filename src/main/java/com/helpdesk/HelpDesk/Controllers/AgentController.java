@@ -2,6 +2,7 @@ package com.helpdesk.HelpDesk.Controllers;
 
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
+import com.helpdesk.HelpDesk.Forms.ReportRatingForm;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,39 @@ public class AgentController {
         header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
-
+            ReportRatingForm reportRatingForm = new ReportRatingForm();
+            List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
+            reportRatingForm.setName(user.getName());
+            reportRatingForm.setTotal(requests.size());
+            int E = 0,G = 0,R = 0,B = 0,D = 0;
+            for(Request req : requests){
+                if(req.getFeedback()!=null){
+                    String rating = req.getFeedback().getRating().getName();
+                    switch (rating){
+                        case "Excelente":
+                            E += 1;
+                            break;
+                        case "Bueno":
+                            G += 1;
+                            break;
+                        case "Regular":
+                            R += 1;
+                            break;
+                        case "Malo":
+                            B += 1;
+                            break;
+                        case "Deficiente":
+                            D += 1;
+                            break;
+                    }
+                }
+            }
+            reportRatingForm.setExcellent(E);
+            reportRatingForm.setGood(G);
+            reportRatingForm.setRegular(R);
+            reportRatingForm.setBad(B);
+            reportRatingForm.setDeficient(D);
+            model.addAttribute("metrics", reportRatingForm);
             return "my-metrics-agent";
         }
         return "redirect:/error";
