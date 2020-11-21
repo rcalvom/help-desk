@@ -13,7 +13,7 @@ import org.springframework.security.web.RedirectStrategy;
 
 @Configuration
 @EnableWebSecurity
-public class LoginConfiguration extends WebSecurityConfigurerAdapter {
+public class ConfigurationImpl extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDAO userDAO;
@@ -26,6 +26,7 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+        http.headers().cacheControl();
         http.cors().and().csrf().disable();
         http
                 .oauth2Login()

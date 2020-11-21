@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 public class Rating {
 
     @Id
-    @Size(max = 25)
+    @Size(max = 255)
     private String name;
 
     public Rating(){}
