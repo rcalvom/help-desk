@@ -100,6 +100,21 @@
 							<input th:value="${requestDetail.user.name}" id="user-name" type="text" readonly class="form-control">
 						</div>
 					</div>
+					<div class="form-group">
+						<h4 class="col-md-2 align-left">Ubicación del solicitante:</h4>
+						<div class="col-md-6">
+							<input th:value="${requestDetail.user.location}" id="location" type="text" readonly class="form-control">
+						</div>
+					</div>
+					<div th:if="${requestDetail.user.phone != 0}" class="form-group">
+						<h4 class="col-md-2 align-left">Teléfono del solicitante:</h4>
+						<div class="col-md-4">
+							<input th:value="${requestDetail.user.phone}" id="phone" type="tel" readonly class="form-control">
+						</div>
+						<div class="col-md-2">
+							<input th:value="${requestDetail.user.phoneExtension}" id="phoneExtension" type="tel" readonly class="form-control">
+						</div>
+					</div>
 					<div th:if="${requestDetail.agents.size() == 0}">
 						<div class="form-group">
 							<h4 class="col-md-2 align-left">Agente:</h4>

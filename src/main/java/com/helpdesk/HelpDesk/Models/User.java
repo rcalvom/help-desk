@@ -27,6 +27,7 @@ public class User implements UserDetails {
     @NotNull
     private boolean isAdministrator;
 
+    @NotNull
     @Size(max = 255)
     private String location;
 
