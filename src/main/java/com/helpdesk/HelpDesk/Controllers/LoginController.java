@@ -63,6 +63,9 @@ public class LoginController {
     @PostMapping("/loginSuccess")
     public String dataLoggingPost(@ModelAttribute DataLoginForm form){
         User user = new User(form.getUsername(), form.getName(), boundingTypeDAO.select(form.getBoundingType()), dependencyDAO.select(form.getDependency()));
+        user.setLocation(form.getLocation());
+        user.setPhone(form.getPhone());
+        user.setPhoneExtension(form.getPhoneExtension());
         userDAO.insert(user);
         return "redirect:/user/create-request";
     }

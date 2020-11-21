@@ -43,19 +43,19 @@
 				<form th:object="${dataLogin}" class="form-horizontal" method="post">
 					<div class="form-group">
 						<div class="col-md-2 align-left">
-							<label for="boundingType">Nombre:</label>
+							<label for="name">Nombre:</label>
 						</div>
 						<div class="col-md-6 agent-selector">
-							<input th:field="*{name}" th:value="${dataLogin.name}" readonly type="text" class="form-control">
+							<input id="name" th:field="*{name}" th:value="${dataLogin.name}" readonly type="text" class="form-control">
 							<br>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-md-2 align-left">
-							<label for="boundingType">Usuario:</label>
+							<label for="username">Usuario:</label>
 						</div>
 						<div class="col-md-6 agent-selector">
-							<input th:field="*{username}" th:value="${dataLogin.username}" readonly type="text" class="form-control">
+							<input id="username" th:field="*{username}" th:value="${dataLogin.username}" readonly type="text" class="form-control">
 							<br>
 						</div>
 					</div>
@@ -80,6 +80,33 @@
 								<option th:each="i : ${dependencies}" th:value="${i.name}" th:text="${i.name}">
 								</option>
 							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2 align-left">
+							<label for="location">Ubicación:</label>
+						</div>
+						<div class="col-md-6">
+							<input id="location" th:field="*{location}" type="text" class="form-control" placeholder="Edificio, piso y oficina...">
+							<br>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2 align-left">
+							<label for="phone">Teléfono: </label>
+						</div>
+						<div class="col-md-6">
+							<input id="phone" th:field="*{phone}" type="tel" class="form-control" placeholder="Ingrese su teléfono">
+							<br>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2 align-left">
+							<label for="phoneExtension">Extensión: </label>
+						</div>
+						<div class="col-md-6">
+							<input id="phoneExtension" th:field="*{phoneExtension}" type="tel" class="form-control" placeholder="Ingrese le extensión del teléfono en caso de que exista">
+							<br>
 						</div>
 					</div>
 					<div class="col-md-8 align-right">

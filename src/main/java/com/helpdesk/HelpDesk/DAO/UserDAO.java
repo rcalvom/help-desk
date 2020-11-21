@@ -38,6 +38,9 @@ public class UserDAO implements UserDetailsService{
                     u.setAdministrator(newUser.isAdministrator());
                     u.setBoundingType(newUser.getBoundingType());
                     u.setDependency(newUser.getDependency());
+                    u.setLocation(newUser.getLocation());
+                    u.setPhone(newUser.getPhone());
+                    u.setPhoneExtension(newUser.getPhoneExtension());
                     userRepository.save(u);
                     return true;
                 }

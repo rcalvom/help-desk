@@ -27,6 +27,13 @@ public class User implements UserDetails {
     @NotNull
     private boolean isAdministrator;
 
+    @Size(max = 255)
+    private String location;
+
+    private int phone;
+
+    private int phoneExtension;
+
     @ManyToOne
     @NotNull
     private BoundingType boundingType;
@@ -155,4 +162,27 @@ public class User implements UserDetails {
         this.requests = requests;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public int getPhoneExtension() {
+        return phoneExtension;
+    }
+
+    public void setPhoneExtension(int phoneExtension) {
+        this.phoneExtension = phoneExtension;
+    }
 }
