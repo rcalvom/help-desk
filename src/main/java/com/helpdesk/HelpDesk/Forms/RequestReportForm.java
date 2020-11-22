@@ -2,49 +2,49 @@ package com.helpdesk.HelpDesk.Forms;
 
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
-import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvBindByName;
 
 import java.util.Set;
 
 public class RequestReportForm {
 
-    @CsvBindByPosition(position = 0)
+    @CsvBindByName(column = "ID")
     private String id;
 
-    @CsvBindByPosition(position = 1)
+    @CsvBindByName(column = "Especificación")
     private String specification;
 
-    @CsvBindByPosition(position = 2)
+    @CsvBindByName(column = "Fecha de creación")
     private String creationDate;
 
-    @CsvBindByPosition(position = 3)
+    @CsvBindByName(column = "Fecha de cierre")
     private String endingDate;
 
-    @CsvBindByPosition(position = 4)
+    @CsvBindByName(column = "Estado")
     private String status;
 
-    @CsvBindByPosition(position = 5)
+    @CsvBindByName(column = "Placa de inventario")
     private int inventoryPlate;
 
-    @CsvBindByPosition(position = 6)
+    @CsvBindByName(column = "Número de equipo")
     private int equipmentNumber;
 
-    @CsvBindByPosition(position = 7)
+    @CsvBindByName(column = "Usuario")
     private String userName;
 
-    @CsvBindByPosition(position = 8)
+    @CsvBindByName(column = "Agente")
     private String agentsNames;
 
-    @CsvBindByPosition(position = 9)
+    @CsvBindByName(column = "Categoría")
     private String category;
 
-    @CsvBindByPosition(position = 10)
+    @CsvBindByName(column = "Retroalimentación")
     private String feedbackSpecification;
 
-    @CsvBindByPosition(position = 11)
+    @CsvBindByName(column = "Calificación")
     private String feedbackRating;
 
-    @CsvBindByPosition(position = 12)
+    @CsvBindByName(column = "Fecha de calificación")
     private String feedbackDate;
 
     public RequestReportForm(Request request){
