@@ -4,6 +4,7 @@ import com.helpdesk.HelpDesk.DAO.*;
 import com.helpdesk.HelpDesk.Forms.*;
 import com.helpdesk.HelpDesk.Models.*;
 import com.opencsv.CSVWriter;
+import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.*;
 
 @Controller
@@ -229,7 +232,8 @@ public class AdminController {
     }
 
     // Reporte de todas las solicitudes
-    /*private void WriteReport(HttpServletResponse response) throws Exception{
+    private void WriteReport(HttpServletResponse response) throws Exception{
+        String filename = "report.csv";
         List<RequestReportForm> reports = new ArrayList<>();
         List<Request> requests = (List<Request>) requestDAO.select();
         for(Request req : requests){
@@ -237,20 +241,24 @@ public class AdminController {
         }
 
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
 
-        ColumnPositionMappingStrategy<RequestReportForm> mapStrategy = new ColumnPositionMappingStrategy<>();
-        mapStrategy.setType(RequestReportForm.class);
-        mapStrategy.setColumnMapping();
+        List<String> titles = new ArrayList<>(Arrays.asList("ID", "Especificación", "Fecha de creación",
+                "Fecha de cierre", "Estado", "Placa de inventario", "Número de equipos", "Usuario", "Agentes",
+                "Categoría", "Retroalimentación", "Calificación", "Fecha de calificación"));
 
         StatefulBeanToCsv<RequestReportForm> writer = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
                 .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
-                //.withMappingStrategy(mapStrategy)
                 .withSeparator(';')
                 .withOrderedResults(true)
                 .build();
+        for(String s : titles){
+            response.getWriter().print(s + ";");
+        }
+        CSVWriter w = new CSVWriter(response.getWriter());
+        response.getWriter().println();
         writer.write(reports);
-    }*/
+    }
 
     // Reporte por Dependencia
     /*private void WriteReport(HttpServletResponse response) throws Exception {
@@ -305,7 +313,7 @@ public class AdminController {
     }*/
 
     // Reporte por Agente
-    private void WriteReport(HttpServletResponse response) throws Exception {
+    /*private void WriteReport(HttpServletResponse response) throws Exception {
         List<AgentReportForm> reports = new ArrayList<>();
         List<User> agents = (List<User>) userDAO.selectAgent();
         for(User agent : agents){
@@ -319,7 +327,7 @@ public class AdminController {
                 .withOrderedResults(true)
                 .build();
         writer.write(reports);
-    }
+    }*/
 
 
 }

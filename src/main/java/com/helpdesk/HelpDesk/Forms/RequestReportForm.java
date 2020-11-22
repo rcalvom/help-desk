@@ -2,62 +2,48 @@ package com.helpdesk.HelpDesk.Forms;
 
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
 import java.util.Set;
 
 public class RequestReportForm {
 
-    @CsvBindByName(column = "ID")
     @CsvBindByPosition(position = 0)
     private String id;
 
-    @CsvBindByName(column = "Especificación")
     @CsvBindByPosition(position = 1)
     private String specification;
 
-    @CsvBindByName(column = "Fecha de creación")
     @CsvBindByPosition(position = 2)
     private String creationDate;
 
-    @CsvBindByName(column = "Fecha de cierre")
     @CsvBindByPosition(position = 3)
     private String endingDate;
 
-    @CsvBindByName(column = "Estado")
     @CsvBindByPosition(position = 4)
     private String status;
 
-    @CsvBindByName(column = "Placa de inventario")
     @CsvBindByPosition(position = 5)
     private int inventoryPlate;
 
-    @CsvBindByName(column = "Número de equipos")
     @CsvBindByPosition(position = 6)
     private int equipmentNumber;
 
-    @CsvBindByName(column = "Usuario")
     @CsvBindByPosition(position = 7)
     private String userName;
 
-    @CsvBindByName(column = "Agente")
     @CsvBindByPosition(position = 8)
     private String agentsNames;
 
-    @CsvBindByName(column = "Categoría")
     @CsvBindByPosition(position = 9)
     private String category;
 
-    @CsvBindByName(column = "Retroalimentación")
     @CsvBindByPosition(position = 10)
     private String feedbackSpecification;
 
-    @CsvBindByName(column = "Calificación")
     @CsvBindByPosition(position = 11)
     private String feedbackRating;
 
-    @CsvBindByName(column = "Fecha de calificación")
     @CsvBindByPosition(position = 12)
     private String feedbackDate;
 
@@ -83,7 +69,7 @@ public class RequestReportForm {
         this.equipmentNumber = request.getEquipmentNumber();
         this.userName = request.getUser().getName();
         this.category = request.getCategory() != null ? request.getCategory().getName() : "";
-        this.feedbackSpecification = request.getFeedback() != null ? request.getFeedback().getSpecification() : "" ;
+        this.feedbackSpecification = request.getFeedback() != null ? request.getFeedback().getSpecification() : "";
         this.feedbackRating = request.getFeedback() != null ? request.getFeedback().getRating().getName() : "";
         this.feedbackDate = request.getFeedback() != null ? request.getFeedback().formatDate() : "";
     }

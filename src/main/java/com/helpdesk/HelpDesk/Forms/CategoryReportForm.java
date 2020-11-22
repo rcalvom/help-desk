@@ -10,13 +10,13 @@ public class CategoryReportForm {
     private String category;
 
     @CsvBindByPosition(position = 1)
-    private int equipementNumber;
+    private int equipmentNumber;
 
     @CsvBindByPosition(position = 2)
     private int requestsNumber;
 
     @CsvBindByPosition(position = 3)
-    private int excelentNumber;
+    private int excellentNumber;
 
     @CsvBindByPosition(position = 4)
     private int goodNumber;
@@ -32,21 +32,21 @@ public class CategoryReportForm {
 
     public CategoryReportForm(Category category) {
         this.category = category.getName();
-        this.equipementNumber = 0;
+        this.equipmentNumber = 0;
         this.requestsNumber = 0;
-        this.excelentNumber = 0;
+        this.excellentNumber = 0;
         this.goodNumber = 0;
         this.regularNumber = 0;
         this.badNumber = 0;
         this.deficientNumber = 0;
 
         for(Request request : category.getRequests()){
-            this.equipementNumber += request.getEquipmentNumber();
+            this.equipmentNumber += request.getEquipmentNumber();
             this.requestsNumber++;
             if(request.getStatus() == Request.Status.CERRADO){
                 switch (request.getFeedback().getRating().getName()){
                     case "Excelente":
-                        this.excelentNumber++;
+                        this.excellentNumber++;
                         break;
                     case "Bueno":
                         this.goodNumber++;
@@ -75,12 +75,12 @@ public class CategoryReportForm {
         this.category = category;
     }
 
-    public int getEquipementNumber() {
-        return equipementNumber;
+    public int getEquipmentNumber() {
+        return equipmentNumber;
     }
 
-    public void setEquipementNumber(int equipementNumber) {
-        this.equipementNumber = equipementNumber;
+    public void setEquipmentNumber(int equipmentNumber) {
+        this.equipmentNumber = equipmentNumber;
     }
 
     public int getRequestsNumber() {
@@ -91,12 +91,12 @@ public class CategoryReportForm {
         this.requestsNumber = requestsNumber;
     }
 
-    public int getExcelentNumber() {
-        return excelentNumber;
+    public int getExcellentNumber() {
+        return excellentNumber;
     }
 
-    public void setExcelentNumber(int excelentNumber) {
-        this.excelentNumber = excelentNumber;
+    public void setExcellentNumber(int excellentNumber) {
+        this.excellentNumber = excellentNumber;
     }
 
     public int getGoodNumber() {
