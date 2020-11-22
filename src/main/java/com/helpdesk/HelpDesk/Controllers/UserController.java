@@ -44,7 +44,7 @@ public class UserController {
             model.addAttribute("createRequestForm", new CreateRequestForm());
             return "create-request-user";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -57,7 +57,7 @@ public class UserController {
             requestDAO.insert(request);
             return "redirect:/user/my-requests";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -82,7 +82,7 @@ public class UserController {
             model.addAttribute("RequestsCl", requestsCl);
             return "my-requests-user";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -98,7 +98,7 @@ public class UserController {
                 return "request-details-user";
             }
         }
-        return "redirect:/error";
+        return "redirect:/error/403";
     }
 
     //Calificar solicitud

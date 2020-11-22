@@ -46,7 +46,7 @@ public class AgentController {
             model.addAttribute("RequestsCl", requestsCl);
             return "my-requests-agent";
         }else {
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -64,7 +64,7 @@ public class AgentController {
                 }
             }
         }
-        return "redirect:/error";
+        return "redirect:/error/403";
     }
 
     @PostMapping("/agent/details/{id}")
@@ -83,7 +83,7 @@ public class AgentController {
                 }
             }
         }
-        return "redirect:/error";
+        return "redirect:/error/403";
     }
 
     @GetMapping("/agent/my-metrics")
@@ -126,7 +126,7 @@ public class AgentController {
             model.addAttribute("metrics", reportRatingForm);
             return "my-metrics-agent";
         }
-        return "redirect:/error";
+        return "redirect:/error/403";
     }
 
     private void header(Model model){
