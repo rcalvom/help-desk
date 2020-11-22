@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -233,32 +234,6 @@ public class AdminController {
 
     // Reporte de todas las solicitudes
     private void WriteReport(HttpServletResponse response) throws Exception{
-        /*String filename = "report.csv";
-        List<RequestReportForm> reports = new ArrayList<>();
-        List<Request> requests = (List<Request>) requestDAO.select();
-        for(Request req : requests){
-            reports.add(new RequestReportForm(req));
-        }
-
-        response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
-
-        List<String> titles = new ArrayList<>(Arrays.asList("ID", "Especificación", "Fecha de creación",
-                "Fecha de cierre", "Estado", "Placa de inventario", "Número de equipos", "Usuario", "Agentes",
-                "Categoría", "Retroalimentación", "Calificación", "Fecha de calificación"));
-
-        StatefulBeanToCsv<RequestReportForm> writer = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
-                .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
-                .withSeparator(';')
-                .withOrderedResults(true)
-                .build();
-        for(String s : titles){
-            response.getWriter().print(s + ";");
-        }
-        CSVWriter w = new CSVWriter(response.getWriter());
-        response.getWriter().println();
-        writer.write(reports);*/
-
         String filename = "report.csv";
         List<RequestReportForm> reports = new ArrayList<>();
         List<Request> requests = (List<Request>) requestDAO.select();
@@ -269,13 +244,14 @@ public class AdminController {
         response.setContentType("text/csv");
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
 
+        final CustomMappingStrategy<RequestReportForm> mappingStrategy = new CustomMappingStrategy<>();
+        mappingStrategy.setType(RequestReportForm.class);
 
-        StatefulBeanToCsvBuilder<RequestReportForm> builder = new StatefulBeanToCsvBuilder<>(response.getWriter());
-        StatefulBeanToCsv<RequestReportForm> beanWriter = builder.build();
-
-        beanWriter.write(reports);
+        final StatefulBeanToCsv<RequestReportForm> beanToCsv = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
+                .withMappingStrategy(mappingStrategy)
+                .build();
+        beanToCsv.write(reports);
         response.getWriter().close();
-
     }
 
     // Reporte por Dependencia
