@@ -6,7 +6,7 @@ import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
 import com.helpdesk.HelpDesk.Forms.CategoryForm;
-import com.helpdesk.HelpDesk.Forms.LoginForm;
+import com.helpdesk.HelpDesk.Forms.DependencyReportForm;
 import com.helpdesk.HelpDesk.Forms.RequestReportForm;
 import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Models.Dependency;
@@ -24,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -230,47 +229,43 @@ public class AdminController {
         }
     }
 
-    @GetMapping(value = "/admin/reports")
+    @GetMapping(value = "/reports")
     public void reportsAdminDefault(HttpServletResponse response) throws Exception {
+        this.WriteReport(response);
+    }
+
+    /*private void WriteReport(HttpServletResponse response) throws Exception{
         List<RequestReportForm> reports = new ArrayList<>();
         List<Request> requests = (List<Request>) requestDAO.select();
         for(Request req : requests){
-            RequestReportForm requestReportForm = new RequestReportForm();
-            requestReportForm.setId(req.getId());
-            requestReportForm.setSpecification(req.getSpecification());
-            requestReportForm.setCreationDate(req.formatCreationDate());
-            if(req.getEndingDate()!=null) requestReportForm.setEndingDate(req.formatEndingDate());
-            else requestReportForm.setEndingDate("");
-            requestReportForm.setStatus(req.getStatus().name());
-            String agNames = "", agentNames = "";
-            Set<User> agents = req.getAgents();
-            for (User a : agents) {
-                agNames = agNames + a.getName() + ", ";
-            }
-            if(!agNames.equals("")) agentNames = agNames.substring(0,(agNames.length()-2));
-            requestReportForm.setAgentsNames(agentNames);
-            if(req.getInventoryPlate()!=null) requestReportForm.setInventoryPlate(req.getInventoryPlate().intValue());
-            else requestReportForm.setInventoryPlate(0);
-            requestReportForm.setEquipmentNumber(req.getEquipmentNumber());
-            requestReportForm.setUserName(req.getUser().getName());
-            if(req.getCategory()!=null) requestReportForm.setCategory(req.getCategory().getName());
-            else requestReportForm.setCategory("");
-            if(req.getFeedback()!=null) {
-                requestReportForm.setFeedbackSpecification(req.getFeedback().getSpecification());
-                requestReportForm.setFeedbackRating(req.getFeedback().getRating().getName());
-                requestReportForm.setFeedbackDate(req.getFeedback().formatDate());
-            }else{
-                requestReportForm.setFeedbackSpecification("");
-                requestReportForm.setFeedbackRating("");
-                requestReportForm.setFeedbackDate("");
-            }
-            reports.add(requestReportForm);
+            reports.add(new RequestReportForm(req));
         }
-        String filename = "report.csv";
+
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
+
+        ColumnPositionMappingStrategy<RequestReportForm> mapStrategy = new ColumnPositionMappingStrategy<>();
+        mapStrategy.setType(RequestReportForm.class);
+        mapStrategy.setColumnMapping();
 
         StatefulBeanToCsv<RequestReportForm> writer = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
+                .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                //.withMappingStrategy(mapStrategy)
+                .withSeparator(';')
+                .withOrderedResults(true)
+                .build();
+        writer.write(reports);
+    }*/
+
+    private void WriteReport(HttpServletResponse response) throws Exception {
+        List<DependencyReportForm> reports = new ArrayList<>();
+        List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
+        for(Dependency dependency : dependencies){
+            reports.add(new DependencyReportForm(dependency));
+        }
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
+        StatefulBeanToCsv<DependencyReportForm> writer = new StatefulBeanToCsvBuilder<DependencyReportForm>(response.getWriter())
                 .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
                 .withSeparator(';')
                 .withOrderedResults(true)
