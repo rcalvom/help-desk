@@ -2,8 +2,10 @@ package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 @Entity
@@ -15,6 +17,9 @@ public class Category {
 
     @NotNull
     private boolean isActive;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Request> requests;
 
     public Category() {}
 
@@ -37,5 +42,13 @@ public class Category {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Set<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
 }

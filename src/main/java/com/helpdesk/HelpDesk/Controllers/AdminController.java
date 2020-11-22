@@ -1,17 +1,8 @@
 package com.helpdesk.HelpDesk.Controllers;
 
-import com.helpdesk.HelpDesk.DAO.CategoryDAO;
-import com.helpdesk.HelpDesk.DAO.DependencyDAO;
-import com.helpdesk.HelpDesk.DAO.RequestDAO;
-import com.helpdesk.HelpDesk.DAO.UserDAO;
-import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
-import com.helpdesk.HelpDesk.Forms.CategoryForm;
-import com.helpdesk.HelpDesk.Forms.DependencyReportForm;
-import com.helpdesk.HelpDesk.Forms.RequestReportForm;
-import com.helpdesk.HelpDesk.Models.Category;
-import com.helpdesk.HelpDesk.Models.Dependency;
-import com.helpdesk.HelpDesk.Models.Request;
-import com.helpdesk.HelpDesk.Models.User;
+import com.helpdesk.HelpDesk.DAO.*;
+import com.helpdesk.HelpDesk.Forms.*;
+import com.helpdesk.HelpDesk.Models.*;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -40,6 +31,9 @@ public class AdminController {
 
     @Autowired
     private DependencyDAO dependencyDAO;
+
+    @Autowired
+    private BoundingTypeDAO boundingTypeDAO;
 
     //Bandeja de entrada
     @GetMapping("/admin/inbox")
@@ -234,6 +228,7 @@ public class AdminController {
         this.WriteReport(response);
     }
 
+    // Reporte de todas las solicitudes
     /*private void WriteReport(HttpServletResponse response) throws Exception{
         List<RequestReportForm> reports = new ArrayList<>();
         List<Request> requests = (List<Request>) requestDAO.select();
@@ -257,7 +252,8 @@ public class AdminController {
         writer.write(reports);
     }*/
 
-    private void WriteReport(HttpServletResponse response) throws Exception {
+    // Reporte por Dependencia
+    /*private void WriteReport(HttpServletResponse response) throws Exception {
         List<DependencyReportForm> reports = new ArrayList<>();
         List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
         for(Dependency dependency : dependencies){
@@ -266,6 +262,58 @@ public class AdminController {
         response.setContentType("text/csv");
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
         StatefulBeanToCsv<DependencyReportForm> writer = new StatefulBeanToCsvBuilder<DependencyReportForm>(response.getWriter())
+                .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                .withSeparator(';')
+                .withOrderedResults(true)
+                .build();
+        writer.write(reports);
+    }*/
+
+
+    // Reporte por vinculación
+    /*private void WriteReport(HttpServletResponse response) throws Exception {
+        List<BoundingTypeReportForm> reports = new ArrayList<>();
+        List<BoundingType> boundingTypes = (List<BoundingType>) boundingTypeDAO.select();
+        for(BoundingType boundingType : boundingTypes){
+            reports.add(new BoundingTypeReportForm(boundingType));
+        }
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
+        StatefulBeanToCsv<BoundingTypeReportForm> writer = new StatefulBeanToCsvBuilder<BoundingTypeReportForm>(response.getWriter())
+                .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                .withSeparator(';')
+                .withOrderedResults(true)
+                .build();
+        writer.write(reports);
+    }*/
+
+    // Reporte por Category
+    /*private void WriteReport(HttpServletResponse response) throws Exception {
+        List<CategoryReportForm> reports = new ArrayList<>();
+        List<Category> categories = (List<Category>) categoryDAO.select();
+        for(Category category : categories){
+            reports.add(new CategoryReportForm(category));
+        }
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
+        StatefulBeanToCsv<CategoryReportForm> writer = new StatefulBeanToCsvBuilder<CategoryReportForm>(response.getWriter())
+                .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                .withSeparator(';')
+                .withOrderedResults(true)
+                .build();
+        writer.write(reports);
+    }*/
+
+    // Reporte por Agente
+    private void WriteReport(HttpServletResponse response) throws Exception {
+        List<AgentReportForm> reports = new ArrayList<>();
+        List<User> agents = (List<User>) userDAO.selectAgent();
+        for(User agent : agents){
+            reports.add(new AgentReportForm(agent));
+        }
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv \"");
+        StatefulBeanToCsv<AgentReportForm> writer = new StatefulBeanToCsvBuilder<AgentReportForm>(response.getWriter())
                 .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
                 .withSeparator(';')
                 .withOrderedResults(true)
