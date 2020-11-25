@@ -136,7 +136,7 @@ public class UserController {
     }
 
     //FAQ
-    @GetMapping("/user/FAQ")
+    @GetMapping("/FAQ")
     public String FAQ(){
         return "FAQ";
     }
