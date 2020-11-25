@@ -116,7 +116,7 @@ public class UserController {
         header(model);
         Rating rating = new Rating();
         rating.setName(form.getRating());
-        Feedback feedback = new Feedback(form.getSpecification(), rating);
+        Feedback feedback = new Feedback(form.getSpecification(), rating, form.isSuccessful());
         feedbackDAO.insert(feedback);
         Request request = requestDAO.selectById(id);
         Request newRequest = new Request();

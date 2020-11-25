@@ -22,14 +22,18 @@ public class Feedback {
     private Rating rating;
 
     @NotNull
+    private boolean isSuccessful;
+
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
 
     public Feedback() {}
 
-    public Feedback(String specification, Rating rating){
+    public Feedback(String specification, Rating rating, boolean isSuccessful){
         this.specification = specification;
         this.rating = rating;
+        this.isSuccessful = isSuccessful;
         this.date = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
     }
 
@@ -64,6 +68,14 @@ public class Feedback {
 
     public void setDate(Calendar date) {
         this.date = date;
+    }
+
+    public boolean isSuccessful() {
+        return isSuccessful;
+    }
+
+    public void setSuccessful(boolean successful) {
+        isSuccessful = successful;
     }
 
     public String formatDate(){
