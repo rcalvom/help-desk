@@ -2,9 +2,11 @@ package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class BoundingType {
@@ -13,6 +15,9 @@ public class BoundingType {
     @Size(max = 255)
     @NotBlank
     private String name;
+
+    @OneToMany(mappedBy = "boundingType")
+    private Set<User> users;
 
     public BoundingType(){}
 
@@ -28,4 +33,11 @@ public class BoundingType {
         this.name = name;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }
