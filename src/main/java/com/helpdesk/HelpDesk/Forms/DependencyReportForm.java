@@ -49,6 +49,10 @@ public class DependencyReportForm {
     @CsvBindByPosition(position = 7)
     private Integer pos6;
 
+    @CsvBindByName(column = "Promedio de calificación")
+    @CsvBindByPosition(position = 8)
+    private Integer pos7;
+
     public DependencyReportForm(Dependency dependency, boolean[] toShow) {
 
         this.pos0 = null;

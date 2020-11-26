@@ -269,7 +269,7 @@ public class AdminController {
     }
 
     // Reporte de todas las solicitudes
-    /*private void WriteReport(HttpServletResponse response) throws Exception{
+    private void WriteReport(HttpServletResponse response) throws Exception{
         String filename = "report.csv";
         List<RequestReportForm> reports = new ArrayList<>();
         List<Request> requests = (List<Request>) requestDAO.select();
@@ -280,18 +280,19 @@ public class AdminController {
         response.setContentType("text/csv");
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
 
-        final CustomMappingStrategy<RequestReportForm> mappingStrategy = new CustomMappingStrategy<>();
+        final CustomMappingStrategy<RequestReportForm> mappingStrategy = new CustomMappingStrategy<>(null);
         mappingStrategy.setType(RequestReportForm.class);
 
         final StatefulBeanToCsv<RequestReportForm> beanToCsv = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
                 .withMappingStrategy(mappingStrategy)
+                .withSeparator(';')
                 .build();
         beanToCsv.write(reports);
         response.getWriter().close();
     }/**/
 
     // Reporte por Dependencia
-    /*private void WriteReport(HttpServletResponse response) throws Exception {
+    private void WriteReportDependency(HttpServletResponse response) throws Exception {
         List<DependencyReportForm> reports = new ArrayList<>();
         List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
         boolean toShow[] = {true, false, true, false, true, false, true};
@@ -315,7 +316,7 @@ public class AdminController {
 
 //    boolean toShow[] = {true, true, true, true, true, true, true};
     // Reporte por vinculación
-    /*private void WriteReport(HttpServletResponse response) throws Exception {
+    private void WriteReportBounding(HttpServletResponse response) throws Exception {
         List<BoundingTypeReportForm> reports = new ArrayList<>();
         List<BoundingType> boundingTypes = (List<BoundingType>) boundingTypeDAO.select();
         boolean toShow[] = {true, false, true, false, true, false, true};
@@ -339,7 +340,7 @@ public class AdminController {
     }/**/
 
     // Reporte por Category
-    /*private void WriteReport(HttpServletResponse response) throws Exception {
+    private void WriteReportCategory(HttpServletResponse response) throws Exception {
         List<CategoryReportForm> reports = new ArrayList<>();
         List<Category> categories = (List<Category>) categoryDAO.select();
         boolean toShow[] = {true, false, true, false, true, false, true};
@@ -361,7 +362,7 @@ public class AdminController {
     }/**/
 
     // Reporte por Agente
-    private void WriteReport(HttpServletResponse response) throws Exception {
+    private void WriteReportAgent(HttpServletResponse response) throws Exception {
         List<AgentReportForm> reports = new ArrayList<>();
         List<User> agents = (List<User>) userDAO.selectAgent();
         boolean toShow[] = {true, false, true, false, true, false, true};

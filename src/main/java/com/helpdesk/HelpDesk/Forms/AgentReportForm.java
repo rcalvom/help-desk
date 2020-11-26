@@ -39,6 +39,14 @@ public class AgentReportForm {
     @CsvBindByPosition(position = 7)
     private Integer pos6;
 
+    @CsvBindByName(column = "Promedio de calificación")
+    @CsvBindByPosition(position = 8)
+    private Integer pos7;
+
+    @CsvBindByName(column = "Eficacia")
+    @CsvBindByPosition(position = 9)
+    private Integer pos8;
+
     public AgentReportForm(User user, boolean[] toShow) {
         this.pos0 = null;
         this.pos1 =null;
@@ -47,6 +55,8 @@ public class AgentReportForm {
         this.pos4 = null;
         this.pos5 = null;
         this.pos6 = null;
+        this.pos7 = null;
+        this.pos8 = null;
         this.agentName = user.getName();
 
 
@@ -77,9 +87,13 @@ public class AgentReportForm {
                         if(toShow[6]) numeros[6]++;
                         break;
                 }
+                //CUANDO ESTÉ DISPONIBLE
+//                if(request.getFeedback().getFin?){
+//                    numeros[8]
+//                }
             }
         }
-
+        if(toShow[8]) numeros[7] = (numeros[2]*5 + numeros[3]*4 + numeros[4]*3 + numeros[5]*2 + numeros[6])/numeros[1];
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){
                 if(pos0 == null){
