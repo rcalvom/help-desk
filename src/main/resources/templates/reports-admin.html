@@ -24,7 +24,7 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-	<title>Generar reportes - Help Desk</title>
+	<title>Reportes - Help Desk</title>
 </head>
 
 <body>
@@ -36,57 +36,78 @@
 <main class="jumbotron w-auto p-3">
 	<br>
 	<br>
-	<h2>Generar reportes</h2>
+	<h2>Reportes</h2>
 	<br>
 	<div class="container">
-		<p>Solicitudes gestionadas por el equipo: <span>48</span> </p>
-		<ul>
-			<br>
-			<li>
-				<div class="col-md-1"> <img th:src="@{/images/Excelente.png}" width="25px" height="25px"> </div>
-				<div class="col-md-11 align-content-center"> <p>Excelentes: <span>24</span> </div>
-			</li>
-			<li>
-				<div class="col-md-1"> <img th:src="@{/images/Bueno.png}" width="25px" height="25px"> </div>
-				<div class="col-md-11 align-content-center"> <p>Buenos: <span>12</span> </div>
-			</li>
-			<li>
-				<div class="col-md-1"> <img th:src="@{/images/Regular.png}" width="25px" height="25px"> </div>
-				<div class="col-md-11 align-content-center"> <p>Regulares: <span>6</span> </div>
-			</li>
-			<li>
-				<div class="col-md-1"> <img th:src="@{/images/Malo.png}" width="25px" height="25px"> </div>
-				<div class="col-md-11 align-content-center"> <p>Malos: <span>4</span> </div>
-			</li>
-			<li>
-				<div class="col-md-1"> <img th:src="@{/images/Deficiente.png}" width="25px" height="25px"> </div>
-				<div class="col-md-11 align-content-center"> <p>Deficientes: <span>2</span> </div>
-			</li>
-		</ul>
-		<p>Solicitudes gestionadas por <span>Agente 1</span> : <span>8</span> </p>
-			<ul>
-				<br>
-				<li>
-					<div class="col-md-1"> <img th:src="@{/images/Excelente.png}" width="25px" height="25px"> </div>
-					<div class="col-md-11 align-content-center"> <p>Excelentes: <span>4</span> </div>
-				</li>
-				<li>
-					<div class="col-md-1"> <img th:src="@{/images/Bueno.png}" width="25px" height="25px"> </div>
-					<div class="col-md-11 align-content-center"> <p>Buenos: <span>0</span> </div>
-				</li>
-				<li>
-					<div class="col-md-1"> <img th:src="@{/images/Regular.png}" width="25px" height="25px"> </div>
-					<div class="col-md-11 align-content-center"> <p>Regulares: <span>3</span> </div>
-				</li>
-				<li>
-					<div class="col-md-1"> <img th:src="@{/images/Malo.png}" width="25px" height="25px"> </div>
-					<div class="col-md-11 align-content-center"> <p>Malos: <span>1</span> </div>
-				</li>
-				<li>
-					<div class="col-md-1"> <img th:src="@{/images/Deficiente.png}" width="25px" height="25px"> </div>
-					<div class="col-md-11 align-content-center"> <p>Deficientes: <span>0</span> </div>
-				</li>
-			</ul>
+		<form th:object="${None}" class="form-horizontal align-center" method="post"> <!--TODO: Poner nombre del form-->
+			<div class="form-group">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio1" value="option1">
+					<label class="form-check-label" for="TypeRadio1"><h3>Dependencia</h3></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio2" value="option2">
+					<label class="form-check-label" for="TypeRadio2"><h3>Vinculación</h3></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio3" value="option3">
+					<label class="form-check-label" for="TypeRadio3"><h3>Reportes</h3></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio4" value="option3">
+					<label class="form-check-label" for="TypeRadio4"><h3>Categoría</h3></label>
+				</div>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				<label class="form-check-label" for="defaultCheck1">
+					Default checkbox
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
+				<label class="form-check-label" for="defaultCheck2">
+					Disabled checkbox
+				</label>
+			</div>
+			<div class="form-group">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck1">
+					<label class="form-check-label" for="DependencyCheck1"><h3>Dependencia - # de Equipos</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck2">
+					<label class="form-check-label" for="DependencyCheck2"><h3>Dependencia - # de Solicitudes</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck3">
+					<label class="form-check-label" for="DependencyCheck3"><h3>Dependencia - # de Solicitudes Excelentes</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck4">
+					<label class="form-check-label" for="DependencyCheck4"><h3>Dependencia - # de Solicitudes Buenas</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck5">
+					<label class="form-check-label" for="DependencyCheck5"><h3>Dependencia - # de Solicitudes Regulares</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck6">
+					<label class="form-check-label" for="DependencyCheck6"><h3>Dependencia - # de Solicitudes Malas</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck7">
+					<label class="form-check-label" for="DependencyCheck7"><h3>Dependencia - # de Solicitudes Deficientes</h3></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck8">
+					<label class="form-check-label" for="DependencyCheck8"><h3>Categoría</h3></label>
+				</div>
+			</div>
+			<div class="col-md-8 align-right">
+				<button class="btn btn-primary" type="submit">Generar reporte</button>
+			</div>
+		</form>
 	</div>
 </main>
 <footer th:insert="footer.html" class="clear align-center"></footer>

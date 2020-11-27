@@ -36,22 +36,16 @@
             <span class="caret-right"></span>
         </div>
         <div class="btn-group">
-            <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <a th:href="@{/admin/info}" class="btn btn-default dropdown-toggle">
+                Informe
+            </a>
+            <span class="caret-right"></span>
+        </div>
+        <div class="btn-group">
+            <a th:href="@{/admin/reports}" class="btn btn-default dropdown-toggle">
                 Reportes
-                <span class="caret-right"></span>
-            </div>
-            <ul class="dropdown-menu dropItem-16">
-                <li>
-                    <a th:href="@{/no-existe}" target="_self" class="">
-                        Informe
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/reports}" target="_self" class="">
-                        Reporte
-                    </a>
-                </li>
-            </ul>
+            </a>
+            <span class="caret-right"></span>
         </div>
         <div class="btn-group">
             <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">

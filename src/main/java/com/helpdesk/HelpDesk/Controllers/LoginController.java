@@ -4,7 +4,6 @@ import com.helpdesk.HelpDesk.DAO.BoundingTypeDAO;
 import com.helpdesk.HelpDesk.DAO.DependencyDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.DataLoginForm;
-import com.helpdesk.HelpDesk.Forms.LoginForm;
 import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Models.Dependency;
 import com.helpdesk.HelpDesk.Models.User;

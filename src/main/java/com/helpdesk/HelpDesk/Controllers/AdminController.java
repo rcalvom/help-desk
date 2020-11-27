@@ -5,8 +5,6 @@ import com.helpdesk.HelpDesk.Forms.*;
 import com.helpdesk.HelpDesk.Models.*;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.*;
-import org.apache.commons.collections4.comparators.FixedOrderComparator;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,11 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileWriter;
-import java.io.Writer;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.time.LocalTime;
 import java.util.*;
 
 import static org.hibernate.mapping.MetadataSource.ANNOTATIONS;
@@ -83,7 +76,7 @@ public class AdminController {
             model.addAttribute("Requests", requests);
             return "inbox-requests-admin";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -102,7 +95,7 @@ public class AdminController {
                 return "assign-request-admin";
             }
         }
-        return "redirect:/error";
+        return "redirect:/error/403";
     }
 
     @PostMapping("/admin/assign-request/{id}")
@@ -125,7 +118,7 @@ public class AdminController {
             requestDAO.update(request, newRequest);
             return "redirect:/admin/inbox";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -148,7 +141,7 @@ public class AdminController {
             model.addAttribute("RequestsCl", requestsCl);
             return "requests-admin";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -160,7 +153,7 @@ public class AdminController {
             model.addAttribute("requestDetail", RequestDetail);
             return "request-details-admin";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -173,7 +166,7 @@ public class AdminController {
             model.addAttribute("newCategory", new CategoryForm());
             return "category-management-admin";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -197,7 +190,7 @@ public class AdminController {
             }
             return "redirect:/admin/categories";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -209,7 +202,7 @@ public class AdminController {
             model.addAttribute("agents", agents);
             return "agent-management-admin";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -228,7 +221,7 @@ public class AdminController {
             userDAO.update(agent, newAgent);
             return "redirect:/admin/agents";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -240,7 +233,7 @@ public class AdminController {
             model.addAttribute("users", users);
             return "agent-assign-admin";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -259,7 +252,7 @@ public class AdminController {
             userDAO.update(agent, newAgent);
             return "redirect:/admin/agents";
         }else{
-            return "redirect:/error";
+            return "redirect:/error/403";
         }
     }
 
@@ -383,5 +376,58 @@ public class AdminController {
     }/**/
 
 
+    @GetMapping("/admin/csv")
+    public String csvAdminDefault(HttpServletResponse response) throws Exception {
+        if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
+            List<RequestReportForm> reports = new ArrayList<>();
+            List<Request> requests = (List<Request>) requestDAO.select();
+            for (Request req : requests) {
+                RequestReportForm requestReportForm = new RequestReportForm();
+                requestReportForm.setId(req.getId());
+                requestReportForm.setSpecification(req.getSpecification());
+                requestReportForm.setCreationDate(req.formatCreationDate());
+                if (req.getEndingDate() != null) requestReportForm.setEndingDate(req.formatEndingDate());
+                else requestReportForm.setEndingDate("");
+                requestReportForm.setStatus(req.getStatus().name());
+                String agNames = "", agentNames = "";
+                Set<User> agents = req.getAgents();
+                for (User a : agents) {
+                    agNames = agNames + a.getName() + ", ";
+                }
+                if (!agNames.equals("")) agentNames = agNames.substring(0, (agNames.length() - 2));
+                requestReportForm.setAgentsNames(agentNames);
+                if (req.getInventoryPlate() != null)
+                    requestReportForm.setInventoryPlate(req.getInventoryPlate().intValue());
+                else requestReportForm.setInventoryPlate(0);
+                requestReportForm.setEquipmentNumber(req.getEquipmentNumber());
+                requestReportForm.setUserName(req.getUser().getName());
+                if (req.getCategory() != null) requestReportForm.setCategory(req.getCategory().getName());
+                else requestReportForm.setCategory("");
+                if (req.getFeedback() != null) {
+                    requestReportForm.setFeedbackSpecification(req.getFeedback().getSpecification());
+                    requestReportForm.setFeedbackRating(req.getFeedback().getRating().getName());
+                    requestReportForm.setFeedbackDate(req.getFeedback().formatDate());
+                } else {
+                    requestReportForm.setFeedbackSpecification("");
+                    requestReportForm.setFeedbackRating("");
+                    requestReportForm.setFeedbackDate("");
+                }
+                reports.add(requestReportForm);
+            }
+            String filename = "report.csv";
+            response.setContentType("text/csv");
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
+
+            StatefulBeanToCsv<RequestReportForm> writer = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
+                    .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                    .withSeparator(';')
+                    .withOrderedResults(true)
+                    .build();
+            writer.write(reports);
+            return null;
+        }else{
+            return "redirect:/error/403";
+        }
+    }
 }
 
