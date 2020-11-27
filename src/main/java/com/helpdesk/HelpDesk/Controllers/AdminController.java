@@ -4,14 +4,8 @@ import com.helpdesk.HelpDesk.DAO.CategoryDAO;
 import com.helpdesk.HelpDesk.DAO.DependencyDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
-import com.helpdesk.HelpDesk.Forms.AssignRequestForm;
-import com.helpdesk.HelpDesk.Forms.CategoryForm;
-import com.helpdesk.HelpDesk.Forms.LoginForm;
-import com.helpdesk.HelpDesk.Forms.RequestReportForm;
-import com.helpdesk.HelpDesk.Models.Category;
-import com.helpdesk.HelpDesk.Models.Dependency;
-import com.helpdesk.HelpDesk.Models.Request;
-import com.helpdesk.HelpDesk.Models.User;
+import com.helpdesk.HelpDesk.Forms.*;
+import com.helpdesk.HelpDesk.Models.*;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -241,6 +235,7 @@ public class AdminController {
     @GetMapping("/admin/reports")
     public String reportsAdminDefault(Model model) {
         if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
+            ReportForm form = new ReportForm();
             return "reports-admin";
         }else{
             return "redirect:/error/403";
