@@ -61,23 +61,7 @@ public class CategoryReportForm {
             if(toShow[0]) numeros[0] += request.getEquipmentNumber();
             if(toShow[1]) numeros[1]++;
             if(request.getStatus() == Request.Status.CERRADO){
-                switch (request.getFeedback().getRating().getName()){
-                    case "Excelente":
-                        if(toShow[2]) numeros[2]++;
-                        break;
-                    case "Bueno":
-                        if(toShow[3]) numeros[3]++;
-                        break;
-                    case "Regular":
-                        if(toShow[4]) numeros[4]++;
-                        break;
-                    case "Malo":
-                        if(toShow[5]) numeros[5]++;
-                        break;
-                    case "Deficiente":
-                        if(toShow[6]) numeros[6]++;
-                        break;
-                }
+
             }
         }
 

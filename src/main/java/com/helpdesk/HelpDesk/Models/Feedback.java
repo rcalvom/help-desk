@@ -1,6 +1,8 @@
 package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,8 +20,9 @@ public class Feedback {
     private String specification;
 
     @NotNull
-    @ManyToOne
-    private Rating rating;
+    @Min(1)
+    @Max(5)
+    private int rating;
 
     @NotNull
     private boolean isSuccessful;
@@ -30,7 +33,7 @@ public class Feedback {
 
     public Feedback() {}
 
-    public Feedback(String specification, Rating rating, boolean isSuccessful){
+    public Feedback(String specification, int rating, boolean isSuccessful){
         this.specification = specification;
         this.rating = rating;
         this.isSuccessful = isSuccessful;
@@ -54,11 +57,11 @@ public class Feedback {
         this.specification = specification;
     }
 
-    public Rating getRating() {
+    public int getRating() {
         return this.rating;
     }
 
-    public void setRating(Rating rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

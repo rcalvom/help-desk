@@ -68,28 +68,7 @@ public class BoundingTypeReportForm {
                 if(toShow[1]) numeros[1]++;
 //                            this.requestNumber++;
                 if(request.getStatus() == Request.Status.CERRADO){
-                    switch (request.getFeedback().getRating().getName()){
-                        case "Excelente":
-                            if(toShow[2]) numeros[2]++;
-//                            this.goodNumber++;
-                            break;
-                        case "Bueno":
-                            if(toShow[3]) numeros[3]++;
-//                            this.excelentNumber++;
-                            break;
-                        case "Regular":
-                            if(toShow[4]) numeros[4]++;
-//                            this.regularNumber++;
-                            break;
-                        case "Malo":
-                            if(toShow[5]) numeros[5]++;
-//                            this.badNumber++;
-                            break;
-                        case "Deficiente":
-                            if(toShow[6]) numeros[6]++;
-//                            this.deficientNumber++;
-                            break;
-                    }
+
                 }
             }
         }

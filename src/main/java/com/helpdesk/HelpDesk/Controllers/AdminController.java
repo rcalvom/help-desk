@@ -256,6 +256,9 @@ public class AdminController {
             newAgent.setBoundingType(agent.getBoundingType());
             newAgent.setDependency(agent.getDependency());
             newAgent.setAssignedRequests(agent.getAssignedRequests());
+            newAgent.setLocation(agent.getLocation());
+            newAgent.setPhone(agent.getPhone());
+            newAgent.setPhoneExtension(agent.getPhoneExtension());
             userDAO.update(agent, newAgent);
             return "redirect:/admin/agents";
         }else{
