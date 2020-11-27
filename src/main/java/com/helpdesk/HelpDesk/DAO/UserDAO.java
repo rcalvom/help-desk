@@ -2,7 +2,6 @@ package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.User;
 import com.helpdesk.HelpDesk.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,8 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDAO implements UserDetailsService{
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserDAO(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Iterable<User> select(){
         return userRepository.findAll();
@@ -86,7 +88,7 @@ public class UserDAO implements UserDetailsService{
 
     public User selectAdmin(){
         try {
-            return userRepository.getAdminsitrator().iterator().next();
+            return userRepository.getAdministrator().iterator().next();
         }catch (Exception e){
             return null;
         }
@@ -103,7 +105,6 @@ public class UserDAO implements UserDetailsService{
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User u = this.selectPerson(username);
-        return u;
+        return this.selectPerson(username);
     }
 }

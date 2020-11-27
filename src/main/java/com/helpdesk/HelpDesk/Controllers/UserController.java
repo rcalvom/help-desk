@@ -10,7 +10,6 @@ import com.helpdesk.HelpDesk.Models.Feedback;
 import com.helpdesk.HelpDesk.Models.Rating;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
@@ -24,24 +23,24 @@ import java.util.Objects;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final RequestDAO requestDAO;
+    private final RatingDAO ratingDAO;
+    private final FeedbackDAO feedbackDAO;
 
-    @Autowired
-    private RequestDAO requestDAO;
-
-    @Autowired
-    private RatingDAO ratingDAO;
-
-    @Autowired
-    private FeedbackDAO feedbackDAO;
+    public UserController(UserDAO userDAO, RequestDAO requestDAO, RatingDAO ratingDAO, FeedbackDAO feedbackDAO) {
+        this.userDAO = userDAO;
+        this.requestDAO = requestDAO;
+        this.ratingDAO = ratingDAO;
+        this.feedbackDAO = feedbackDAO;
+    }
 
     //Crear solicitud
     @GetMapping("/user/create-request")
     public String createRequestUserDefault(Model model) {
-        header(model);
         if (userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]) != null){
             model.addAttribute("createRequestForm", new CreateRequestForm());
+            this.header(model);
             return "create-request-user";
         }else{
             return "redirect:/error";
@@ -50,11 +49,11 @@ public class UserController {
 
     @PostMapping("/user/create-request")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
-        header(model);
         User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
             Request request = new Request(form.getDescription(), user, form.getInventoryPlate(), form.getEquipmentNumber());
             requestDAO.insert(request);
+            this.header(model);
             return "redirect:/user/my-requests";
         }else{
             return "redirect:/error";
@@ -64,7 +63,6 @@ public class UserController {
     //Mis solicitudes
     @GetMapping("/user/my-requests")
     public String myRequestsUserDefault(Model model){
-        header(model);
         User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
             List<Request> requests = (List<Request>)  requestDAO.selectByUser(user);
@@ -80,6 +78,7 @@ public class UserController {
             }
             model.addAttribute("RequestsAc", requestsAc);
             model.addAttribute("RequestsCl", requestsCl);
+            this.header(model);
             return "my-requests-user";
         }else{
             return "redirect:/error";
@@ -89,12 +88,12 @@ public class UserController {
     //Detalles de la solicitud usuario
     @GetMapping("/user/details/{id}")
     public String requestDetailsUserDefault(@PathVariable("id") String id, Model model){
-        header(model);
         User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request RequestDetail = requestDAO.selectById(id);
         if(user != null){
             if(user.getUsername().equals(RequestDetail.getUser().getUsername())){
                 model.addAttribute("requestDetail", RequestDetail);
+                this.header(model);
                 return "request-details-user";
             }
         }
@@ -104,10 +103,10 @@ public class UserController {
     //Calificar solicitud
     @GetMapping("/user/feedback/{id}")
     public String feedbackDefault(@PathVariable("id") String id, Model model){
-        header(model);
         model.addAttribute("feedbackForm", new FeedbackForm());
         List<Rating> ratingsList = (List<Rating>) ratingDAO.select();
         model.addAttribute("rtg", ratingsList);
+        header(model);
         return "feedback-user";
     }
 
@@ -142,7 +141,7 @@ public class UserController {
     }
 
     private void header(Model model){
-        model.addAttribute("name",(String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name"))));
+        model.addAttribute("name", Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name")));
         if(userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])!=null){
             model.addAttribute("isAgent", true);
         }else{

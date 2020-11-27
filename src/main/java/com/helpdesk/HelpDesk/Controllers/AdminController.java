@@ -5,7 +5,6 @@ import com.helpdesk.HelpDesk.Forms.*;
 import com.helpdesk.HelpDesk.Models.*;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
@@ -19,20 +18,20 @@ import java.util.*;
 @Controller
 public class AdminController {
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final RequestDAO requestDAO;
+    private final CategoryDAO categoryDAO;
+    private final DependencyDAO dependencyDAO;
+    private final BoundingTypeDAO boundingTypeDAO;
 
-    @Autowired
-    private RequestDAO requestDAO;
+    public AdminController(UserDAO userDAO, RequestDAO requestDAO, CategoryDAO categoryDAO, DependencyDAO dependencyDAO, BoundingTypeDAO boundingTypeDAO){
+        this.userDAO = userDAO;
+        this.requestDAO = requestDAO;
+        this.categoryDAO = categoryDAO;
+        this.dependencyDAO = dependencyDAO;
+        this.boundingTypeDAO = boundingTypeDAO;
+    }
 
-    @Autowired
-    private CategoryDAO categoryDAO;
-
-    @Autowired
-    private DependencyDAO dependencyDAO;
-
-    @Autowired
-    private BoundingTypeDAO boundingTypeDAO;
 
     //Bandeja de entrada
     @GetMapping("/admin/inbox")
