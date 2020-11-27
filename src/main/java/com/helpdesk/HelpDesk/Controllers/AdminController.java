@@ -5,8 +5,6 @@ import com.helpdesk.HelpDesk.Forms.*;
 import com.helpdesk.HelpDesk.Models.*;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.*;
-import org.apache.commons.collections4.comparators.FixedOrderComparator;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,46 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileWriter;
-import java.io.Writer;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.time.LocalTime;
 import java.util.*;
-
-import static org.hibernate.mapping.MetadataSource.ANNOTATIONS;
-
-//class CustomMappingStrategy<T> extends ColumnPositionMappingStrategy<T> {
-////    @Override
-//    public String[] generateHeader(boolean toShow[]) {
-//        int countTrue = 0;
-//        for(int i = 0; i < toShow.length; ++i){
-//            if(toShow[i]) countTrue++;
-//        }
-//        BeanField beanField;
-//        String[] header = new String[countTrue+1];
-//        beanField = findField(0);
-//        String columnHeaderName = extractHeaderName(beanField);
-//        header[0] = columnHeaderName;
-//        for (int i = 0; i < toShow.length; i++) {
-//            if(toShow[i]){
-//                beanField = findField(i+1);
-//                columnHeaderName = extractHeaderName(beanField);
-//                header[i+1] = columnHeaderName;
-//            }
-//        }
-//        return header;
-//    }
-//
-//    private String extractHeaderName(final BeanField beanField) {
-//        if (beanField == null || beanField.getField() == null || beanField.getField().getDeclaredAnnotationsByType(CsvBindByName.class).length == 0) {
-//            return StringUtils.EMPTY;
-//        }
-//        final CsvBindByName bindByNameAnnotation = beanField.getField().getDeclaredAnnotationsByType(CsvBindByName.class)[0];
-//        System.out.println("sillegó hasta aquí"  + bindByNameAnnotation.column());
-//        return bindByNameAnnotation.column();
-//    }
-//}
 
 @Controller
 public class AdminController {
@@ -289,13 +248,13 @@ public class AdminController {
                 .build();
         beanToCsv.write(reports);
         response.getWriter().close();
-    }/**/
+    }
 
     // Reporte por Dependencia
     private void WriteReportDependency(HttpServletResponse response) throws Exception {
         List<DependencyReportForm> reports = new ArrayList<>();
         List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
-        boolean toShow[] = {true, false, true, false, true, false, true};
+        boolean[] toShow= {true, false, true, false, true, false, true};
         for(Dependency dependency : dependencies){
             reports.add(new DependencyReportForm(dependency, toShow));
         }
@@ -314,13 +273,10 @@ public class AdminController {
         writer.write(reports);
     }/**/
 
-//    boolean toShow[] = {true, true, true, true, true, true, true};
-    // Reporte por vinculación
     private void WriteReportBounding(HttpServletResponse response) throws Exception {
         List<BoundingTypeReportForm> reports = new ArrayList<>();
         List<BoundingType> boundingTypes = (List<BoundingType>) boundingTypeDAO.select();
-        boolean toShow[] = {true, false, true, false, true, false, true};
-//        boolean toShow[] = {true, true, true, true, true, true, true};
+        boolean[]  toShow= {true, false, true, false, true, false, true};
 
         for(BoundingType boundingType : boundingTypes){
             reports.add(new BoundingTypeReportForm(boundingType, toShow));
@@ -343,8 +299,7 @@ public class AdminController {
     private void WriteReportCategory(HttpServletResponse response) throws Exception {
         List<CategoryReportForm> reports = new ArrayList<>();
         List<Category> categories = (List<Category>) categoryDAO.select();
-        boolean toShow[] = {true, false, true, false, true, false, true};
-//        boolean toShow[] = {true, true, true, true, true, true, true};
+        boolean[]  toShow= {true, false, true, false, true, false, true};
         for(Category category : categories){
             reports.add(new CategoryReportForm(category, toShow));
         }
@@ -359,14 +314,13 @@ public class AdminController {
                 .withOrderedResults(true)
                 .build();
         writer.write(reports);
-    }/**/
+    }
 
     // Reporte por Agente
     private void WriteReportAgent(HttpServletResponse response) throws Exception {
         List<AgentReportForm> reports = new ArrayList<>();
         List<User> agents = (List<User>) userDAO.selectAgent();
-        boolean toShow[] = {true, false, true, false, true, false, true};
-//        boolean toShow[] = {true, true, true, true, true, true, true};
+        boolean[] toShow = {true, false, true, false, true, false, true};
         for(User agent : agents){
             reports.add(new AgentReportForm(agent, toShow));
         }
@@ -381,7 +335,7 @@ public class AdminController {
                 .withOrderedResults(true)
                 .build();
         writer.write(reports);
-    }/**/
+    }
 
 
 }

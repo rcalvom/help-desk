@@ -55,10 +55,14 @@ public class RequestReportForm {
 
     @CsvBindByName(column = "Calificación")
     @CsvBindByPosition(position = 11)
-    private String feedbackRating;
+    private Integer feedbackRating;
+
+    @CsvBindByName(column = "¿Fue solucionada?")
+    @CsvBindByPosition(position = 12)
+    private boolean successful;
 
     @CsvBindByName(column = "Fecha de calificación")
-    @CsvBindByPosition(position = 12)
+    @CsvBindByPosition(position = 13)
     private String feedbackDate;
 
     public RequestReportForm(Request request){
@@ -84,7 +88,8 @@ public class RequestReportForm {
         this.userName = request.getUser().getName();
         this.category = request.getCategory() != null ? request.getCategory().getName() : "";
         this.feedbackSpecification = request.getFeedback() != null ? request.getFeedback().getSpecification() : "";
-        this.feedbackRating = request.getFeedback() != null ? request.getFeedback().getRating().getName() : "";
+//        this.feedbackRating = request.getFeedback() != null ? request.getFeedback().getRating().getName() : 0;
+//        this.successful = request.getFeedback().getSuccessful;
         this.feedbackDate = request.getFeedback() != null ? request.getFeedback().formatDate() : "";
     }
 
@@ -178,12 +183,20 @@ public class RequestReportForm {
         this.feedbackSpecification = feedbackSpecification;
     }
 
-    public String getFeedbackRating() {
+    public void setFeedbackRating(Integer feedbackRating) {
+        this.feedbackRating = feedbackRating;
+    }
+
+    public void setSuccessful(boolean successful) {
+        this.successful = successful;
+    }
+
+    public Integer getFeedbackRating() {
         return feedbackRating;
     }
 
-    public void setFeedbackRating(String feedbackRating) {
-        this.feedbackRating = feedbackRating;
+    public boolean isSuccessful() {
+        return successful;
     }
 
     public String getFeedbackDate() {
