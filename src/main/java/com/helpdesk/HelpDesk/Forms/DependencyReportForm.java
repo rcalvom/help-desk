@@ -47,7 +47,7 @@ public class DependencyReportForm {
         this.dependency = dependency.getName();
 
 
-        Integer numbers[] = new Integer[toShow.length];
+        Integer[] numbers = new Integer[toShow.length];
         int numberClosedRequests = 0;
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){

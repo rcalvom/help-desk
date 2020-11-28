@@ -50,19 +50,19 @@
 			</div>
 			<div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck1">
+					<input class="form-check-input" type="checkbox" th:field="*{equipment}" th:value="${true}" id="DependencyCheck1">
 					<label class="form-check-label" for="DependencyCheck1"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Número de Equipos</h3></label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck2">
+					<input class="form-check-input" type="checkbox" th:field="*{request}" th:value="${true}" id="DependencyCheck2">
 					<label class="form-check-label" for="DependencyCheck2"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Número de Solicitudes</h3></label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck3">
+					<input class="form-check-input" type="checkbox" th:field="*{rating}" th:value="${true}" id="DependencyCheck3">
 					<label class="form-check-label" for="DependencyCheck3"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Calificación promedio</h3></label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck4">
+					<input class="form-check-input" type="checkbox" th:field="*{efficacy}" th:value="${true}" id="DependencyCheck4">
 					<label class="form-check-label" for="DependencyCheck4"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Eficacia</h3></label>
 				</div>
 			</div>
