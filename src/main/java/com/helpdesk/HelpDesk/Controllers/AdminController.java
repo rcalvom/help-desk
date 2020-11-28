@@ -224,11 +224,6 @@ public class AdminController {
         }
     }
 
-    @GetMapping(value = "/reports")
-    public void reportsAdminDefault(HttpServletResponse response) throws Exception {
-        this.WriteReport(response);
-    }
-
     @GetMapping("/admin/info")
     public String infoAdminDefault(Model model){
         if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
