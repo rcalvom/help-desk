@@ -913,3 +913,14 @@ textarea{
    display: flex;
    align-items: center;
  }
+
+ .flex-options{
+   position:fixed;
+   display:flex;
+   height: 100%;
+   width: 100%;
+ }
+
+ mr-20{
+   margin-right: 20px;
+ }

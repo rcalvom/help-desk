@@ -107,8 +107,6 @@ public class UserController {
     @PostMapping("/user/feedback/{id}")
     public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model) {
         header(model);
-        //boolean isSuccessful = (form.getSuccessful().equals("true")) ? true: false;
-        //Feedback feedback = new Feedback(form.getSpecification(), rating, isSuccessful);
         Feedback feedback = new Feedback(form.getSpecification(), form.getRating(), form.getSuccessful());
         feedbackDAO.insert(feedback);
         Request request = requestDAO.selectById(id);
