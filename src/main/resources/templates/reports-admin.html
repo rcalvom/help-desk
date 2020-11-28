@@ -39,26 +39,16 @@
 	<h2>Reportes</h2>
 	<br>
 	<div class="container">
-		<form method="post"> <!--TODO: Poner nombre del form-->
+		<form th:object="${reportForm}" class="form-horizontal" method="post"> <!--TODO: Poner nombre del form-->
 			<div class="form-group">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio1" value="option1">
-					<label class="form-check-label" for="TypeRadio1"><h3>Dependencia</h3></label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio2" value="option2">
-					<label class="form-check-label" for="TypeRadio2"><h3>Vinculación</h3></label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio3" value="option3">
-					<label class="form-check-label" for="TypeRadio3"><h3>Agente</h3></label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="TypeRadio4" value="option3">
-					<label class="form-check-label" for="TypeRadio4"><h3>Categoría</h3></label>
+				<div class="form-check form-check-inline" th:each="type : ${selectTypes}">
+					<div>
+						<input class="form-check-input" type="radio" th:field="*{selectType}" name="inlineRadioOptions" th:id="${type}" th:value="${type}">
+						<label class="form-check-label" th:for="${type}"><h3 th:text="${type}"></h3></label>
+					</div>
 				</div>
 			</div>
-			<div class="">
+			<div>
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="DependencyCheck1">
 					<label class="form-check-label" for="DependencyCheck1"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Número de Equipos</h3></label>

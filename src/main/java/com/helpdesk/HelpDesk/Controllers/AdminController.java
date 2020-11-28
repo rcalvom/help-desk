@@ -236,6 +236,8 @@ public class AdminController {
     @GetMapping("/admin/reports")
     public String reportsAdminDefault(Model model){
         if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
+            model.addAttribute("reportForm",new ReportForm());
+            model.addAttribute("selectTypes", Arrays.asList(ReportForm.SelectType.values()));
             return "reports-admin";
         }else{
             return "redirect:/error/403";

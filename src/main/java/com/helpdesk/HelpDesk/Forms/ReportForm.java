@@ -14,9 +14,9 @@ public class ReportForm {
     public void setSelectType(SelectType selectType) { this.selectType = selectType; }
 
     public enum SelectType{
-        DEPENDENCIA,
-        VINCULACION,
-        AGENTE,
-        CATEGORIA
+        Dependencia,
+        Vinculación,
+        Agente,
+        Categoría
     }
 }
