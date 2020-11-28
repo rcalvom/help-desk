@@ -2,14 +2,16 @@ package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Repository.BoundingTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoundingTypeDAO {
 
-    @Autowired
-    private BoundingTypeRepository boundingTypeRepository;
+    private final BoundingTypeRepository boundingTypeRepository;
+
+    public BoundingTypeDAO(BoundingTypeRepository boundingTypeRepository) {
+        this.boundingTypeRepository = boundingTypeRepository;
+    }
 
     public Iterable<BoundingType> select(){
         return boundingTypeRepository.findAll();

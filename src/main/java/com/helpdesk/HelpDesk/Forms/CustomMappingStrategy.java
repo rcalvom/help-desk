@@ -28,6 +28,12 @@ public class CustomMappingStrategy<T> extends ColumnPositionMappingStrategy<T> {
 //            "Numero de solicitudes malas",
 //            "Numero de solicitudes deficientes"));
         final int numColumns = findMaxFieldIndex();
+        if(toShow == null){
+            toShow = new boolean[findMaxFieldIndex() + 1];
+            for(int i = 0; i <= findMaxFieldIndex(); ++i){
+                toShow[i] = true;
+            }
+        }
         if (!isAnnotationDriven() || numColumns == -1) {
             return super.generateHeader(bean);
         }

@@ -5,7 +5,6 @@ import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.ReportRatingForm;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
@@ -19,16 +18,17 @@ import java.util.*;
 @Controller
 public class AgentController {
 
-    @Autowired
-    private RequestDAO requestDAO;
+    private final RequestDAO requestDAO;
+    private final UserDAO userDAO;
 
-    @Autowired
-    private UserDAO userDAO;
+    public AgentController(RequestDAO requestDAO, UserDAO userDAO) {
+        this.requestDAO = requestDAO;
+        this.userDAO = userDAO;
+    }
 
     //Mis solicitudes
     @GetMapping("/agent/my-requests")
     public String myRequestsAgentDefault(Model model){
-        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null){
             List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
@@ -44,6 +44,7 @@ public class AgentController {
             }
             model.addAttribute("RequestsAc", requestsAc);
             model.addAttribute("RequestsCl", requestsCl);
+            this.header(model);
             return "my-requests-agent";
         }else {
             return "redirect:/error/403";
@@ -53,13 +54,13 @@ public class AgentController {
     //Detalles de la solicitud agente
     @GetMapping("/agent/details/{id}")
     public String requestDetailsAgentDefault(@PathVariable("id") String id, Model model){
-        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request RequestDetail = requestDAO.selectById(id);
         if(user != null){
             for(User u : RequestDetail.getAgents()){
                 if(u.getUsername().equals(user.getUsername())){
                     model.addAttribute("requestDetail", RequestDetail);
+                    this.header(model);
                     return "request-details-agent";
                 }
             }
@@ -69,7 +70,6 @@ public class AgentController {
 
     @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
-        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request request = requestDAO.selectById(id);
         if(user != null){
@@ -79,6 +79,7 @@ public class AgentController {
                     newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
                     newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
                     requestDAO.update(request, newRequest);
+                    this.header(model);
                     return "redirect:/agent/my-requests";
                 }
             }
@@ -88,14 +89,13 @@ public class AgentController {
 
     @GetMapping("/agent/my-metrics")
     public String metricsAgentDefault(Model model){
-        header(model);
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
             ReportRatingForm reportRatingForm = new ReportRatingForm();
             List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
             reportRatingForm.setName(user.getName());
             reportRatingForm.setTotal(requests.size());
-            int E = 0,G = 0,R = 0,B = 0,D = 0;
+            int E = 0, G = 0, R = 0, B = 0, D = 0;
             for(Request req : requests){
                 if(req.getFeedback()!=null){
                     int rating = req.getFeedback().getRating();
@@ -115,22 +115,18 @@ public class AgentController {
                         case 1:
                             D += 1;
                             break;
+
                     }
                 }
             }
-            reportRatingForm.setExcellent(E);
-            reportRatingForm.setGood(G);
-            reportRatingForm.setRegular(R);
-            reportRatingForm.setBad(B);
-            reportRatingForm.setDeficient(D);
-            model.addAttribute("metrics", reportRatingForm);
+            this.header(model);
             return "my-metrics-agent";
         }
         return "redirect:/error/403";
     }
 
     private void header(Model model){
-        model.addAttribute("name",(String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name"))));
+        model.addAttribute("name",(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name"))));
     }
     
 }

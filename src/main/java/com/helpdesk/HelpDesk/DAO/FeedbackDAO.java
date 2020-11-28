@@ -2,14 +2,16 @@ package com.helpdesk.HelpDesk.DAO;
 
 import com.helpdesk.HelpDesk.Models.Feedback;
 import com.helpdesk.HelpDesk.Repository.FeedbackRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FeedbackDAO {
 
-    @Autowired
-    private FeedbackRepository feedbackRepository;
+    private final FeedbackRepository feedbackRepository;
+
+    public FeedbackDAO(FeedbackRepository feedbackRepository) {
+        this.feedbackRepository = feedbackRepository;
+    }
 
     public Iterable<Feedback> select(){
         return feedbackRepository.findAll();

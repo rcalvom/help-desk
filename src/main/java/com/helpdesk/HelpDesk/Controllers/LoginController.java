@@ -7,7 +7,6 @@ import com.helpdesk.HelpDesk.Forms.DataLoginForm;
 import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Models.Dependency;
 import com.helpdesk.HelpDesk.Models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
@@ -20,18 +19,18 @@ import java.util.Objects;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private BoundingTypeDAO boundingTypeDAO;
+    private final BoundingTypeDAO boundingTypeDAO;
+    private final DependencyDAO dependencyDAO;
+    private final UserDAO userDAO;
 
-    @Autowired
-    private DependencyDAO dependencyDAO;
-
-    @Autowired
-    private UserDAO userDAO;
+    public LoginController(BoundingTypeDAO boundingTypeDAO, DependencyDAO dependencyDAO, UserDAO userDAO) {
+        this.boundingTypeDAO = boundingTypeDAO;
+        this.dependencyDAO = dependencyDAO;
+        this.userDAO = userDAO;
+    }
 
     @GetMapping({"/", "/login"})
-    public String loginDefault(Model model){
-        // model.addAttribute("loginForm", new LoginForm());
+    public String loginDefault(){
         return "login";
     }
 
@@ -40,7 +39,7 @@ public class LoginController {
         User user = userDAO.selectPerson(((String)(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user == null){
             DataLoginForm form = new DataLoginForm();
-            form.setName(((String)(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("name")))));
+            form.setName(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("name")));
             form.setUsername(((String)(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
             model.addAttribute("dataLogin", form);
             List<BoundingType> boundingTypeList = (List<BoundingType>) boundingTypeDAO.select();
