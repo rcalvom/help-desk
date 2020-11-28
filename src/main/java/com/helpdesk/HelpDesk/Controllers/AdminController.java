@@ -247,29 +247,6 @@ public class AdminController {
         }
     }
 
-    // Reporte de todas las solicitudes
-    private void WriteReport(HttpServletResponse response) throws Exception{
-        String filename = "report.csv";
-        List<RequestReportForm> reports = new ArrayList<>();
-        List<Request> requests = (List<Request>) requestDAO.select();
-        for(Request req : requests){
-            reports.add(new RequestReportForm(req));
-        }
-
-        response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
-
-        final CustomMappingStrategy<RequestReportForm> mappingStrategy = new CustomMappingStrategy<>(null);
-        mappingStrategy.setType(RequestReportForm.class);
-
-        final StatefulBeanToCsv<RequestReportForm> beanToCsv = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
-                .withMappingStrategy(mappingStrategy)
-                .withSeparator(';')
-                .build();
-        beanToCsv.write(reports);
-        response.getWriter().close();
-    }
-
     // Reporte por Dependencia
     private void WriteReportDependency(HttpServletResponse response) throws Exception {
         List<DependencyReportForm> reports = new ArrayList<>();
@@ -357,55 +334,29 @@ public class AdminController {
         writer.write(reports);
     }
 
-
+    // Reporte de todas las solicitudes
     @GetMapping("/admin/csv")
     public String csvAdminDefault(HttpServletResponse response) throws Exception {
         if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
+            String filename = "report.csv";
             List<RequestReportForm> reports = new ArrayList<>();
             List<Request> requests = (List<Request>) requestDAO.select();
-            for (Request req : requests) {
-                RequestReportForm requestReportForm = new RequestReportForm();
-                requestReportForm.setId(req.getId());
-                requestReportForm.setSpecification(req.getSpecification());
-                requestReportForm.setCreationDate(req.formatCreationDate());
-                if (req.getEndingDate() != null) requestReportForm.setEndingDate(req.formatEndingDate());
-                else requestReportForm.setEndingDate("");
-                requestReportForm.setStatus(req.getStatus().name());
-                String agNames = "", agentNames = "";
-                Set<User> agents = req.getAgents();
-                for (User a : agents) {
-                    agNames = agNames + a.getName() + ", ";
-                }
-                if (!agNames.equals("")) agentNames = agNames.substring(0, (agNames.length() - 2));
-                requestReportForm.setAgentsNames(agentNames);
-                if (req.getInventoryPlate() != null)
-                    requestReportForm.setInventoryPlate(req.getInventoryPlate());
-                else requestReportForm.setInventoryPlate(0);
-                requestReportForm.setEquipmentNumber(req.getEquipmentNumber());
-                requestReportForm.setUserName(req.getUser().getName());
-                if (req.getCategory() != null) requestReportForm.setCategory(req.getCategory().getName());
-                else requestReportForm.setCategory("");
-                if (req.getFeedback() != null) {
-                    requestReportForm.setFeedbackSpecification(req.getFeedback().getSpecification());
-                    requestReportForm.setFeedbackRating(req.getFeedback().getRating());
-                    requestReportForm.setFeedbackDate(req.getFeedback().formatDate());
-                } else {
-                    requestReportForm.setFeedbackSpecification("");
-                    requestReportForm.setFeedbackRating(null);
-                    requestReportForm.setFeedbackDate("");
-                }
-                reports.add(requestReportForm);
+            for(Request req : requests){
+                reports.add(new RequestReportForm(req));
             }
-            String filename = "report.csv";
-            response.setContentType("text/csv");
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
 
-            StatefulBeanToCsv<RequestReportForm> writer = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
-                    .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+            response.setContentType("text/csv");
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
+
+            final CustomMappingStrategy<RequestReportForm> mappingStrategy = new CustomMappingStrategy<>(null);
+            mappingStrategy.setType(RequestReportForm.class);
+
+            final StatefulBeanToCsv<RequestReportForm> beanToCsv = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
+                    .withMappingStrategy(mappingStrategy)
                     .withSeparator(';')
-                    .withOrderedResults(true)
                     .build();
-            writer.write(reports);
+            beanToCsv.write(reports);
+            response.getWriter().close();
             return null;
         }else{
             return "redirect:/error/403";
