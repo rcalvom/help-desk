@@ -921,6 +921,10 @@ textarea{
    width: 100%;
  }
 
- mr-20{
-   margin-right: 20px;
+input[type=radio].mr-5{
+   margin-right: 5px;
  }
+
+label.mr-15{
+  margin-right: 15px;
+}
