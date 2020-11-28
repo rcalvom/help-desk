@@ -38,12 +38,12 @@
 			<br>
             <h2>Calificar la solicitud</h2>
             <br>
-			<p>Complete los siguientes campos de calificación con relación a la atención prestada en la solicitud: <span th:text="${id}"></span></p>
+			<h4>Complete los siguientes campos de calificación con relación a la atención prestada en la solicitud: <span th:text="${id}"></span></h4>
 			<br>
 			<div class="container">
 				<form method="post" th:object="${feedbackForm}" class="form-horizontal">
 					<div class="form-group">
-						<h4 class="col-md-2 align-left">Calificación: </h4>
+						<h4 class="col-md-2 align-left">Calificación (1 Deficiente - 5 Excelente): </h4>
 						<div class="col-md-6">
 							<div class="flex-options">
 								<input class="mr-5" type="radio" th:field="*{rating}" th:id="1" th:value="1">
