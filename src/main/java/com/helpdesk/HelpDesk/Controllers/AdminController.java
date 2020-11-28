@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -237,7 +239,7 @@ public class AdminController {
     @GetMapping("/admin/csv")
     public String csvAdminDefault(HttpServletResponse response) throws Exception {
         if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
-            String filename = "report.csv";
+            String filename = "report "+ this.formatDate(Calendar.getInstance().getTime())+".csv";
             List<RequestReportForm> reports = new ArrayList<>();
             List<Request> requests = (List<Request>) requestDAO.select();
             for(Request req : requests){
@@ -377,6 +379,11 @@ public class AdminController {
                 .withOrderedResults(true)
                 .build();
         writer.write(reports);
+    }
+
+    private String formatDate(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return date != null ? dateFormat.format(date.getTime()) : null;
     }
 }
 
