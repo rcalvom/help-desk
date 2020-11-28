@@ -264,6 +264,24 @@ public class AdminController {
         this.WriteReport(response);
     }
 
+    @GetMapping("/admin/info")
+    public String infoAdminDefault(Model model){
+        if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
+            return "info-admin";
+        }else{
+            return "redirect:/error/403";
+        }
+    }
+
+    @GetMapping("/admin/reports")
+    public String reportsAdminDefault(Model model){
+        if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
+            return "reports-admin";
+        }else{
+            return "redirect:/error/403";
+        }
+    }
+
     // Reporte de todas las solicitudes
     /*private void WriteReport(HttpServletResponse response) throws Exception{
         String filename = "report.csv";

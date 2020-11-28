@@ -2,14 +2,21 @@ package com.helpdesk.HelpDesk.Forms;
 
 public class ReportForm {
 
-    private String type;
-    private String dependency;
+    private boolean[] checkboxes;
+    private SelectType selectType;
 
-    public String getType() { return type; }
+    public boolean[] getCheckboxes() { return checkboxes; }
 
-    public void setType(String type) { this.type = type; }
+    public void setCheckboxes(boolean[] checkboxes) { this.checkboxes = checkboxes; }
 
-    public String getDependency() { return dependency; }
+    public SelectType getSelectType() { return selectType; }
 
-    public void setDependency(String dependency) { this.dependency = dependency; }
+    public void setSelectType(SelectType selectType) { this.selectType = selectType; }
+
+    public enum SelectType{
+        DEPENDENCIA,
+        VINCULACION,
+        AGENTE,
+        CATEGORIA
+    }
 }
