@@ -98,21 +98,21 @@ public class AgentController {
             int E = 0,G = 0,R = 0,B = 0,D = 0;
             for(Request req : requests){
                 if(req.getFeedback()!=null){
-                    String rating = req.getFeedback().getRating().getName();
+                    int rating = req.getFeedback().getRating();
                     switch (rating){
-                        case "Excelente":
+                        case 5:
                             E += 1;
                             break;
-                        case "Bueno":
+                        case 4:
                             G += 1;
                             break;
-                        case "Regular":
+                        case 3:
                             R += 1;
                             break;
-                        case "Malo":
+                        case 2:
                             B += 1;
                             break;
-                        case "Deficiente":
+                        case 1:
                             D += 1;
                             break;
                     }

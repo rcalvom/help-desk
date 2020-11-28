@@ -2,7 +2,8 @@ package com.helpdesk.HelpDesk.Forms;
 
 public class FeedbackForm {
     private String specification;
-    private String rating;
+    private int rating;
+    private boolean successful;
 
     public String getSpecification() {
         return specification;
@@ -12,11 +13,19 @@ public class FeedbackForm {
         this.specification = specification;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public boolean getSuccessful() {
+        return successful;
+    }
+
+    public void setSuccessful(boolean successful) {
+        this.successful = successful;
     }
 }

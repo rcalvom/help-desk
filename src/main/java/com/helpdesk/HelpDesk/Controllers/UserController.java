@@ -1,13 +1,11 @@
 package com.helpdesk.HelpDesk.Controllers;
 
 import com.helpdesk.HelpDesk.DAO.FeedbackDAO;
-import com.helpdesk.HelpDesk.DAO.RatingDAO;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.CreateRequestForm;
 import com.helpdesk.HelpDesk.Forms.FeedbackForm;
 import com.helpdesk.HelpDesk.Models.Feedback;
-import com.helpdesk.HelpDesk.Models.Rating;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +27,6 @@ public class UserController {
 
     @Autowired
     private RequestDAO requestDAO;
-
-    @Autowired
-    private RatingDAO ratingDAO;
 
     @Autowired
     private FeedbackDAO feedbackDAO;
@@ -106,17 +101,13 @@ public class UserController {
     public String feedbackDefault(@PathVariable("id") String id, Model model){
         header(model);
         model.addAttribute("feedbackForm", new FeedbackForm());
-        List<Rating> ratingsList = (List<Rating>) ratingDAO.select();
-        model.addAttribute("rtg", ratingsList);
         return "feedback-user";
     }
 
     @PostMapping("/user/feedback/{id}")
     public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model) {
         header(model);
-        Rating rating = new Rating();
-        rating.setName(form.getRating());
-        Feedback feedback = new Feedback(form.getSpecification(), rating);
+        Feedback feedback = new Feedback(form.getSpecification(), form.getRating(), form.getSuccessful());
         feedbackDAO.insert(feedback);
         Request request = requestDAO.selectById(id);
         Request newRequest = new Request();

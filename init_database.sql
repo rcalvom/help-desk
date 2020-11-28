@@ -7,7 +7,6 @@ drop table request;
 drop table user;
 drop table category;
 drop table feedback;
-drop table rating;
 drop table bounding_type;
 drop table dependency;
 
@@ -39,8 +38,3 @@ insert into category values ('Mal Funcionamiento de la impresora y/o escaner', 1
 insert into category values ('Mal funcionamiento del computador', 1);
 insert into category values ('Baja de equipos', 1);
 insert into category values ('Otros', 1);
-insert into rating values ('Excelente');
-insert into rating values ('Bueno');
-insert into rating values ('Regular');
-insert into rating values ('Malo');
-insert into rating values ('Deficiente');

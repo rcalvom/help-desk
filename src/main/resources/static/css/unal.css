@@ -913,3 +913,18 @@ textarea{
    display: flex;
    align-items: center;
  }
+
+ .flex-options{
+   position:fixed;
+   display:flex;
+   height: 100%;
+   width: 100%;
+ }
+
+input[type=radio].mr-5{
+   margin-right: 5px;
+ }
+
+label.mr-15{
+  margin-right: 15px;
+}
