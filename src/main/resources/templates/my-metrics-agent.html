@@ -39,30 +39,20 @@
             <h2>Mis métricas</h2>
             <br>
 			<div class="container">
-				<p>Solicitudes gestionadas: <span th:text="${metrics.total}">0</span> </p>
-				<ul>
-					<br>
+				<ol th:object="${agentReportForm}">
 					<li>
-						<div class="col-md-1"> <img th:src="@{/images/Excelente.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Excelentes: <span th:text="${metrics.excellent}">0</span> </div>
+						<h3>Número de equipos atendidos: <span th:text="*{pos0}"></span></h3>
 					</li>
 					<li>
-						<div class="col-md-1"> <img th:src="@{/images/Bueno.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Buenos: <span th:text="${metrics.good}">0</span> </div>
+						<h3>Número de solicitudes atendidas: <span th:text="*{pos1}"></span></h3>
 					</li>
 					<li>
-						<div class="col-md-1"> <img th:src="@{/images/Regular.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Regulares: <span th:text="${metrics.regular}">0</span> </div>
+						<h3>Promedio de calificación: <span th:text="*{pos2}"></span></h3>
 					</li>
 					<li>
-						<div class="col-md-1"> <img th:src="@{/images/Malo.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Malos: <span th:text="${metrics.bad}">0</span> </div>
+						<h3>Eficacia: <span th:text="*{pos3}"></span></h3>
 					</li>
-					<li>
-						<div class="col-md-1"> <img th:src="@{/images/Deficiente.png}" width="25px" height="25px"> </div>
-						<div class="col-md-11 align-content-center"> <p>Deficientes: <span th:text="${metrics.deficient}">0</span> </div>
-					</li>
-				</ul>
+				</ol>
             </div>
 		</main>
 		<footer th:insert="footer.html" class="clear align-center"></footer>
