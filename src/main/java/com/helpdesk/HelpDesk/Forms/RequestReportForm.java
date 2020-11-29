@@ -88,8 +88,8 @@ public class RequestReportForm {
         this.userName = request.getUser().getName();
         this.category = request.getCategory() != null ? request.getCategory().getName() : "";
         this.feedbackSpecification = request.getFeedback() != null ? request.getFeedback().getSpecification() : "";
-//        this.feedbackRating = request.getFeedback() != null ? request.getFeedback().getRating().getName() : 0;
-//        this.successful = request.getFeedback().getSuccessful;
+        this.feedbackRating = request.getFeedback() != null ? request.getFeedback().getRating() : 0;
+        this.successful = request.getFeedback() != null ? request.getFeedback().isSuccessful() : false;
         this.feedbackDate = request.getFeedback() != null ? request.getFeedback().formatDate() : "";
     }
 

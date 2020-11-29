@@ -23,19 +23,19 @@ public class DependencyReportForm {
 
     @CsvBindByName(column = "Numero de equipos")
     @CsvBindByPosition(position = 1)
-    private Integer pos0;
+    private String pos0;
 
     @CsvBindByName(column = "Numero de solicitudes")
     @CsvBindByPosition(position = 2)
-    private Integer pos1;
+    private String pos1;
 
     @CsvBindByName(column = "Promedio de calificación")
     @CsvBindByPosition(position = 3)
-    private Integer pos2;
+    private String pos2;
 
     @CsvBindByName(column = "Eficacia")
     @CsvBindByPosition(position = 4)
-    private Integer pos3;
+    private String pos3;
 
 
     public DependencyReportForm(Dependency dependency, boolean[] toShow) {
@@ -47,7 +47,7 @@ public class DependencyReportForm {
         this.dependency = dependency.getName();
 
 
-        Integer[] numbers = new Integer[toShow.length];
+        float[] numbers = new float[toShow.length];
         int numberClosedRequests = 0;
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){
@@ -60,11 +60,10 @@ public class DependencyReportForm {
                 numbers[1]++;
                 if(request.getStatus() == Request.Status.CERRADO){
                     numberClosedRequests++;
-//                if(toShow[2]) numbers[2] += request.getFeedback().getRating();
-                    //CUANDO ESTÉ DISPONIBLE
-//                if(request.getFeedback().getSuccessful()){
-//                    numbers[3]++;
-//                }
+                if(toShow[2]) numbers[2] += request.getFeedback().getRating();
+                    if(request.getFeedback().isSuccessful()){
+                        numbers[3]++;
+                    }
                 }
             }
         }
@@ -74,14 +73,15 @@ public class DependencyReportForm {
 
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){
+                String result = Math.ceil(numbers[i]) == numbers[i] ? (int) numbers[i] + "" : numbers[i] + "";
                 if(pos0 == null){
-                    pos0 = numbers[i];
+                    pos0 = result;
                 }else if(pos1 == null){
-                    pos1 = numbers[i];
+                    pos1 = result;
                 }else if(pos2 == null){
-                    pos2 = numbers[i];
+                    pos2 = result;
                 }else if(pos3 == null){
-                    pos3 = numbers[i];
+                    pos3 = result;
                 }
             }
         }
@@ -98,35 +98,35 @@ public class DependencyReportForm {
         this.dependency = dependency;
     }
 
-    public void setPos0(Integer pos0) {
+    public void setPos0(String pos0) {
         this.pos0 = pos0;
     }
 
-    public void setPos1(Integer pos1) {
+    public void setPos1(String pos1) {
         this.pos1 = pos1;
     }
 
-    public void setPos2(Integer pos2) {
+    public void setPos2(String pos2) {
         this.pos2 = pos2;
     }
 
-    public void setPos3(Integer pos3) {
+    public void setPos3(String pos3) {
         this.pos3 = pos3;
     }
 
-    public Integer getPos0() {
+    public String getPos0() {
         return pos0;
     }
 
-    public Integer getPos1() {
+    public String getPos1() {
         return pos1;
     }
 
-    public Integer getPos2() {
+    public String getPos2() {
         return pos2;
     }
 
-    public Integer getPos3() {
+    public String getPos3() {
         return pos3;
     }
 }
