@@ -39,8 +39,36 @@
             <br>
             <h2>Mis solicitudes</h2>
             <br>
+
+			<div class="container" th:if="${RequestsUn.size() > 0}" >
+				<h3>Solicitudes sin calificar</h3>
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+					<tr class="warning">
+						<th>Id</th>
+						<th>Fecha de creación</th>
+						<th>Nombre del agente</th>
+						<th>Categoria</th>
+						<th>Detalles</th>
+					</tr>
+					</thead>
+					<tr data-th-each="requests : ${RequestsUn}">
+						<td data-th-text="${requests.id}">...</td>
+						<td data-th-text="${requests.formatCreationDate()}">...</td>
+						<td th:if="${requests.getAgents().size() == 0}">No Asignado</td>
+						<td th:unless="${requests.getAgents().size() == 0}">
+							<ul data-th-each="agent : ${requests.agents}">
+								<li data-th-text="${agent.name}"></li>
+							</ul>
+						</td>
+						<td data-th-text="${requests.category} ? ${requests.category.name} :'No Asignado'">...</td>
+						<td><a th:href="@{/user/details/{id}(id=${requests.id})}">Ver más</a></td>
+					</tr>
+				</table>
+			</div>
+
 			<div class="container">
-				<h3>Solicitudes Abiertas</h3>
+				<h3>Solicitudes abiertas</h3>
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr class="success">

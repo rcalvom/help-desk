@@ -70,16 +70,20 @@ public class UserController {
             List<Request> requests = (List<Request>)  requestDAO.selectByUser(user);
             List<Request> requestsAc = new ArrayList<>();
             List<Request> requestsCl = new ArrayList<>();
+            List<Request> requestsUn = new ArrayList<>();
             for(Request req : requests){
+                if(req.getFeedback() == null) {
+                    requestsUn.add(req);
+                }
                 if(req.getStatus() == Request.Status.ACTIVO || req.getStatus() == Request.Status.NO_ASIGNADO){
                     requestsAc.add(req);
-                }
-                else{
+                }else{
                     requestsCl.add(req);
                 }
             }
             model.addAttribute("RequestsAc", requestsAc);
             model.addAttribute("RequestsCl", requestsCl);
+            model.addAttribute("RequestsUn", requestsUn);
             return "my-requests-user";
         }else{
             return "redirect:/error";
