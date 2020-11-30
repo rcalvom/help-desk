@@ -103,31 +103,49 @@ public class UserController {
     //Calificar solicitud
     @GetMapping("/user/feedback/{id}")
     public String feedbackDefault(@PathVariable("id") String id, Model model){
-        model.addAttribute("feedbackForm", new FeedbackForm());
-        this.header(model);
-        return "feedback-user";
+        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request RequestDetail = requestDAO.selectById(id);
+        if(user != null){
+            if(user.getUsername().equals(RequestDetail.getUser().getUsername())){
+                if(RequestDetail.getStatus().equals(Request.Status.CERRADO_SIN_CALIFICACION)){
+                    model.addAttribute("feedbackForm", new FeedbackForm());
+                    this.header(model);
+                    return "feedback-user";
+                }
+            }
+        }
+        return "redirect:/error/403";
     }
 
     @PostMapping("/user/feedback/{id}")
     public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model) {
-        header(model);
-        Feedback feedback = new Feedback(form.getSpecification(), form.getRating(), form.getSuccessful());
-        feedbackDAO.insert(feedback);
-        Request request = requestDAO.selectById(id);
-        Request newRequest = new Request();
-        newRequest.setId(request.getId());
-        newRequest.setSpecification(request.getSpecification());
-        newRequest.setCreationDate(request.getCreationDate());
-        newRequest.setEndingDate(request.getEndingDate());
-        newRequest.setStatus(Request.Status.CERRADO);
-        newRequest.setInventoryPlate(request.getInventoryPlate());
-        newRequest.setEquipmentNumber(request.getEquipmentNumber());
-        newRequest.setUser(request.getUser());
-        newRequest.setAgents(request.getAgents());
-        newRequest.setCategory(request.getCategory());
-        newRequest.setFeedback(feedback);
-        requestDAO.update(request, newRequest);
-        return "redirect:/user/my-requests";
+        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request RequestDetail = requestDAO.selectById(id);
+        if(user != null){
+            if(user.getUsername().equals(RequestDetail.getUser().getUsername())){
+                if(RequestDetail.getStatus().equals(Request.Status.CERRADO_SIN_CALIFICACION)){
+                    this.header(model);
+                    Feedback feedback = new Feedback(form.getSpecification(), form.getRating(), form.getSuccessful());
+                    feedbackDAO.insert(feedback);
+                    Request request = requestDAO.selectById(id);
+                    Request newRequest = new Request();
+                    newRequest.setId(request.getId());
+                    newRequest.setSpecification(request.getSpecification());
+                    newRequest.setCreationDate(request.getCreationDate());
+                    newRequest.setEndingDate(request.getEndingDate());
+                    newRequest.setStatus(Request.Status.CERRADO);
+                    newRequest.setInventoryPlate(request.getInventoryPlate());
+                    newRequest.setEquipmentNumber(request.getEquipmentNumber());
+                    newRequest.setUser(request.getUser());
+                    newRequest.setAgents(request.getAgents());
+                    newRequest.setCategory(request.getCategory());
+                    newRequest.setFeedback(feedback);
+                    requestDAO.update(request, newRequest);
+                    return "redirect:/user/my-requests";
+                }
+            }
+        }
+        return "redirect:/error/403";
     }
 
     //FAQ

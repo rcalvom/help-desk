@@ -2,6 +2,7 @@ package com.helpdesk.HelpDesk.Controllers;
 
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
+import com.helpdesk.HelpDesk.Forms.AgentReportForm;
 import com.helpdesk.HelpDesk.Forms.ReportRatingForm;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
@@ -91,34 +92,9 @@ public class AgentController {
     public String metricsAgentDefault(Model model){
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
-            ReportRatingForm reportRatingForm = new ReportRatingForm();
-            List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
-            reportRatingForm.setName(user.getName());
-            reportRatingForm.setTotal(requests.size());
-            int E = 0, G = 0, R = 0, B = 0, D = 0;
-            for(Request req : requests){
-                if(req.getFeedback()!=null){
-                    int rating = req.getFeedback().getRating();
-                    switch (rating){
-                        case 5:
-                            E += 1;
-                            break;
-                        case 4:
-                            G += 1;
-                            break;
-                        case 3:
-                            R += 1;
-                            break;
-                        case 2:
-                            B += 1;
-                            break;
-                        case 1:
-                            D += 1;
-                            break;
-
-                    }
-                }
-            }
+            boolean[] toShow = {true,true,true,true};
+            AgentReportForm agentReportForm = new AgentReportForm(user,toShow);
+            model.addAttribute("agentReportForm", agentReportForm);
             this.header(model);
             return "my-metrics-agent";
         }
