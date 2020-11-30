@@ -64,16 +64,20 @@ public class UserController {
             List<Request> requests = (List<Request>)  requestDAO.selectByUser(user);
             List<Request> requestsAc = new ArrayList<>();
             List<Request> requestsCl = new ArrayList<>();
+            List<Request> requestsUn = new ArrayList<>();
             for(Request req : requests){
                 if(req.getStatus() == Request.Status.ACTIVO || req.getStatus() == Request.Status.NO_ASIGNADO){
                     requestsAc.add(req);
-                }
-                else{
+                }else{
                     requestsCl.add(req);
+                    if(req.getFeedback() == null) {
+                        requestsUn.add(req);
+                    }
                 }
             }
             model.addAttribute("RequestsAc", requestsAc);
             model.addAttribute("RequestsCl", requestsCl);
+            model.addAttribute("RequestsUn", requestsUn);
             this.header(model);
             return "my-requests-user";
         }else{
@@ -127,7 +131,7 @@ public class UserController {
     }
 
     //FAQ
-    @GetMapping("/user/FAQ")
+    @GetMapping("/FAQ")
     public String FAQ(){
         return "FAQ";
     }

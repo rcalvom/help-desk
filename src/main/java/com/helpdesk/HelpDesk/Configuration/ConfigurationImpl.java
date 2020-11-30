@@ -38,7 +38,7 @@ public class ConfigurationImpl extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     // .antMatchers("/admin/**").hasRole("AGENT")
                     // .antMatchers("/agent/**", "/admin/**").hasRole("USER")
-                    .antMatchers("/login", "/css/**", "/js/**", "/images/**", "/reports/**").permitAll()
+                    .antMatchers("/login", "/css/**", "/js/**", "/images/**", "/reports/**", "/FAQ").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .logout()
