@@ -72,13 +72,13 @@ public class UserController {
             List<Request> requestsCl = new ArrayList<>();
             List<Request> requestsUn = new ArrayList<>();
             for(Request req : requests){
-                if(req.getFeedback() == null) {
-                    requestsUn.add(req);
-                }
                 if(req.getStatus() == Request.Status.ACTIVO || req.getStatus() == Request.Status.NO_ASIGNADO){
                     requestsAc.add(req);
                 }else{
                     requestsCl.add(req);
+                    if(req.getFeedback() == null) {
+                        requestsUn.add(req);
+                    }
                 }
             }
             model.addAttribute("RequestsAc", requestsAc);
