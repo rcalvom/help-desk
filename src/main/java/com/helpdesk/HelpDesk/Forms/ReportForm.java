@@ -6,6 +6,7 @@ public class ReportForm {
     private boolean request;
     private boolean rating;
     private boolean efficacy;
+    private boolean duration;
     private SelectType selectType;
 
     public boolean getEquipment() { return equipment; }
@@ -27,6 +28,14 @@ public class ReportForm {
     public SelectType getSelectType() { return selectType; }
 
     public void setSelectType(SelectType selectType) { this.selectType = selectType; }
+
+    public boolean getDuration() {
+        return duration;
+    }
+
+    public void setDuration(boolean duration) {
+        this.duration = duration;
+    }
 
     public enum SelectType{
         Dependencia,
