@@ -7,7 +7,7 @@ public class DataLoginForm {
     private String boundingType;
     private String dependency;
     private String location;
-    private int phone;
+    private String phone;
     private int phoneExtension;
 
     public String getName() {
@@ -50,11 +50,11 @@ public class DataLoginForm {
         this.location = location;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

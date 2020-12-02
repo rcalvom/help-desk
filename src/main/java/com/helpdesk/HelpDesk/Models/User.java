@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Size(max = 255)
     private String location;
 
-    private int phone;
+    private String phone;
 
     private int phoneExtension;
 
@@ -171,11 +171,11 @@ public class User implements UserDetails {
         this.location = location;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

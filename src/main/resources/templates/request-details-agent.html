@@ -106,7 +106,7 @@
 							<input th:value="${requestDetail.user.location}" id="location" type="text" readonly class="form-control">
 						</div>
 					</div>
-					<div th:if="${requestDetail.user.phone != 0}" class="form-group">
+					<div th:if="${requestDetail.user.phone != Null}" class="form-group">
 						<h4 class="col-md-2 align-left">Teléfono del solicitante:</h4>
 						<div class="col-md-4">
 							<input th:value="${requestDetail.user.phone}" id="phone" type="tel" readonly class="form-control">
