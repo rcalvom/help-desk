@@ -27,7 +27,7 @@ public class ViewRequestTest {
     @Test
     public void ViewRequestUser() {
         boolean flag = true;
-        User user1 = userDAO.selectUser("user");
+        User user1 = userDAO.selectUser("sagonzalezn");
         if (user1 == null) {
             flag = false;
         } else {
@@ -55,7 +55,7 @@ public class ViewRequestTest {
     @Test
     public void ViewRequestAgent() {
         boolean flag = true;
-        User user1 = userDAO.selectAgent("agent1");
+        User user1 = userDAO.selectAgent("avargasr");
         if (user1 == null) {
             flag = false;
         } else {

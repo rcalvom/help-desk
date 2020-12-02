@@ -51,13 +51,14 @@ public class User implements UserDetails {
 
     public User() { }
 
-    public User(String username, String name, BoundingType boundingType, Dependency dependency){
+    public User(String username, String name, BoundingType boundingType, Dependency dependency, String location){
         this.username = username;
         this.name = name;
         this.isAgent = false;
         this.isAdministrator = false;
         this.boundingType = boundingType;
         this.dependency = dependency;
+        this.location = location;
     }
 
     @Override
