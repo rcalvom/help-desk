@@ -43,10 +43,10 @@ public class User implements UserDetails {
     @NotNull
     private Dependency dependency;
 
-    @ManyToMany(mappedBy = "agents")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "agents")
     private Set<Request> assignedRequests;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Request> requests;
 
     public User() { }

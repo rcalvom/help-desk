@@ -299,7 +299,7 @@ public class AdminController {
     }
 
     // Reporte por Dependencia
-    private void writeReportDependency(HttpServletResponse response, boolean... toShow) throws Exception {
+    public void writeReportDependency(HttpServletResponse response, boolean... toShow) throws Exception {
         List<DependencyReportForm> reports = new ArrayList<>();
         List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
         for(Dependency dependency : dependencies){
@@ -318,6 +318,7 @@ public class AdminController {
                 .withMappingStrategy(mappingStrategy)
                 .build();
         writer.write(reports);
+        response.getWriter().close();
     }/**/
 
     // Reporte por vinculación
