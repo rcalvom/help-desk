@@ -31,15 +31,22 @@ public class BoundingTypeReportForm {
     @CsvBindByPosition(position = 4)
     private String pos3;
 
+    @CsvBindByName(column = "Duración promedio (días)")
+    @CsvBindByPosition(position = 5)
+    private String pos4;
+
+
     public BoundingTypeReportForm(BoundingType boundingType, boolean toShow[]) {
 
         this.pos0 = null;
         this.pos1 =null;
         this.pos2 = null;
         this.pos3 = null;
+        this.pos4 = null;
         this.boundingType = boundingType.getName();
 
         float[] numbers = new float[toShow.length];
+        int numberClosedFeedbackRequests = 0;
         int numberClosedRequests = 0;
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){
@@ -50,22 +57,28 @@ public class BoundingTypeReportForm {
             for(Request request : user.getRequests()){
                 numbers[0] += request.getEquipmentNumber();
                 numbers[1]++;
-                if(request.getStatus() == Request.Status.CERRADO){
+                if(request.getStatus() == Request.Status.CERRADO || request.getStatus() == Request.Status.CERRADO_SIN_CALIFICACION){
                     numberClosedRequests++;
-                if(toShow[2]) numbers[2] += request.getFeedback().getRating();
-                if(request.getFeedback().isSuccessful()){
-                    numbers[3]++;
-                }
+                    numbers[4] += Math.abs(request.getEndingDate().getTime().getTime() - request.getCreationDate().getTime().getTime())/(1000.0 * 60 * 60 * 24);
+                    System.out.println("aumento " + Math.abs(request.getEndingDate().getTime().getTime() - request.getCreationDate().getTime().getTime())/(1000.0 * 60 * 60 * 24));
+                    if(request.getStatus() == Request.Status.CERRADO){
+                        numberClosedFeedbackRequests++;
+                        if(request.getFeedback().isSuccessful()){
+                            numbers[3]++;
+                        }
+                        numbers[2] += request.getFeedback().getRating();
+                    }
                 }
             }
         }
 
-        numbers[2] /= numberClosedRequests;
-        numbers[3] /= numberClosedRequests;
+        numbers[2] /= numberClosedFeedbackRequests;
+        numbers[3] /= numberClosedFeedbackRequests;
+        numbers[4] /= numberClosedRequests;
 
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){
-                String result = Math.ceil(numbers[i]) == numbers[i] ? (int) numbers[i] + "" : numbers[i] + "";
+                String result = Math.ceil(numbers[i]) == numbers[i] ? (int) numbers[i] + "" : String.format("%.2f", numbers[i]) + "";
                 if(pos0 == null){
                     pos0 = result;
                 }else if(pos1 == null){
@@ -74,6 +87,8 @@ public class BoundingTypeReportForm {
                     pos2 = result;
                 }else if(pos3 == null){
                     pos3 = result;
+                }else if(pos4 == null){
+                    pos4 = result;
                 }
             }
         }
@@ -119,6 +134,14 @@ public class BoundingTypeReportForm {
 
     public String getPos3() {
         return pos3;
+    }
+
+    public void setPos4(String pos4) {
+        this.pos4 = pos4;
+    }
+
+    public String getPos4() {
+        return pos4;
     }
 
 }

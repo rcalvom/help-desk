@@ -280,16 +280,16 @@ public class AdminController {
         if(userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
             switch (form.getSelectType()){
                 case Dependencia:
-                    this.writeReportDependency(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy());
+                    this.writeReportDependency(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
                     break;
                 case Vinculación:
-                    this.writeReportBounding(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy());
+                    this.writeReportBounding(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
                     break;
                 case Agente:
-                    this.writeReportAgent(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy());
+                    this.writeReportAgent(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
                     break;
                 case Categoría:
-                    this.writeReportCategory(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy());
+                    this.writeReportCategory(response,form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
                     break;
             }
             return null;

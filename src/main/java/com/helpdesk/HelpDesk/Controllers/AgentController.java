@@ -92,7 +92,7 @@ public class AgentController {
     public String metricsAgentDefault(Model model){
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
-            boolean[] toShow = {true,true,true,true};
+            boolean[] toShow = {true,true,true,true,true};
             AgentReportForm agentReportForm = new AgentReportForm(user,toShow);
             model.addAttribute("agentReportForm", agentReportForm);
             this.header(model);
