@@ -380,7 +380,7 @@ public class AdminController {
                 .build();
         writer.write(reports);
     }
-
+    
     private String formatDate(Date date){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return date != null ? dateFormat.format(date.getTime()) : null;

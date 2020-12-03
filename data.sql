@@ -1,14 +1,16 @@
-use helpdesk;
 
-drop table id_gen;
-drop table hibernate_sequence;
-drop table agent_request;
-drop table request;
-drop table user;
-drop table category;
-drop table feedback;
-drop table bounding_type;
-drop table dependency;
+-- En caso de querer borrar las tablas.
+-- drop table id_gen;
+-- drop table hibernate_sequence;
+-- drop table agent_request;
+-- drop table request;
+-- drop table user;
+-- drop table category;
+-- drop table feedback;
+-- drop table bounding_type;
+-- drop table dependency;
+
+-- Datos iniciales de la base de datos.
 
 insert into bounding_type values ('Administrativo');
 insert into bounding_type values ('Profesor');
