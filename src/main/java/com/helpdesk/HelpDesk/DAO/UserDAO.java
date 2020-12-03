@@ -30,7 +30,6 @@ public class UserDAO implements UserDetailsService{
     }
 
     public boolean update(User oldUser, User newUser){
-
         if(oldUser.isAgent() != newUser.isAgent()){
             Iterable<User> users = userRepository.findAll();
             for(User u : users){
@@ -107,4 +106,5 @@ public class UserDAO implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.selectPerson(username);
     }
+
 }

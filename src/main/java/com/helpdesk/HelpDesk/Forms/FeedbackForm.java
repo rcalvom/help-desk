@@ -1,6 +1,7 @@
 package com.helpdesk.HelpDesk.Forms;
 
 public class FeedbackForm {
+
     private String specification;
     private int rating;
     private boolean successful;

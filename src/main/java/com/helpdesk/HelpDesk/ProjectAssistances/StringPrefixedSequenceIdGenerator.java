@@ -1,4 +1,4 @@
-package com.helpdesk.HelpDesk.Models;
+package com.helpdesk.HelpDesk.ProjectAssistances;
 
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;

@@ -29,22 +29,22 @@ public class LoginController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping({"/", "/login"})
+    @GetMapping("/login")
     public String loginDefault(){
         return "login";
     }
 
     @GetMapping("/loginSuccess")
     public String loginSuccess(Model model) throws NullPointerException{
-        User user = userDAO.selectPerson(((String)(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        User user = this.userDAO.selectPerson(((String)(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user == null){
             DataLoginForm form = new DataLoginForm();
             form.setName(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("name")));
             form.setUsername(((String)(Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
             model.addAttribute("dataLogin", form);
-            List<BoundingType> boundingTypeList = (List<BoundingType>) boundingTypeDAO.select();
+            List<BoundingType> boundingTypeList = (List<BoundingType>) this.boundingTypeDAO.select();
             model.addAttribute("boundingTypes", boundingTypeList);
-            List<Dependency> dependencies = (List<Dependency>) dependencyDAO.select();
+            List<Dependency> dependencies = (List<Dependency>) this.dependencyDAO.select();
             model.addAttribute("dependencies", dependencies);
             return "data-login";
         }else{
@@ -66,6 +66,12 @@ public class LoginController {
         user.setPhoneExtension(form.getPhoneExtension());
         userDAO.insert(user);
         return "redirect:/user/create-request";
+    }
+
+    // FAQ
+    @GetMapping("/FAQ")
+    public String FAQ(){
+        return "FAQ";
     }
 
 }

@@ -28,7 +28,7 @@ public class CategoryDAO {
     }
 
     public boolean update(Category oldCategory, Category newCategory){
-        if( oldCategory != null && newCategory != null && oldCategory.isActive() != newCategory.isActive()){
+        if(oldCategory != null && newCategory != null && oldCategory.isActive() != newCategory.isActive()){
             Iterable<Category> categories = categoryRepository.findAll();
             for(Category c : categories){
                 if(c.getName().equals(oldCategory.getName())){
@@ -38,11 +38,8 @@ public class CategoryDAO {
                     return true;
                 }
             }
-            return false;
         }
-        else{
-            return false;
-        }
+        return false;
 
     }
 
@@ -56,6 +53,7 @@ public class CategoryDAO {
         }
         return  false;
     }
+
     public Category select(String name){
         try {
             return categoryRepository.getCategoryByName(name).iterator().next();

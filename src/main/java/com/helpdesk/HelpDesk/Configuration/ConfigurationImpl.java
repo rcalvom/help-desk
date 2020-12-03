@@ -30,19 +30,19 @@ public class ConfigurationImpl extends WebSecurityConfigurerAdapter {
         http.headers().cacheControl();
         http.cors().and().csrf().disable();
         http
-                .oauth2Login()
-                    .loginPage("/login")
-                    .successHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/loginSuccess"))
-                    .failureHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/login"))
-                    .and()
-                .authorizeRequests()
-                    // .antMatchers("/admin/**").hasRole("AGENT")
-                    // .antMatchers("/agent/**", "/admin/**").hasRole("USER")
-                    .antMatchers("/login", "/css/**", "/js/**", "/images/**", "/reports/**", "/FAQ").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/");
+            .oauth2Login()
+                .loginPage("/login")
+                .successHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/loginSuccess"))
+                .failureHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/login"))
+                .and()
+            .authorizeRequests()
+                // .antMatchers("/admin/**").hasRole("AGENT")
+                // .antMatchers("/agent/**", "/admin/**").hasRole("USER")
+                .antMatchers("/login", "/css/**", "/js/**", "/images/**", "/FAQ").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
     }
 }

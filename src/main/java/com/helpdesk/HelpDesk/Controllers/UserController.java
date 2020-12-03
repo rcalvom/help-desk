@@ -31,10 +31,10 @@ public class UserController {
         this.feedbackDAO = feedbackDAO;
     }
 
-    //Crear solicitud
+    // Crear solicitud GET.
     @GetMapping("/user/create-request")
     public String createRequestUserDefault(Model model) {
-        if (userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]) != null){
+        if (this.userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]) != null){
             model.addAttribute("createRequestForm", new CreateRequestForm());
             this.header(model);
             return "create-request-user";
@@ -43,12 +43,13 @@ public class UserController {
         }
     }
 
+    // Crear solicitud POST.
     @PostMapping("/user/create-request")
     public String createRequestUserPost(@ModelAttribute CreateRequestForm form, Model model){
-        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        User user = this.userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
             Request request = new Request(form.getDescription(), user, form.getInventoryPlate(), form.getEquipmentNumber());
-            requestDAO.insert(request);
+            this.requestDAO.insert(request);
             this.header(model);
             return "redirect:/user/my-requests";
         }else{
@@ -56,12 +57,12 @@ public class UserController {
         }
     }
 
-    //Mis solicitudes
+    // Mis solicitudes GET.
     @GetMapping("/user/my-requests")
     public String myRequestsUserDefault(Model model){
-        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        User user = this.userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
-            List<Request> requests = (List<Request>)  requestDAO.selectByUser(user);
+            List<Request> requests = (List<Request>)  this.requestDAO.selectByUser(user);
             List<Request> requestsAc = new ArrayList<>();
             List<Request> requestsCl = new ArrayList<>();
             List<Request> requestsUn = new ArrayList<>();
@@ -85,11 +86,11 @@ public class UserController {
         }
     }
 
-    //Detalles de la solicitud usuario
+    // Detalles de la solicitud usuario.
     @GetMapping("/user/details/{id}")
     public String requestDetailsUserDefault(@PathVariable("id") String id, Model model){
-        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
-        Request RequestDetail = requestDAO.selectById(id);
+        User user = this.userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request RequestDetail = this.requestDAO.selectById(id);
         if(user != null){
             if(user.getUsername().equals(RequestDetail.getUser().getUsername())){
                 model.addAttribute("requestDetail", RequestDetail);
@@ -100,11 +101,11 @@ public class UserController {
         return "redirect:/error/403";
     }
 
-    //Calificar solicitud
+    // Calificar solicitud GET.
     @GetMapping("/user/feedback/{id}")
     public String feedbackDefault(@PathVariable("id") String id, Model model){
-        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
-        Request RequestDetail = requestDAO.selectById(id);
+        User user = this.userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request RequestDetail = this.requestDAO.selectById(id);
         if(user != null){
             if(user.getUsername().equals(RequestDetail.getUser().getUsername())){
                 if(RequestDetail.getStatus().equals(Request.Status.CERRADO_SIN_CALIFICACION)){
@@ -117,17 +118,18 @@ public class UserController {
         return "redirect:/error/403";
     }
 
+    // Calificar solicitud POST.
     @PostMapping("/user/feedback/{id}")
     public String feedbackPost(@ModelAttribute FeedbackForm form, @PathVariable("id") String id, Model model) {
-        User user = userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
-        Request RequestDetail = requestDAO.selectById(id);
+        User user = this.userDAO.selectPerson(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request RequestDetail = this.requestDAO.selectById(id);
         if(user != null){
             if(user.getUsername().equals(RequestDetail.getUser().getUsername())){
                 if(RequestDetail.getStatus().equals(Request.Status.CERRADO_SIN_CALIFICACION)){
                     this.header(model);
                     Feedback feedback = new Feedback(form.getSpecification(), form.getRating(), form.getSuccessful());
-                    feedbackDAO.insert(feedback);
-                    Request request = requestDAO.selectById(id);
+                    this.feedbackDAO.insert(feedback);
+                    Request request = this.requestDAO.selectById(id);
                     Request newRequest = new Request();
                     newRequest.setId(request.getId());
                     newRequest.setSpecification(request.getSpecification());
@@ -140,7 +142,7 @@ public class UserController {
                     newRequest.setAgents(request.getAgents());
                     newRequest.setCategory(request.getCategory());
                     newRequest.setFeedback(feedback);
-                    requestDAO.update(request, newRequest);
+                    this.requestDAO.update(request, newRequest);
                     return "redirect:/user/my-requests";
                 }
             }
@@ -148,15 +150,9 @@ public class UserController {
         return "redirect:/error/403";
     }
 
-    //FAQ
-    @GetMapping("/FAQ")
-    public String FAQ(){
-        return "FAQ";
-    }
-
     private void header(Model model){
         model.addAttribute("name", Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("given_name")));
-        if(userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])!=null){
+        if(this.userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])!=null){
             model.addAttribute("isAgent", true);
         }else{
             model.addAttribute("isAgent", false);

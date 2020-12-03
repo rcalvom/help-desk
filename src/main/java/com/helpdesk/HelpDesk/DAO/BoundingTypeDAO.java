@@ -31,16 +31,6 @@ public class BoundingTypeDAO {
         return true;
     }
 
-    public boolean update(BoundingType oldBoundingType, BoundingType newBoundingType){
-        Iterable<BoundingType> boundingTypes = boundingTypeRepository.findAll();
-        /*for(BoundingType bt : boundingTypes){
-            if(bt.getName().equals(oldBoundingType.getName())){
-                return true;
-            }
-        }*/
-        return false;
-    }
-
     public boolean delete(BoundingType boundingType){
         Iterable<BoundingType> boundingTypes = boundingTypeRepository.findAll();
         for(BoundingType bt : boundingTypes){

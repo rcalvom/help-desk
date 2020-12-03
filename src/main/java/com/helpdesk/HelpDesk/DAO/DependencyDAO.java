@@ -30,16 +30,6 @@ public class DependencyDAO {
         return true;
     }
 
-    public boolean update(Dependency oldDependency, Dependency newDependency){
-        Iterable<Dependency> dependencys = dependencyRepository.findAll();
-        /*for(Dependency d : dependencys){
-            if(d.getName().equals(oldDependency.getName())){
-                return true;
-            }
-        }*/
-        return false;
-    }
-
     public boolean delete(Dependency dependency){
         Iterable<Dependency> dependencys = dependencyRepository.findAll();
         for(Dependency d : dependencys){
