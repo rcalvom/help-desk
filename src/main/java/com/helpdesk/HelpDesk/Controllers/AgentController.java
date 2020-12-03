@@ -73,12 +73,23 @@ public class AgentController {
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
         User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         Request request = requestDAO.selectById(id);
+        //System.out.println("El estatus de la request es: " + request.getStatus());
         if(user != null){
             for(User u : request.getAgents()){
                 if(u.getUsername().equals(user.getUsername())) {
-                    Request newRequest = requestDAO.selectById(id);
+                    /*Request newRequest = requestDAO.selectById(id);
+                    newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
+                    newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));*/
+
+                    Request newRequest = new Request(request.getSpecification(), request.getUser(), request.getInventoryPlate(), request.getEquipmentNumber());
+                    newRequest.setId(request.getId());
+                    newRequest.setCategory(request.getCategory());
+                    newRequest.setAgents(request.getAgents());
                     newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
                     newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
+                    newRequest.setCreationDate(request.getCreationDate());
+                    /*System.out.println("el id es: " + newRequest.getId());
+                    System.out.println("El estatus de la request es: " + request.getStatus() + newRequest.getStatus());*/
                     requestDAO.update(request, newRequest);
                     this.header(model);
                     return "redirect:/agent/my-requests";
