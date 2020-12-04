@@ -1,6 +1,7 @@
 package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -18,7 +19,7 @@ public class Category {
     @NotNull
     private boolean isActive;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
     private Set<Request> requests;
 
     public Category() {}

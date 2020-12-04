@@ -32,7 +32,7 @@ public class RateServiceTest {
         assertEquals(SUCCESSFUL_RATED_SERVICE, feedbackDAO.insert(feedback));
 
 
-        Request request = requestDAO.selectById("FI00008");
+        Request request = requestDAO.selectById("FI00001");
         Request newRequest = new Request();
         newRequest.setId(request.getId());
         newRequest.setSpecification(request.getSpecification());
@@ -49,7 +49,7 @@ public class RateServiceTest {
 
 
         Feedback feedback2 = new Feedback("askdjlf", 4, true);
-        Request request2 = requestDAO.selectById("FI00008");
+        Request request2 = requestDAO.selectById("FI00001");
         Request newRequest2 = new Request();
         newRequest2.setId(request2.getId());
         newRequest2.setSpecification(request2.getSpecification());

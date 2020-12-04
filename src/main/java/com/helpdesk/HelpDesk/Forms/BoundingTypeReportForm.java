@@ -11,6 +11,14 @@ import java.util.List;
 
 public class BoundingTypeReportForm {
 
+    public static String[]  columnas = {
+            "Numero de equipos",
+            "Numero de solicitudes",
+            "Promedio de calificación",
+            "Eficacia",
+            "Duración promedio (días)"
+    };
+
     @CsvBindByName(column = "Tipo de vinculación")
     @CsvBindByPosition(position = 0)
     private String boundingType;

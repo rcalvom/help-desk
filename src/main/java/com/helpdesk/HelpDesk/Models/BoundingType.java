@@ -1,6 +1,7 @@
 package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +17,7 @@ public class BoundingType {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "boundingType")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "boundingType")
     private Set<User> users;
 
     public BoundingType(){}

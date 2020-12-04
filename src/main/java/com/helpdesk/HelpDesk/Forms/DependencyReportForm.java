@@ -11,12 +11,13 @@ import java.util.List;
 
 public class DependencyReportForm {
 
-    public String[]  columnas = {"Dependencia", "Numero de equipos","Numero de solicitudes",
-            "Numero de solicitudes excelentes",
-            "Numero de solicitudes buenas",
-            "Numero de solicitudes regulares",
-            "Numero de solicitudes malas",
-            "Numero de solicitudes deficientes"};
+    public static String[]  columnas = {
+            "Numero de equipos",
+            "Numero de solicitudes",
+            "Promedio de calificación",
+            "Eficacia",
+            "Duración promedio (días)"
+            };
     @CsvBindByName(column = "Dependencia")
     @CsvBindByPosition(position = 0)
     private String dependency;
@@ -56,9 +57,7 @@ public class DependencyReportForm {
         int numberClosedFeedbackRequests = 0;
         int numberClosedRequests = 0;
         for(int i = 0; i < toShow.length; ++i){
-            if(toShow[i]){
-                numbers[i] = 0;
-            }
+            numbers[i] = 0;
         }
         for(User user : dependency.getUsers()){
             for(Request request : user.getRequests()){
