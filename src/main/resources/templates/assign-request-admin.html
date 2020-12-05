@@ -73,7 +73,7 @@
 						<h4 class="col-md-2 align-left">Agentes:</h4>
 						<div class="col-md-6 agent-selector">
 							<select th:field="*{agentUsername}" id="agentUserName" class="form-control agentUserName">
-								<option th:each="i : ${agents}" th:value="${i.username}" th:text="${i.username}">
+								<option th:each="i : ${agents}" th:value="${i.username}" th:text="${i.name}">
 								</option>
 							</select>
 							<br>

@@ -1,4 +1,3 @@
-
 -- En caso de querer borrar las tablas.
 -- drop table id_gen;
 -- drop table hibernate_sequence;
@@ -185,9 +184,15 @@ where not exists (
         select name from category where name = 'Otros'
 ) limit 1;
 
+-- Trigger comprobador de la unicidad del adiminstrador.
+
+-- drop trigger if exists unique_admin;
+
 -- create trigger unique_admin before update on user for each row
 -- begin
---     if (select count(*) from user where is_administrator = 1) > 0 then
---         signal SQLSTATE '45000';
---     end if;
+--    if (select count(*) from user where is_administrator = 1) > 0 and new.is_administrator = 1 then
+--        signal SQLSTATE '45000';
+--    end if;
 -- end;
+
+
