@@ -9,6 +9,14 @@ import java.time.Duration;
 
 public class CategoryReportForm {
 
+    public static String[]  columnas = {
+            "Numero de equipos",
+            "Numero de solicitudes",
+            "Promedio de calificación",
+            "Eficacia",
+            "Duración promedio (días)"
+    };
+
     @CsvBindByName(column = "Categoría")
     @CsvBindByPosition(position = 0)
     private String category;

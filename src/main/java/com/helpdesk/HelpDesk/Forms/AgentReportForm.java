@@ -7,6 +7,14 @@ import com.opencsv.bean.CsvBindByPosition;
 
 public class AgentReportForm {
 
+    public static String[]  columnas = {
+            "Numero de equipos",
+            "Numero de solicitudes",
+            "Promedio de calificación",
+            "Eficacia",
+            "Duración promedio (días)"
+    };
+
     @CsvBindByName(column = "Nombre del Agente")
     @CsvBindByPosition(position = 0)
     private String agentName;

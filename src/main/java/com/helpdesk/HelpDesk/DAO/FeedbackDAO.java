@@ -18,13 +18,20 @@ public class FeedbackDAO {
     }
 
     public boolean insert(Feedback feedback){
-        try{
-            feedbackRepository.save(feedback);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+
+        if(feedback.getRating() <= 5 && feedback.getRating() >= 0){
+
+            try{
+                feedbackRepository.save(feedback);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+        else{
             return false;
         }
-        return true;
     }
 
     public boolean update(Feedback oldFeedback, Feedback newFeedback){

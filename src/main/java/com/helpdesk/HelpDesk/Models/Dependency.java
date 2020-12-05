@@ -1,6 +1,7 @@
 package com.helpdesk.HelpDesk.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ public class Dependency {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "dependency")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dependency")
     private Set<User> users;
 
     public Dependency() {}
