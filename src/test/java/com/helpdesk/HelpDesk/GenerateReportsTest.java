@@ -9,10 +9,8 @@ import com.helpdesk.HelpDesk.Models.BoundingType;
 import com.helpdesk.HelpDesk.Models.Category;
 import com.helpdesk.HelpDesk.Models.Dependency;
 import com.helpdesk.HelpDesk.Models.User;
-import com.opencsv.bean.BeanField;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.helpdesk.HelpDesk.Controllers.AdminController;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -20,8 +18,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,11 +52,11 @@ public class GenerateReportsTest {
         String[] header = sc.nextLine().split(";");
         boolean difHeader = false;
         int counterHeaders = 1;
-        for(int i = 0; i < DependencyReportForm.columnas.length; i++){
+        for(int i = 0; i < DependencyReportForm.columns.length; i++){
             if(toShow[i]){
                 System.out.println(header[counterHeaders]);
-                String current = DependencyReportForm.columnas[i].substring(1, DependencyReportForm.columnas[i].length()-1);
-                if(!header[counterHeaders++].equals(DependencyReportForm.columnas[i])){
+                String current = DependencyReportForm.columns[i].substring(1, DependencyReportForm.columns[i].length()-1);
+                if(!header[counterHeaders++].equals(DependencyReportForm.columns[i])){
                     difHeader = true;
                 }
             }
@@ -117,11 +113,11 @@ public class GenerateReportsTest {
         header = sc.nextLine().split(";");
         difHeader = false;
         counterHeaders = 1;
-        for(int i = 0; i < CategoryReportForm.columnas.length; i++){
+        for(int i = 0; i < CategoryReportForm.columns.length; i++){
             if(toShow[i]){
                 System.out.println(header[counterHeaders]);
-                String current = CategoryReportForm.columnas[i].substring(1, CategoryReportForm.columnas[i].length()-1);
-                if(!header[counterHeaders++].equals(CategoryReportForm.columnas[i])){
+                String current = CategoryReportForm.columns[i].substring(1, CategoryReportForm.columns[i].length()-1);
+                if(!header[counterHeaders++].equals(CategoryReportForm.columns[i])){
                     difHeader = true;
                 }
             }

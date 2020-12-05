@@ -23,7 +23,7 @@ public class BoundingTypeDAO {
 
     public boolean insert(BoundingType boundingType){
         try{
-            boundingTypeRepository.save(boundingType);
+            this.boundingTypeRepository.save(boundingType);
         }catch (Exception e){
             System.out.println(e.getMessage());
             return false;
@@ -32,10 +32,10 @@ public class BoundingTypeDAO {
     }
 
     public boolean delete(BoundingType boundingType){
-        Iterable<BoundingType> boundingTypes = boundingTypeRepository.findAll();
+        Iterable<BoundingType> boundingTypes = this.boundingTypeRepository.findAll();
         for(BoundingType bt : boundingTypes){
             if(bt.getName().equals(boundingType.getName())){
-                boundingTypeRepository.delete(bt);
+                this.boundingTypeRepository.delete(bt);
                 return true;
             }
         }

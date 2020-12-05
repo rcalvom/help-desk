@@ -22,7 +22,7 @@ public class UserDAO implements UserDetailsService{
     }
     public boolean insert(User user){
         try{
-            userRepository.save(user);
+            this.userRepository.save(user);
         }catch (Exception e){
             return false;
         }
@@ -31,7 +31,7 @@ public class UserDAO implements UserDetailsService{
 
     public boolean update(User oldUser, User newUser){
         if(oldUser.isAgent() != newUser.isAgent()){
-            Iterable<User> users = userRepository.findAll();
+            Iterable<User> users = this.userRepository.findAll();
             for(User u : users){
                 if(u.getUsername().equals(oldUser.getUsername())){
                     u.setAgent(newUser.isAgent());
@@ -42,7 +42,7 @@ public class UserDAO implements UserDetailsService{
                     u.setLocation(newUser.getLocation());
                     u.setPhone(newUser.getPhone());
                     u.setPhoneExtension(newUser.getPhoneExtension());
-                    userRepository.save(u);
+                    this.userRepository.save(u);
                     return true;
                 }
             }
@@ -51,10 +51,10 @@ public class UserDAO implements UserDetailsService{
     }
 
     public boolean delete(User user){
-        Iterable<User> users = userRepository.findAll();
+        Iterable<User> users = this.userRepository.findAll();
         for(User u : users){
             if(u.getUsername().equals(user.getUsername())){
-                userRepository.delete(u);
+                this.userRepository.delete(u);
                 return true;
             }
         }
@@ -62,16 +62,16 @@ public class UserDAO implements UserDetailsService{
     }
 
     public Iterable<User> selectAgent(){
-        return userRepository.getUserAgent();
+        return this.userRepository.getUserAgent();
     }
 
     public Iterable<User> selectUser(){
-        return userRepository.getUserUser();
+        return this.userRepository.getUserUser();
     }
 
     public User selectAgent(String username){
         try{
-            return userRepository.getAgentByUsername(username).iterator().next();
+            return this.userRepository.getAgentByUsername(username).iterator().next();
         }catch (Exception e){
             return null;
         }
@@ -79,7 +79,7 @@ public class UserDAO implements UserDetailsService{
 
     public User selectUser(String username){
         try {
-            return  userRepository.getUserByUsername(username).iterator().next();
+            return this.userRepository.getUserByUsername(username).iterator().next();
         }catch (Exception e){
             return null;
         }
@@ -87,7 +87,7 @@ public class UserDAO implements UserDetailsService{
 
     public User selectAdmin(){
         try {
-            return userRepository.getAdministrator().iterator().next();
+            return this.userRepository.getAdministrator().iterator().next();
         }catch (Exception e){
             return null;
         }
@@ -95,7 +95,7 @@ public class UserDAO implements UserDetailsService{
 
     public User selectPerson(String username){
         try {
-            return userRepository.getPerson(username).iterator().next();
+            return this.userRepository.getPerson(username).iterator().next();
         }catch (Exception e){
             return null;
         }

@@ -8,13 +8,14 @@ import com.opencsv.bean.CsvBindByPosition;
 
 public class DependencyReportForm {
 
-    public static String[]  columnas = {
+    public final static String[] columns = {
             "Numero de equipos",
             "Numero de solicitudes",
             "Promedio de calificación",
             "Eficacia",
             "Duración promedio (días)"
             };
+
     @CsvBindByName(column = "Dependencia")
     @CsvBindByPosition(position = 0)
     private String dependency;
@@ -61,7 +62,6 @@ public class DependencyReportForm {
                 if(request.getStatus() == Request.Status.CERRADO || request.getStatus() == Request.Status.CERRADO_SIN_CALIFICACION){
                     numberClosedRequests++;
                     numbers[4] += Math.abs(request.getEndingDate().getTime().getTime() - request.getCreationDate().getTime().getTime())/(1000.0 * 60 * 60 * 24);
-                    System.out.println("aumento " + Math.abs(request.getEndingDate().getTime().getTime() - request.getCreationDate().getTime().getTime())/(1000.0 * 60 * 60 * 24));
                     if(request.getStatus() == Request.Status.CERRADO){
                         numberClosedFeedbackRequests++;
                         if(request.getFeedback().isSuccessful()){

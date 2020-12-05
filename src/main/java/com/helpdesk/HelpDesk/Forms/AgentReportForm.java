@@ -61,7 +61,6 @@ public class AgentReportForm {
             if(request.getStatus() == Request.Status.CERRADO || request.getStatus() == Request.Status.CERRADO_SIN_CALIFICACION){
                 numberClosedRequests++;
                 numbers[4] += Math.abs(request.getEndingDate().getTime().getTime() - request.getCreationDate().getTime().getTime())/(1000.0 * 60 * 60 * 24);
-                System.out.println("aumento " + Math.abs(request.getEndingDate().getTime().getTime() - request.getCreationDate().getTime().getTime())/(1000.0 * 60 * 60 * 24));
                 if(request.getStatus() == Request.Status.CERRADO){
                     numberClosedFeedbackRequests++;
                     if(request.getFeedback().isSuccessful()){

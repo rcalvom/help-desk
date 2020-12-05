@@ -22,7 +22,7 @@ public class FeedbackDAO {
         if(feedback.getRating() <= 5 && feedback.getRating() >= 0){
 
             try{
-                feedbackRepository.save(feedback);
+                this.feedbackRepository.save(feedback);
             }catch (Exception e){
                 System.out.println(e.getMessage());
                 return false;
@@ -35,14 +35,14 @@ public class FeedbackDAO {
     }
 
     public boolean update(Feedback oldFeedback, Feedback newFeedback){
-        Iterable<Feedback> feedbacks = feedbackRepository.findAll();
+        Iterable<Feedback> feedbacks = this.feedbackRepository.findAll();
         for(Feedback f : feedbacks){
             if(f.getId().equals(oldFeedback.getId())){
                 f.setDate(newFeedback.getDate());
                 f.setRating(newFeedback.getRating());
                 f.setSpecification(newFeedback.getSpecification());
                 f.setSuccessful(newFeedback.isSuccessful());
-                feedbackRepository.save(f);
+                this.feedbackRepository.save(f);
                 return true;
             }
         }
@@ -50,10 +50,10 @@ public class FeedbackDAO {
     }
 
     public boolean delete(Feedback feedback){
-        Iterable<Feedback> feedbacks = feedbackRepository.findAll();
+        Iterable<Feedback> feedbacks = this.feedbackRepository.findAll();
         for(Feedback f : feedbacks){
             if(f.getId().equals(feedback.getId())){
-                feedbackRepository.delete(f);
+                this.feedbackRepository.delete(f);
                 return true;
             }
         }

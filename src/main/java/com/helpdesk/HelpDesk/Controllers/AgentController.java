@@ -71,8 +71,8 @@ public class AgentController {
     // Detalles de la solicitud agente POST
     @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
-        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
-        Request request = requestDAO.selectById(id);
+        User user = this.userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request request = this.requestDAO.selectById(id);
         if(user != null){
             for(User u : request.getAgents()){
                 if(u.getUsername().equals(user.getUsername())) {
@@ -83,7 +83,7 @@ public class AgentController {
                     newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
                     newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
                     newRequest.setCreationDate(request.getCreationDate());
-                    requestDAO.update(request, newRequest);
+                    this.requestDAO.update(request, newRequest);
                     this.header(model);
                     return "redirect:/agent/my-requests";
                 }

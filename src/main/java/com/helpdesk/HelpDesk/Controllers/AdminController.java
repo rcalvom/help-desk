@@ -247,19 +247,16 @@ public class AdminController {
     @GetMapping("/admin/csv")
     public String csvAdminDefault(HttpServletResponse response) throws Exception {
         if(this.userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
-            String filename = "report "+ this.formatDate(Calendar.getInstance().getTime())+".csv";
+            String filename = "report " + this.formatDate(Calendar.getInstance().getTime()) + ".csv";
             List<RequestReportForm> reports = new ArrayList<>();
             List<Request> requests = (List<Request>) this.requestDAO.select();
             for(Request req : requests){
                 reports.add(new RequestReportForm(req));
             }
-
             response.setContentType("text/csv");
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ filename +"\"");
-
             final CustomMappingStrategy<RequestReportForm> mappingStrategy = new CustomMappingStrategy<>(null);
             mappingStrategy.setType(RequestReportForm.class);
-
             final StatefulBeanToCsv<RequestReportForm> beanToCsv = new StatefulBeanToCsvBuilder<RequestReportForm>(response.getWriter())
                     .withMappingStrategy(mappingStrategy)
                     .withSeparator(';')
@@ -276,7 +273,7 @@ public class AdminController {
     @GetMapping("/admin/reports")
     public String reportsAdminDefault(Model model){
         if(this.userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
-            model.addAttribute("reportForm",new ReportForm());
+            model.addAttribute("reportForm", new ReportForm());
             model.addAttribute("selectTypes", Arrays.asList(ReportForm.SelectType.values()));
             return "reports-admin";
         }else{
@@ -290,16 +287,16 @@ public class AdminController {
         if(this.userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
             switch (form.getSelectType()){
                 case Dependencia:
-                    this.writeReportDependency(response,false, form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
+                    this.writeReportDependency(response, false, form.getEquipment(), form.getRequest(), form.getRating(), form.getEfficacy(), form.getDuration());
                     break;
                 case Vinculación:
-                    this.writeReportBounding(response,false, form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
+                    this.writeReportBounding(response, false, form.getEquipment(), form.getRequest(), form.getRating(), form.getEfficacy(), form.getDuration());
                     break;
                 case Agente:
-                    this.writeReportAgent(response,false, form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
+                    this.writeReportAgent(response, false, form.getEquipment(), form.getRequest(), form.getRating(), form.getEfficacy(), form.getDuration());
                     break;
                 case Categoría:
-                    this.writeReportCategory(response,false, form.getEquipment(),form.getRequest(),form.getRating(),form.getEfficacy(), form.getDuration());
+                    this.writeReportCategory(response, false, form.getEquipment(), form.getRequest(), form.getRating(), form.getEfficacy(), form.getDuration());
                     break;
             }
             return null;
@@ -311,24 +308,18 @@ public class AdminController {
 
     // Reporte por Dependencia
     public void writeReportDependency(HttpServletResponse response,  boolean localWriter, boolean... toShow) throws Exception {
+        String filename = "report " + this.formatDate(Calendar.getInstance().getTime()) + ".csv";
         List<DependencyReportForm> reports = new ArrayList<>();
         List<Dependency> dependencies = (List<Dependency>) this.dependencyDAO.select();
         for(Dependency dependency : dependencies){
             reports.add(new DependencyReportForm(dependency, toShow));
         }
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.csv\"");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
 
         final CustomMappingStrategy<DependencyReportForm> mappingStrategy = new CustomMappingStrategy<>(toShow);
         mappingStrategy.setType(DependencyReportForm.class);
-
-        Writer fl;
-        if(localWriter){
-            fl = new FileWriter("report.csv");
-        }
-        else{
-            fl = response.getWriter();
-        }
+        Writer fl = localWriter ? new FileWriter("report.csv") : response.getWriter();
         final StatefulBeanToCsv<DependencyReportForm> writer = new StatefulBeanToCsvBuilder<DependencyReportForm>(fl)
                 .withQuotechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
                 .withSeparator(';')
@@ -336,27 +327,20 @@ public class AdminController {
                 .withMappingStrategy(mappingStrategy)
                 .build();
         writer.write(reports);
-
         fl.close();
     }
 
     // Reporte por vinculación
     public void writeReportBounding(HttpServletResponse response, boolean localWriter, boolean... toShow) throws Exception {
+        String filename = "report " + this.formatDate(Calendar.getInstance().getTime()) + ".csv";
         List<BoundingTypeReportForm> reports = new ArrayList<>();
         List<BoundingType> boundingTypes = (List<BoundingType>) this.boundingTypeDAO.select();
         for(BoundingType boundingType : boundingTypes){
             reports.add(new BoundingTypeReportForm(boundingType, toShow));
         }
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv\"");
-
-        Writer fl;
-        if(localWriter){
-            fl = new FileWriter("report.csv");
-        }
-        else{
-            fl = response.getWriter();
-        }
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
+        Writer fl = localWriter ? new FileWriter("report.csv") : response.getWriter();
         final CustomMappingStrategy<BoundingTypeReportForm> mappingStrategy = new CustomMappingStrategy<>(toShow);
         mappingStrategy.setType(BoundingTypeReportForm.class);
         StatefulBeanToCsv<BoundingTypeReportForm> writer = new StatefulBeanToCsvBuilder<BoundingTypeReportForm>(fl)
@@ -371,21 +355,15 @@ public class AdminController {
 
     // Reporte por Agente
     public void writeReportAgent(HttpServletResponse response, boolean localWriter, boolean... toShow) throws Exception {
+        String filename = "report " + this.formatDate(Calendar.getInstance().getTime()) + ".csv";
         List<AgentReportForm> reports = new ArrayList<>();
         List<User> agents = (List<User>) this.userDAO.selectAgent();
         for(User agent : agents){
             reports.add(new AgentReportForm(agent, toShow));
         }
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv\"");
-
-        Writer fl;
-        if(localWriter){
-            fl = new FileWriter("report.csv");
-        }
-        else{
-            fl = response.getWriter();
-        }
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
+        Writer fl = localWriter ? new FileWriter("report.csv") : response.getWriter();
         final CustomMappingStrategy<AgentReportForm> mappingStrategy = new CustomMappingStrategy<>(toShow);
         mappingStrategy.setType(AgentReportForm.class);
         StatefulBeanToCsv<AgentReportForm> writer = new StatefulBeanToCsvBuilder<AgentReportForm>(fl)
@@ -400,22 +378,15 @@ public class AdminController {
 
     // Reporte por Categoria
     public void writeReportCategory(HttpServletResponse response, boolean localWriter, boolean... toShow) throws Exception {
+        String filename = "report " + this.formatDate(Calendar.getInstance().getTime()) + ".csv";
         List<CategoryReportForm> reports = new ArrayList<>();
         List<Category> categories = (List<Category>) this.categoryDAO.select();
         for(Category category : categories){
             reports.add(new CategoryReportForm(category, toShow));
         }
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\" report.csv\"");
-
-        Writer fl;
-        if(localWriter){
-            fl = new FileWriter("report.csv");
-        }
-        else{
-            fl = response.getWriter();
-        }
-
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
+        Writer fl = localWriter ? new FileWriter("report.csv") : response.getWriter();
         final CustomMappingStrategy<CategoryReportForm> mappingStrategy = new CustomMappingStrategy<>(toShow);
         mappingStrategy.setType(CategoryReportForm.class);
         StatefulBeanToCsv<CategoryReportForm> writer = new StatefulBeanToCsvBuilder<CategoryReportForm>(fl)

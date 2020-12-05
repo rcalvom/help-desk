@@ -19,7 +19,7 @@ public class CategoryDAO {
 
     public boolean insert_update(Category category){
         try{
-            categoryRepository.save(category);
+            this.categoryRepository.save(category);
         }catch (Exception e){
             System.out.println(e.getMessage());
             return false;
@@ -29,12 +29,12 @@ public class CategoryDAO {
 
     public boolean update(Category oldCategory, Category newCategory){
         if(oldCategory != null && newCategory != null && oldCategory.isActive() != newCategory.isActive()){
-            Iterable<Category> categories = categoryRepository.findAll();
+            Iterable<Category> categories = this.categoryRepository.findAll();
             for(Category c : categories){
                 if(c.getName().equals(oldCategory.getName())){
                     c.setName(newCategory.getName());
                     c.setActive(newCategory.isActive());
-                    categoryRepository.save(c);
+                    this.categoryRepository.save(c);
                     return true;
                 }
             }
@@ -44,10 +44,10 @@ public class CategoryDAO {
     }
 
     public boolean delete(Category category){
-        Iterable<Category> categories = categoryRepository.findAll();
+        Iterable<Category> categories = this.categoryRepository.findAll();
         for(Category c : categories){
             if(c.getName().equals(category.getName())){
-                categoryRepository.delete(c);
+                this.categoryRepository.delete(c);
                 return true;
             }
         }
@@ -56,7 +56,7 @@ public class CategoryDAO {
 
     public Category select(String name){
         try {
-            return categoryRepository.getCategoryByName(name).iterator().next();
+            return this.categoryRepository.getCategoryByName(name).iterator().next();
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;

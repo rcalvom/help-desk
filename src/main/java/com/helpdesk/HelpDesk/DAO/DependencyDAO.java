@@ -23,7 +23,7 @@ public class DependencyDAO {
 
     public boolean insert(Dependency dependency){
         try{
-            dependencyRepository.save(dependency);
+            this.dependencyRepository.save(dependency);
         }catch (Exception e){
             return false;
         }
@@ -31,10 +31,10 @@ public class DependencyDAO {
     }
 
     public boolean delete(Dependency dependency){
-        Iterable<Dependency> dependencys = dependencyRepository.findAll();
-        for(Dependency d : dependencys){
+        Iterable<Dependency> dependencies = this.dependencyRepository.findAll();
+        for(Dependency d : dependencies){
             if(d.getName().equals(dependency.getName())){
-                dependencyRepository.delete(d);
+                this.dependencyRepository.delete(d);
                 return true;
             }
         }
