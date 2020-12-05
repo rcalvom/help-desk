@@ -35,9 +35,7 @@ public class BoundingTypeReportForm {
     @CsvBindByPosition(position = 5)
     private String pos4;
 
-
-    public BoundingTypeReportForm(BoundingType boundingType, boolean toShow[]) {
-
+    public BoundingTypeReportForm(BoundingType boundingType, boolean[] toShow) {
         this.pos0 = null;
         this.pos1 =null;
         this.pos2 = null;
@@ -79,16 +77,16 @@ public class BoundingTypeReportForm {
         for(int i = 0; i < toShow.length; ++i){
             if(toShow[i]){
                 String result = Math.ceil(numbers[i]) == numbers[i] ? (int) numbers[i] + "" : String.format("%.2f", numbers[i]) + "";
-                if(pos0 == null){
-                    pos0 = result;
-                }else if(pos1 == null){
-                    pos1 = result;
-                }else if(pos2 == null){
-                    pos2 = result;
-                }else if(pos3 == null){
-                    pos3 = result;
-                }else if(pos4 == null){
-                    pos4 = result;
+                if(this.pos0 == null){
+                    this.pos0 = result;
+                }else if(this.pos1 == null){
+                    this.pos1 = result;
+                }else if(this.pos2 == null){
+                    this.pos2 = result;
+                }else if(this.pos3 == null){
+                    this.pos3 = result;
+                }else if(this.pos4 == null){
+                    this.pos4 = result;
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.helpdesk.HelpDesk.Models;
 
+import com.helpdesk.HelpDesk.ProjectAssistances.StringPrefixedSequenceIdGenerator;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Request {
     @Size(max = 255)
     @GenericGenerator(
             name = "Id_Gen",
-            strategy = "com.helpdesk.HelpDesk.Models.StringPrefixedSequenceIdGenerator",
+            strategy = "com.helpdesk.HelpDesk.ProjectAssistances.StringPrefixedSequenceIdGenerator",
             parameters = {
                     @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
                     @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "FI"),

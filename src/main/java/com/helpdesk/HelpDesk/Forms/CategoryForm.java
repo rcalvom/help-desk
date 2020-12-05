@@ -1,6 +1,7 @@
 package com.helpdesk.HelpDesk.Forms;
 
 public class CategoryForm {
+    
     private String name;
 
     public String getName() {

@@ -3,7 +3,6 @@ package com.helpdesk.HelpDesk.Controllers;
 import com.helpdesk.HelpDesk.DAO.RequestDAO;
 import com.helpdesk.HelpDesk.DAO.UserDAO;
 import com.helpdesk.HelpDesk.Forms.AgentReportForm;
-import com.helpdesk.HelpDesk.Forms.ReportRatingForm;
 import com.helpdesk.HelpDesk.Models.Request;
 import com.helpdesk.HelpDesk.Models.User;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,12 +26,12 @@ public class AgentController {
         this.userDAO = userDAO;
     }
 
-    //Mis solicitudes
+    // Mis solicitudes.
     @GetMapping("/agent/my-requests")
     public String myRequestsAgentDefault(Model model){
-        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        User user = this.userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null){
-            List<Request> requests = (List<Request>) requestDAO.selectByAgent(user);
+            List<Request> requests = (List<Request>) this.requestDAO.selectByAgent(user);
             List<Request> requestsAc = new ArrayList<>();
             List<Request> requestsCl = new ArrayList<>();
             for(Request req : requests){
@@ -52,11 +51,11 @@ public class AgentController {
         }
     }
 
-    //Detalles de la solicitud agente
+    // Detalles de la solicitud agente POST
     @GetMapping("/agent/details/{id}")
     public String requestDetailsAgentDefault(@PathVariable("id") String id, Model model){
-        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
-        Request RequestDetail = requestDAO.selectById(id);
+        User user = this.userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request RequestDetail = this.requestDAO.selectById(id);
         if(user != null){
             for(User u : RequestDetail.getAgents()){
                 if(u.getUsername().equals(user.getUsername())){
@@ -69,17 +68,18 @@ public class AgentController {
         return "redirect:/error/403";
     }
 
+    // Detalles de la solicitud agente POST
     @PostMapping("/agent/details/{id}")
     public String requestDetailsAgentPost(@PathVariable("id") String id, Model model){
-        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
-        Request request = requestDAO.selectById(id);
+        User user = this.userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        Request request = this.requestDAO.selectById(id);
         if(user != null){
             for(User u : request.getAgents()){
                 if(u.getUsername().equals(user.getUsername())) {
-                    Request newRequest = requestDAO.selectById(id);
+                    Request newRequest = this.requestDAO.selectById(id);
                     newRequest.setStatus(Request.Status.CERRADO_SIN_CALIFICACION);
                     newRequest.setEndingDate(Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00")));
-                    requestDAO.update(request, newRequest);
+                    this.requestDAO.update(request, newRequest);
                     this.header(model);
                     return "redirect:/agent/my-requests";
                 }
@@ -88,12 +88,13 @@ public class AgentController {
         return "redirect:/error/403";
     }
 
+    // Mis métricas.
     @GetMapping("/agent/my-metrics")
     public String metricsAgentDefault(Model model){
-        User user = userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
+        User user = this.userDAO.selectAgent(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0]);
         if(user != null) {
-            boolean[] toShow = {true,true,true,true,true};
-            AgentReportForm agentReportForm = new AgentReportForm(user,toShow);
+            boolean[] toShow = {true, true, true, true, true};
+            AgentReportForm agentReportForm = new AgentReportForm(user, toShow);
             model.addAttribute("agentReportForm", agentReportForm);
             this.header(model);
             return "my-metrics-agent";

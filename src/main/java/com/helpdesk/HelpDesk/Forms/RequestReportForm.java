@@ -75,9 +75,11 @@ public class RequestReportForm {
         StringBuilder agNames = new StringBuilder();
         String agentNames = "";
         Set<User> agents = request.getAgents();
+
         for (User a : agents) {
             agNames.append(a.getName()).append(", ");
         }
+
         if(!agNames.toString().equals("")) {
             agentNames = agNames.substring(0, agNames.length() - 2);
         }
@@ -89,7 +91,7 @@ public class RequestReportForm {
         this.category = request.getCategory() != null ? request.getCategory().getName() : "";
         this.feedbackSpecification = request.getFeedback() != null ? request.getFeedback().getSpecification() : "";
         this.feedbackRating = request.getFeedback() != null ? request.getFeedback().getRating() : 0;
-        this.successful = request.getFeedback() != null ? request.getFeedback().isSuccessful() : false;
+        this.successful = request.getFeedback() != null && request.getFeedback().isSuccessful();
         this.feedbackDate = request.getFeedback() != null ? request.getFeedback().formatDate() : "";
     }
 
