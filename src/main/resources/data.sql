@@ -184,3 +184,10 @@ select * from (select 'Otros', 1) as tmp
 where not exists (
         select name from category where name = 'Otros'
 ) limit 1;
+
+-- create trigger unique_admin before update on user for each row
+-- begin
+--     if (select count(*) from user where is_administrator = 1) > 0 then
+--         signal SQLSTATE '45000';
+--     end if;
+-- end;
