@@ -27,6 +27,7 @@ public class GenerateReportsTest {
 
     public final boolean SUCCESSFUL_GENERATED_REPORT = true;
     public final boolean FAILED_GENERATED_REPORT = false;
+
     @Autowired
     private AdminController adminController;
     @Autowired
@@ -38,13 +39,10 @@ public class GenerateReportsTest {
     @Autowired
     private UserDAO userDAO;
 
-    private HttpServletResponse response;
-
-
     @Test
     public void GenerateReport()  throws Exception{
-        //Dependecy Report
-        response = new MockHttpServletResponse();
+        //Dependency Report
+        HttpServletResponse response = new MockHttpServletResponse();
         boolean[] toShow = {true, true, false, true, false};
         adminController.writeReportDependency(response, true, toShow);
 
@@ -70,9 +68,6 @@ public class GenerateReportsTest {
         }
         new File("report.csv").delete();
         assertEquals(SUCCESSFUL_GENERATED_REPORT, difIndex && difHeader);
-
-
-
 
         //Bounding Report
         response = new MockHttpServletResponse();
@@ -102,8 +97,6 @@ public class GenerateReportsTest {
         new File("report.csv").delete();
         assertEquals(SUCCESSFUL_GENERATED_REPORT, difIndex && difHeader);
 
-
-
         //Category Report
         response = new MockHttpServletResponse();
         toShow = new boolean[]{false, false, false, true, false};
@@ -132,9 +125,6 @@ public class GenerateReportsTest {
         new File("report.csv").delete();
         assertEquals(SUCCESSFUL_GENERATED_REPORT, difIndex && difHeader);
 
-
-
-
         //Agent report
         response = new MockHttpServletResponse();
         toShow = new boolean[]{false, false, true, false, false};
@@ -162,8 +152,6 @@ public class GenerateReportsTest {
         }
         new File("report.csv").delete();
         assertEquals(SUCCESSFUL_GENERATED_REPORT, difIndex && difHeader);
-
-
 
     }
 }

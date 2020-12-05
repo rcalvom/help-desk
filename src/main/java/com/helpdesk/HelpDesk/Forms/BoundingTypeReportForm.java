@@ -42,7 +42,7 @@ public class BoundingTypeReportForm {
 
     public BoundingTypeReportForm(BoundingType boundingType, boolean[] toShow) {
         this.pos0 = null;
-        this.pos1 =null;
+        this.pos1 = null;
         this.pos2 = null;
         this.pos3 = null;
         this.pos4 = null;
