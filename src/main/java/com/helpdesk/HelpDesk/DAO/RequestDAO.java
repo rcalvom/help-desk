@@ -24,7 +24,7 @@ public class RequestDAO {
         if((request2.getStatus() == Request.Status.CERRADO_SIN_CALIFICACION || request2.getStatus() == Request.Status.CERRADO) != (request2.getEndingDate() != null && request2.getAgents() != null)){
             return false;
         }
-        if((request1.getAgents() != request2.getAgents()) || (request1.getEquipmentNumber() != request2.getEquipmentNumber()) || (!request1.getInventoryPlate().equals(request2.getInventoryPlate())) || (request1.getStatus() != request2.getStatus()) || (request1.getCategory() != request2.getCategory())){
+        if((request1.getAgents() != request2.getAgents()) || (request1.getEquipmentNumber() != request2.getEquipmentNumber()) || (request1.getInventoryPlate() != null && !request1.getInventoryPlate().equals(request2.getInventoryPlate())) || (request1.getStatus() != request2.getStatus()) || (request1.getCategory() != request2.getCategory())){
             if(request1.getCreationDate() != null && (request1.getCreationDate() != request2.getCreationDate())){
                 return false;
             }

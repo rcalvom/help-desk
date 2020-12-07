@@ -234,10 +234,10 @@ public class AdminController {
     }
 
     // Gestionar agentes GET
-    @GetMapping("/admin/info")
+    @GetMapping("/admin/reports")
     public String infoAdminDefault(){
         if(this.userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
-            return "info-admin";
+            return "reports-admin";
         }else{
             return "redirect:/error/403";
         }
@@ -270,19 +270,19 @@ public class AdminController {
     }
 
     // Generar Reportes GET
-    @GetMapping("/admin/reports")
+    @GetMapping("/admin/info")
     public String reportsAdminDefault(Model model){
         if(this.userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
             model.addAttribute("reportForm", new ReportForm());
             model.addAttribute("selectTypes", Arrays.asList(ReportForm.SelectType.values()));
-            return "reports-admin";
+            return "info-admin";
         }else{
             return "redirect:/error/403";
         }
     }
 
     // Generar Reportes POST
-    @PostMapping("/admin/reports")
+    @PostMapping("/admin/info")
     public String reportsAdminPost(@ModelAttribute ReportForm form, HttpServletResponse response) throws Exception {
         if(this.userDAO.selectAdmin().getUsername().equals(((String) (Objects.requireNonNull(((DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email")))).split("@")[0])) {
             switch (form.getSelectType()){

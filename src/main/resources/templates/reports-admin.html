@@ -24,7 +24,7 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-	<title>Reportes - Help Desk</title>
+	<title>Reporte - Help Desk</title>
 </head>
 
 <body>
@@ -36,45 +36,15 @@
 <main class="jumbotron w-auto p-3">
 	<br>
 	<br>
-	<h2>Reportes</h2>
+	<h2>Reporte</h2>
 	<br>
-	<div class="container">
-		<form th:object="${reportForm}" class="form-horizontal" method="post"> <!--TODO: Poner nombre del form-->
-			<div class="form-group">
-				<div class="form-check form-check-inline" th:each="type : ${selectTypes}">
-					<div>
-						<input class="form-check-input" type="radio" th:field="*{selectType}" name="inlineRadioOptions" th:id="${type}" th:value="${type}">
-						<label class="form-check-label" th:for="${type}"><h3 th:text="${type}"></h3></label>
-					</div>
-				</div>
-			</div>
-			<div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" th:field="*{equipment}" th:value="${true}" id="DependencyCheck1">
-					<label class="form-check-label" for="DependencyCheck1"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Número de Equipos</h3></label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" th:field="*{request}" th:value="${true}" id="DependencyCheck2">
-					<label class="form-check-label" for="DependencyCheck2"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Número de Solicitudes</h3></label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" th:field="*{rating}" th:value="${true}" id="DependencyCheck3">
-					<label class="form-check-label" for="DependencyCheck3"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Calificación promedio</h3></label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" th:field="*{efficacy}" th:value="${true}" id="DependencyCheck4">
-					<label class="form-check-label" for="DependencyCheck4"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Eficacia</h3></label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" th:field="*{duration}" th:value="${true}" id="DependencyCheck5">
-					<label class="form-check-label" for="DependencyCheck5"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Duración</h3></label>
-				</div>
-			</div>
-			<br>
-			<div>
-				<button class="btn btn-primary" type="submit">Generar reporte</button>
-			</div>
-		</form>
+	<div class="align-middle align-center jumbotron container">
+		<div class="col-sm-6">
+			<a th:href="@{/admin/csv}" class="btn btn-lg btn-block btn-light">
+				<h3><i>Descargar CSV</i></h3>
+				<img class="img-responsive align-center center-block" src="../static/images/csv.png" th:src="@{/images/csv.png}" alt="csv icon" width="30%" height="30%">
+			</a>
+		</div>
 	</div>
 </main>
 <footer th:insert="footer.html" class="clear align-center"></footer>
