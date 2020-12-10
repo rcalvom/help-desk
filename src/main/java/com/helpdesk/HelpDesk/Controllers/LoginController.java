@@ -46,6 +46,7 @@ public class LoginController {
             model.addAttribute("boundingTypes", boundingTypeList);
             List<Dependency> dependencies = (List<Dependency>) this.dependencyDAO.select();
             model.addAttribute("dependencies", dependencies);
+            model.addAttribute("Admin", userDAO.selectAdmin()==null ? true: false);
             return "data-login";
         }else{
             if(user.isAdministrator()){
@@ -63,6 +64,12 @@ public class LoginController {
         User user = new User(form.getUsername(), form.getName(), boundingTypeDAO.select(form.getBoundingType()), dependencyDAO.select(form.getDependency()), form.getLocation());
         user.setPhone(form.getPhone());
         user.setPhoneExtension(form.getPhoneExtension());
+        User test = userDAO.selectAdmin();
+        if(form.getAdminCode()==12345678 && userDAO.selectAdmin()==null){
+            user.setAdministrator(true);
+            userDAO.insert(user);
+            return "redirect:/admin/inbox";
+        }
         userDAO.insert(user);
         return "redirect:/user/create-request";
     }

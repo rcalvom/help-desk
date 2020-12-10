@@ -9,6 +9,7 @@ public class DataLoginForm {
     private String location;
     private String phone;
     private int phoneExtension;
+    private int adminCode;
 
     public String getName() {
         return name;
@@ -64,5 +65,13 @@ public class DataLoginForm {
 
     public void setPhoneExtension(int phoneExtension) {
         this.phoneExtension = phoneExtension;
+    }
+
+    public int getAdminCode() {
+        return adminCode;
+    }
+
+    public void setAdminCode(int adminCode) {
+        this.adminCode = adminCode;
     }
 }
