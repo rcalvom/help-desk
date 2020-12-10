@@ -61,16 +61,16 @@ public class LoginController {
 
     @PostMapping("/loginSuccess")
     public String dataLoggingPost(@ModelAttribute DataLoginForm form){
-        User user = new User(form.getUsername(), form.getName(), boundingTypeDAO.select(form.getBoundingType()), dependencyDAO.select(form.getDependency()), form.getLocation());
+        User user = new User(form.getUsername(), form.getName(), this.boundingTypeDAO.select(form.getBoundingType()), this.dependencyDAO.select(form.getDependency()), form.getLocation());
         user.setPhone(form.getPhone());
         user.setPhoneExtension(form.getPhoneExtension());
-        User test = userDAO.selectAdmin();
-        if(form.getAdminCode()==12345678 && userDAO.selectAdmin()==null){
+        if(form.getAdminCode() == 12345678 && this.userDAO.selectAdmin() == null){
             user.setAdministrator(true);
-            userDAO.insert(user);
+            user.setAgent(true);
+            this.userDAO.insert(user);
             return "redirect:/admin/inbox";
         }
-        userDAO.insert(user);
+        this.userDAO.insert(user);
         return "redirect:/user/create-request";
     }
 
